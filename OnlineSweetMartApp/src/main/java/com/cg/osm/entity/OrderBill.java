@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class OrderBill {
-	@Id//Identity
+	@Id//Identity/aadsfsf
 	private Integer orderBillId;
 	private LocalDate createdDate;
 	private float totalCost;
