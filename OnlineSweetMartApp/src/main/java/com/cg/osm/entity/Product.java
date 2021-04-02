@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 
@@ -16,7 +17,10 @@ public class Product {
 	private double price;
 	private String description;
 	private boolean available;
-	private String category;
+	
+	
+	@OneToOne
+	private Category category;
 	
 	
 	public Product(int productid, String name, double price, String description, boolean available,
