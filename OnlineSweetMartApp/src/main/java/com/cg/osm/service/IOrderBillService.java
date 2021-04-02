@@ -12,5 +12,4 @@ public interface IOrderBillService {
 	public OrderBillDTO cancelOrderBill(int OrderBillId) throws OrderBillNotFoundException;
 	public List<OrderBillDTO> showAllOrderBills();
 	public List<OrderBillDTO> showAllOrderBills(int OrderBilldId);
-
 }

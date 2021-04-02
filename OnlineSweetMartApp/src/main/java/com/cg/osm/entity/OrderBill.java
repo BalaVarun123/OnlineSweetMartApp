@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+//import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -19,11 +19,13 @@ public class OrderBill {
 	private float totalCost;
 	
 	@OneToMany
-	@JoinColumn(name = "order_bill_order_id")
+	//@JoinColumn(name = "order_bill_order_id")
 	private List<SweetOrder> listSweetOrder;
 	
 	
-	
+	public OrderBill() {
+		
+	}
 	public OrderBill(Integer orderBillId, LocalDate createdDate, float totalCost, List<SweetOrder> listSweetOrder) {
 		super();
 		this.orderBillId = orderBillId;
