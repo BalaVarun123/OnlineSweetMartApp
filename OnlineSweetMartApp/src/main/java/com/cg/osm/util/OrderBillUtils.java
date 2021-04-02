@@ -3,9 +3,11 @@ package com.cg.osm.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.cg.osm.entity.OrderBill;
 import com.cg.osm.model.OrderBillDTO;
-
+@Component
 public class OrderBillUtils {
 	public static List<OrderBillDTO> convertToOrderBillDtoList(List<OrderBill> list){
 		List<OrderBillDTO> dtolist = new ArrayList<OrderBillDTO>();
