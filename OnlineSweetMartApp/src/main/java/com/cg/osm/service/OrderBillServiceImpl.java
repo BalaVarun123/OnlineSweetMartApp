@@ -1,5 +1,6 @@
 package com.cg.osm.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 			return  null;
 		OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
 		if (existingOrderBill == null) {
-			throw new OrderBillNotFoundException();
+			throw new OrderBillNotFoundException("Invalid id.");
 		}
 		else {
 			return orderBillUtils.convertToOrderBillDto(repository.save(orderBill));
@@ -45,7 +46,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	public OrderBillDTO cancelOrderBill(int orderBillId) throws OrderBillNotFoundException {
 		OrderBill existingOrderBill = repository.findById(orderBillId).orElse(null);
 		if (existingOrderBill == null) {
-			throw new OrderBillNotFoundException();
+			throw new OrderBillNotFoundException("Invalid id.");
 		}
 		else {
 			repository.delete(existingOrderBill);
@@ -74,19 +75,19 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		if (orderBill == null  ) {
 			flag = false;
 		}
-		else if (orderBill.getCreatedDate() == null || orderBill.getListSweetOrder() == null || orderBill.getOrderBillId() == null) {
+		else if (!(validateOrderBillCreatedDate(orderBill) && validateOrderBillListSweetOrder(orderBill) &&  validateOrderBillId(orderBill) && validateOrderBillTotalCost(orderBill))) {
 			flag = false;
 		}
 		else {
-			flag = false;
+			flag = true;
 		}
-		return true;
+		return flag;
 	}
 	
 
 	public static boolean validateOrderBillCreatedDate(OrderBill orderBill) {
 		boolean flag = true;
-		if (orderBill.getCreatedDate() == null )
+		if (orderBill.getCreatedDate() == null || orderBill.getCreatedDate().isAfter(LocalDate.now()))
 			flag = false;
 		return flag;
 	}
@@ -110,7 +111,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	public static boolean validateOrderBillTotalCost(OrderBill orderBill) {
 		boolean flag = true;
 		float totalCost = orderBill.getTotalCost();
-		if ( totalCost < 0 )
+		if ( totalCost < 0 || Float.isNaN(totalCost))
 			flag = false;
 		return flag;
 	}
