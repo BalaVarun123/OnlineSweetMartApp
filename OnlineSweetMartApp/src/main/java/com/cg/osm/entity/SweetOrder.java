@@ -5,8 +5,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public class SweetOrder {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class SweetOrder {
+    @Id
 	private Integer sweetOrderId;
 	private User user;
 	private List<SweetItem> listItems;
