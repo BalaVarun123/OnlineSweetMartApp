@@ -6,7 +6,7 @@ import java.util.List;
 import com.cg.osm.entity.Product;
 import com.cg.osm.error.ProductNotFoundException;
 
-public interface ProductRepository{
+public interface IProductRepository{
 
 	public Product addProduct(Product product);
 	public Product updateProduct(Product product) throws ProductNotFoundException;

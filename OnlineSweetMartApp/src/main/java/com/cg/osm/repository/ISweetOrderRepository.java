@@ -4,7 +4,7 @@ import java.util.List;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.SweetOrderNotFoundException;
 
-public interface SweetOrderRepository  {
+public interface ISweetOrderRepository  {
 
 	public SweetOrder addSweetOrder(SweetOrder sweetOrder);
 	public SweetOrder updateSweetOrder(SweetOrder sweetOrder) throws SweetOrderNotFoundException;

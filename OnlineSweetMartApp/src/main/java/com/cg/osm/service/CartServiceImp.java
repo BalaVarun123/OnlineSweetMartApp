@@ -5,7 +5,7 @@ import java.util.List;
 import com.cg.osm.entity.Cart;
 import com.cg.osm.error.CartNotFoundException;
 
-public class CartServiceImp implements CartService {
+public class CartServiceImp implements ICartService {
 
 	@Override
 	public Cart addCart(Cart Cart) {

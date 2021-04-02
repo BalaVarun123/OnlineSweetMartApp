@@ -1,11 +1,11 @@
-package com.cg.osm.repository;
+package com.cg.osm.service;
 
 import java.util.List;
 
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.error.SweetItemNotFoundException;
 
-public interface SweetItemRepository {
+public interface ISweetItemService {
 
 	public SweetItem addSweetItem(SweetItem SweetItem);
 	public SweetItem updateSweetItem(SweetItem SweetItem) throws SweetItemNotFoundException;

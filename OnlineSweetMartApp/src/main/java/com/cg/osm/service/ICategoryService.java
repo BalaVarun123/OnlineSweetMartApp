@@ -5,7 +5,7 @@ import java.util.List;
 import com.cg.osm.entity.Category;
 import com.cg.osm.error.CategoryNotFoundException;
 
-public interface CategoryService  {
+public interface ICategoryService  {
 
 	public Category addCategory(Category Category);
 	public Category updateCategory(Category Category) throws CategoryNotFoundException;

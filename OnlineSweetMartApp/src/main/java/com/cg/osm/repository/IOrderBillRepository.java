@@ -6,7 +6,7 @@ import com.cg.osm.entity.OrderBill;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.model.OrderBillDTO;
 
-public interface OrderBillRepository {
+public interface IOrderBillRepository {
 
 	public OrderBillDTO addOrderBill(OrderBill OrderBill);
 	public OrderBillDTO updateOrderBill(OrderBill OrderBill) throws OrderBillNotFoundException;
