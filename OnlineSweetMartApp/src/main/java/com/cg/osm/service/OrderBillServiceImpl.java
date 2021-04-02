@@ -20,13 +20,11 @@ public class OrderBillServiceImpl implements IOrderBillService{
 
 	@Autowired
 	public IOrderBillRepository repository;
-	@Autowired
-	public OrderBillUtils orderBillUtils;
 	@Override
 	public OrderBillDTO addOrderBill(OrderBill orderBill) {
 		if (orderBill == null)
 			return  null;
-		return orderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+		return OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
 	}
 
 	@Override
@@ -38,7 +36,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 			throw new OrderBillNotFoundException("Invalid id.");
 		}
 		else {
-			return orderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+			return OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
 		}
 	}
 
@@ -50,14 +48,14 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		}
 		else {
 			repository.delete(existingOrderBill);
-			return orderBillUtils.convertToOrderBillDto(existingOrderBill);
+			return OrderBillUtils.convertToOrderBillDto(existingOrderBill);
 		}
 	}
 
 	@Override
 	public List<OrderBillDTO> showAllOrderBills() {
 		List<OrderBill> listOrderBills = repository.findAll();
-		return orderBillUtils.convertToOrderBillDtoList(listOrderBills);
+		return OrderBillUtils.convertToOrderBillDtoList(listOrderBills);
 	}
 
 	@Override
@@ -66,7 +64,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		Optional<OrderBill> orderBIllOptional = repository.findById(orderBillId);
 		if (orderBIllOptional.isPresent())
 			listOrderBills.add(orderBIllOptional.get());
-		return orderBillUtils.convertToOrderBillDtoList(listOrderBills);
+		return OrderBillUtils.convertToOrderBillDtoList(listOrderBills);
 	}
 	
 	
