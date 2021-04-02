@@ -1,4 +1,4 @@
-package com.cg.osm.entity;
+package com.cg.osm.model;
 
 
 import java.time.LocalDate;
@@ -12,22 +12,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-@Entity
-public class SweetOrder {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+import org.springframework.stereotype.Component;
+
+import com.cg.osm.entity.Product;
+import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.User;
+
+@Component
+public class SweetOrderDTO {
+
+
 	private Integer sweetOrderId;
 	private User user;
-	@OneToMany
+
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
 	private Map<Product, Long> groupedProducts;
 	
-	public SweetOrder() {
+	public SweetOrderDTO() {
 		
 	}
 	
-	public SweetOrder(Integer sweetOrderId, User user, List<SweetItem> listItems, LocalDate createdDate,  Map<Product, Long> groupedProducts)
+	public SweetOrderDTO(Integer sweetOrderId, User user, List<SweetItem> listItems, LocalDate createdDate,  Map<Product, Long> groupedProducts)
 	{
 	super();
 
@@ -80,7 +86,7 @@ public class SweetOrder {
 	
 	@Override
 	public String toString() {
-		   return "SweetOrder[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" + groupedProducts +"]";
+		   return "SweetOrderDTO[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" + groupedProducts +"]";
 	}
 	
 }
