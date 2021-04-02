@@ -1,6 +1,5 @@
 package com.cg.osm.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.osm.entity.Product;
@@ -10,8 +9,8 @@ public interface IProductService{
 
 	public Product addProduct(Product product);
 	public Product updateProduct(Product product) throws ProductNotFoundException;
-	public Product cancelProduct(int productId) throws ProductNotFoundException;
-	public List<Product> showAllProducts(int productId);
+	public void cancelProduct(int productid) throws ProductNotFoundException;
+	public List<Product> showAllProducts(int productid);
 	public List<Product> showAllProducts();
 	
 }

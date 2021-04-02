@@ -1,12 +1,14 @@
 package com.cg.osm.repository;
 
-import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.cg.osm.entity.Product;
 import com.cg.osm.error.ProductNotFoundException;
-
-public interface IProductRepository{
+@Repository
+public interface IProductRepository extends JpaRepository{
 
 	public Product addProduct(Product product);
 	public Product updateProduct(Product product) throws ProductNotFoundException;
