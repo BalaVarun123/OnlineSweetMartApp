@@ -31,7 +31,7 @@ public class Product {
 		this.price = price;
 		this.description = description;
 		this.available = available;
-		this.category = category;
+		
 	}
 	public int getProductid() {
 		return productid;
@@ -63,12 +63,7 @@ public class Product {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
+	
 	
 
 
