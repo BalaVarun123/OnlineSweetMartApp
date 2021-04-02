@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.cg.osm.entity.OrderBill;
 import com.cg.osm.error.OrderBillNotFoundException;
+import com.cg.osm.model.OrderBillDTO;
 
 public interface IOrderBillService {
-	public OrderBill addOrderBill(OrderBill OrderBill);
-	public OrderBill updateOrderBill(OrderBill OrderBill) throws OrderBillNotFoundException;
-	public OrderBill cancelOrderBill(int OrderBillId) throws OrderBillNotFoundException;
-	public List<OrderBill> showAllOrderBills();
-	public List<OrderBill> showAllOrderBills(int OrderBilldId);
-
+	public OrderBillDTO addOrderBill(OrderBill orderBill);
+	public OrderBillDTO updateOrderBill(OrderBill orderBill) throws OrderBillNotFoundException;
+	public OrderBillDTO cancelOrderBill(int orderBillId) throws OrderBillNotFoundException;
+	public List<OrderBillDTO> showAllOrderBills();
+	public List<OrderBillDTO> showAllOrderBills(int orderBilldId);
 }
