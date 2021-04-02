@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.osm.entity.OrderBill;
+import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.model.OrderBillDTO;
 import com.cg.osm.repository.IOrderBillRepository;
@@ -17,17 +18,20 @@ import com.cg.osm.util.OrderBillUtils;
 public class OrderBillServiceImpl implements IOrderBillService{
 
 	@Autowired
-	IOrderBillRepository repository;
+	public IOrderBillRepository repository;
 	@Autowired
-	OrderBillUtils orderBillUtils;
+	public OrderBillUtils orderBillUtils;
 	@Override
 	public OrderBillDTO addOrderBill(OrderBill orderBill) {
-		
+		if (orderBill == null)
+			return  null;
 		return orderBillUtils.convertToOrderBillDto(repository.save(orderBill));
 	}
 
 	@Override
 	public OrderBillDTO updateOrderBill(OrderBill orderBill) throws OrderBillNotFoundException {
+		if (orderBill == null)
+			return  null;
 		OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
 		if (existingOrderBill == null) {
 			throw new OrderBillNotFoundException();
@@ -59,7 +63,56 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	public List<OrderBillDTO> showAllOrderBills(int orderBillId) {
 		List<OrderBill> listOrderBills = new ArrayList<OrderBill>();
 		Optional<OrderBill> orderBIllOptional = repository.findById(orderBillId);
+		if (orderBIllOptional.isPresent())
+			listOrderBills.add(orderBIllOptional.get());
 		return orderBillUtils.convertToOrderBillDtoList(listOrderBills);
+	}
+	
+	
+	public static boolean validateOrder(OrderBill orderBill) {
+		boolean flag;
+		if (orderBill == null  ) {
+			flag = false;
+		}
+		else if (orderBill.getCreatedDate() == null || orderBill.getListSweetOrder() == null || orderBill.getOrderBillId() == null) {
+			flag = false;
+		}
+		else {
+			flag = false;
+		}
+		return true;
+	}
+	
+
+	public static boolean validateOrderBillCreatedDate(OrderBill orderBill) {
+		boolean flag = true;
+		if (orderBill.getCreatedDate() == null )
+			flag = false;
+		return flag;
+	}
+	
+	public static boolean validateOrderBillListSweetOrder(OrderBill orderBill) {
+		boolean flag = true;
+		List<SweetOrder> listSweetOrder = orderBill.getListSweetOrder();
+		if (listSweetOrder == null || listSweetOrder.size() == 0)
+			flag = false;
+		return flag;
+	}
+	public static boolean validateOrderBillId(OrderBill orderBill) {
+		boolean flag = true;
+		Integer id = orderBill.getOrderBillId();
+		OrderBillServiceImpl service1 = new OrderBillServiceImpl();
+		if (id == null|| id < 0 || !service1.repository.existsById(id))
+			flag = false;
+		return flag;
+	}
+	
+	public static boolean validateOrderBillTotalCost(OrderBill orderBill) {
+		boolean flag = true;
+		float totalCost = orderBill.getTotalCost();
+		if ( totalCost < 0 )
+			flag = false;
+		return flag;
 	}
 
 }
