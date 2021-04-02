@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.cg.osm.entity.Cart;
 import com.cg.osm.error.CartNotFoundException;
+import com.cg.osm.model.CartDTO;
 
 public interface ICartService {
-	public Cart addCart(Cart Cart);
-	public Cart updateCart(Cart Cart) throws CartNotFoundException;
-	public Cart cancelCart(int CartId) throws CartNotFoundException;
-	public List<Cart> showAllCarts();
-	public List<Cart> showAllCarts(int cartdId);
+	public CartDTO addCart(Cart cart);
+	public CartDTO updateCart(Cart cart) throws CartNotFoundException;
+	public void cancelCart(int cartId) throws CartNotFoundException;
+	public List<CartDTO> showAllCarts();
+	public CartDTO showAllCarts(int cartdId);
 
 }
