@@ -22,7 +22,7 @@ public class Cart {
 		super();
        
 		
-		System.out.println("Hi");
+	
 	}
 
 	public Cart(double grandTotal, List<Product> listProduct, int cartId, int productCount, double total) {
