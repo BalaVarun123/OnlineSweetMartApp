@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class OrderBill {
@@ -15,6 +17,9 @@ public class OrderBill {
 	private Integer orderBillId;
 	private LocalDate createdDate;
 	private float totalCost;
+	
+	@OneToMany
+	@JoinColumn(name = "order_bill_order_id")
 	private List<SweetOrder> listSweetOrder;
 	
 	
