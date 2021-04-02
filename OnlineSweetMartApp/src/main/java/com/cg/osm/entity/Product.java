@@ -23,8 +23,7 @@ public class Product {
 	private Category category;
 	
 	
-	public Product(int productid, String name, double price, String description, boolean available,
-			String category) {
+	public Product(int productid, String name, double price, String description, boolean available) {
 		super();
 		this.productid = productid;
 		this.name = name;

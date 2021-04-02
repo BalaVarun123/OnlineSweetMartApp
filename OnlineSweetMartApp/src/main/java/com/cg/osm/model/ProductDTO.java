@@ -13,6 +13,10 @@ public class ProductDTO {
 	private String category;
 	
 	
+	public ProductDTO() {
+		super();
+		
+	}
 	public ProductDTO(int productid, String name, double price, String description, boolean available,
 			String category) {
 		super();
