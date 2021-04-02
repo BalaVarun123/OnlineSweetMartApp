@@ -1,6 +1,5 @@
 package com.cg.osm.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.osm.entity.Product;

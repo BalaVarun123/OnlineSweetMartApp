@@ -1,14 +1,76 @@
 package com.cg.osm.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name="product")
 public class Product {
+	@Id
+	private int productid;
+	@Column(name = "name")
+	private String name;
+	@Column(name = "price")
+	private double price;
+	@Column(name = "description")
+	private String description;
+	@Column(name = "availability")
+	private boolean available;
+	@Column(name = "category")
+	private String category;
 	
-    private Integer productId;
-    private String name;
-    private String photoPath;
-    private Double price;
-    private String description;
-    private Boolean available = true;
-    private Category category;
-    private Product product;
+	
+	public Product(int productid, String name, double price, String description, boolean available,
+			String category) {
+		super();
+		this.productid = productid;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.available = available;
+		this.category = category;
+	}
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public boolean isAvailable() {
+		return available;
+	}
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+
 
 }
