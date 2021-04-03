@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.osm.entity.Product;
 @Repository
+
 public interface IProductRepository extends JpaRepository<Product,Integer>{
 
 	/*
@@ -14,5 +15,4 @@ public interface IProductRepository extends JpaRepository<Product,Integer>{
 	 * List<Product> showAllProducts(int productId); public List<Product>
 	 * showAllProducts();
 	 */
-	
 }
