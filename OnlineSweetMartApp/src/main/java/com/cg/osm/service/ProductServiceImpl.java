@@ -1,7 +1,6 @@
 package com.cg.osm.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,36 +17,31 @@ public class ProductServiceImpl implements IProductService {
 	IProductRepository repo;
 
 	@Override
-	public ProductDTO addProduct(Product product) {
+	public Product addProduct(Product product) {
 		// TODO Auto-generated method stub
 		return repo.save(product);
 	}
 
 	@Override
-	public ProductDTO updateProduct(Product product) throws ProductNotFoundException {
+	public Product updateProduct(Product product) throws ProductNotFoundException {
+		// TODO Auto-generated method stub
 		return repo.save(product);
 	}
 
 	@Override
 	public void cancelProduct(int productId) throws ProductNotFoundException {
-		Optional<Product> productList = this.IProductRepository.findById(productId);
-		
-		if(productList.isPresent()) {
-			this.IProductRepository.delete(productList.get());
-		}
-		else {
-			throw new ProductNotFoundException();
-		}
-	}
-
-	@Override
-	public List<ProductDTO> showAllProducts(int productid) {
 		// TODO Auto-generated method stub
-		return repo.findById(productid);
+		repo.deleteById(productId);
 	}
 
 	@Override
-	public List<ProductDTO> showAllProducts() {
+	public Product showAllProducts(int productId) {
+		// TODO Auto-generated method stub
+		return repo.findById(productId).orElse(null);
+	}
+
+	@Override
+	public List<Product> showAllProducts() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
 	}

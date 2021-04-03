@@ -3,14 +3,13 @@ package com.cg.osm.service;
 import java.util.List;
 import com.cg.osm.entity.Product;
 import com.cg.osm.error.ProductNotFoundException;
-import com.cg.osm.model.ProductDTO;
 
 public interface IProductService{
 
-	public ProductDTO addProduct(Product product);
-	public ProductDTO updateProduct(Product product) throws ProductNotFoundException;
+	public Product addProduct(Product product);
+	public Product updateProduct(Product product) throws ProductNotFoundException;
 	public void cancelProduct(int productid) throws ProductNotFoundException;
-	public List<ProductDTO> showAllProducts(int productid);
-	public List<ProductDTO> showAllProducts();
+	public Product showAllProducts(int productid);
+	public List<Product> showAllProducts();
 	
 }
