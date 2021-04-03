@@ -21,7 +21,6 @@ public class ProductUtils {
 		productdto.setPrice(product.getPrice());
 		productdto.setDescription(productdto.getDescription());
 		productdto.setAvailable(productdto.isAvailable());  //boolean
-		
 		return productdto;
 	}
 	

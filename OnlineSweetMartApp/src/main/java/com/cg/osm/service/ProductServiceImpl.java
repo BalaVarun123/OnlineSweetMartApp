@@ -16,13 +16,11 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Product addProduct(Product product) {
-		// TODO Auto-generated method stub
 		return repo.save(product);
 	}
 
 	@Override
 	public Product updateProduct(Product product) throws ProductNotFoundException {
-		// TODO Auto-generated method stub
 		//return repo.save(product);
 		try {
 			return repo.save(product);
@@ -32,26 +30,29 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public void cancelProduct(int productId) throws ProductNotFoundException {
-		// TODO Auto-generated method stub
+	public void cancelProduct(int productid) throws ProductNotFoundException {
 		//repo.deleteById(productId);
 		try {
-			repo.deleteById(productId);
+			repo.deleteById(productid);
 		} catch (Exception e) {
 			throw new ProductNotFoundException("please enter valid productid");
 		}
 	}
 
 	@Override
-	public Product showAllProducts(int productId) {
-		// TODO Auto-generated method stub
-		return repo.findById(productId).orElse(null); 
+	public Product showAllProducts(int productid) throws ProductNotFoundException{
+		//return repo.findById(productId).orElse(null); 
+		try {
+			return repo.findById(productid).orElse(null); 
+		} catch (Exception e) {
+			throw new ProductNotFoundException("Cannot find the product with id" +productid);
+		}
 		
 	}
 
 	@Override
 	public List<Product> showAllProducts() {
-		// TODO Auto-generated method stub
+		
 		return repo.findAll();
 	}
 	

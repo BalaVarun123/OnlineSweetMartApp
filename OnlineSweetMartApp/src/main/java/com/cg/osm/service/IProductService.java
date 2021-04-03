@@ -9,7 +9,7 @@ public interface IProductService{
 	public Product addProduct(Product product);
 	public Product updateProduct(Product product) throws ProductNotFoundException;
 	public void cancelProduct(int productid) throws ProductNotFoundException;
-	public Product showAllProducts(int productid);
+	public Product showAllProducts(int productid) throws ProductNotFoundException;
 	public List<Product> showAllProducts();
 	
 }
