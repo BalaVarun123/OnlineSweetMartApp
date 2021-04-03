@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.osm.utils.CustomerUtils;
-import com.cg.osm.customerdto.CustomerDTO;
+import com.cg.osm.entity.Category;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
+import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
+import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
-
+import com.cg.osm.util.CategoryUtils;
+import com.cg.osm.util.CustomerUtils;
+import com.cg.osm.util.OrderBillUtils;
 @Service
 public class CustomerServiceImp implements ICustomerService{
     @Autowired
@@ -30,15 +33,17 @@ public class CustomerServiceImp implements ICustomerService{
 	public CustomerDTO updateCustomer(Customer customer)throws CustomerNotFoundException {
 	if(customer==null)
 		return null;
-	Customer existingCustomer = repository.findAllById(customer.getUserId()).orElse(null);
-	if (existingCustomer == null) {
-		throw new CustomerNotFoundException("Invalid id");
+	Customer existingCustomer = repository.findById(Customer.getCustomerId()).orElse(null);
+	if (existingCustomer == null)
+	{
+		throw new CustomerNotFoundException("No such customer found");
 	}
-	else {
-		return CustomerUtils.convertToCustomerDto(repository.save(customer));
+	else
+	return CustomerUtils.convertToCustomerDto(repository.save(customer));
 	}
-		
-	}
+	
+	
+	
 
 	@Override
 	public CustomerDTO cancelCustomer(int customerId) throws CustomerNotFoundException 
@@ -64,7 +69,7 @@ public class CustomerServiceImp implements ICustomerService{
 		Optional<Customer> customerOptional = repository.findById(customerId);
 		if (customerOptional.isPresent())
 			listCustomers.add(customerOptional.get());
-		return CustomerUtils.convertToOrderBillDtoList(customers);
+		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
 	
 	public static boolean validateCust(Customer customer) {
@@ -72,7 +77,7 @@ public class CustomerServiceImp implements ICustomerService{
 		if (customer == null  ) {
 			flag = false;
 		}
-		else if (!(validateCustomerUserId(customer) && validateCustomerUsername(customer) &&  validateCustomerSetSweetOrder(customer) && validateCustomerSweetItem(customer))) {
+		else if (!(validateCustomerUserId(customer) && validateCustomerUsername(customer) &&  validateCustomerSetSweetOrders(customer) && validateCustomerSweetItem(customer))) {
 			flag = false;
 		}
 		else {
@@ -92,8 +97,7 @@ public class CustomerServiceImp implements ICustomerService{
 	public static boolean validateCustomerUserId(Customer customer) {
 		boolean flag = true;
 		Long id = customer.getUserId();
-		CustomerServiceImp service1 = new CustomerServiceImp();
-		if (id == null|| id < 0 || ! service1.repository.existsById(id))
+		if (id == null|| id < 0 )
 			flag = false;
 		return flag;
 	}

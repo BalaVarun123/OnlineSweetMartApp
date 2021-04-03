@@ -8,6 +8,14 @@ import com.cg.osm.entity.SweetOrder;
 
 public class CustomerDTO {
 	
+	private String username;
+    private Set<SweetOrder> sweetOrders;
+    private List<SweetItem> sweetItems;
+	private Cart cart;
+    private int customerId;
+    private Long userId;
+
+	
 	public CustomerDTO(String username, Set<SweetOrder> sweetOrders, List<SweetItem> sweetItems, Cart cart,
 			Long userId) {
 		super();
@@ -16,18 +24,13 @@ public class CustomerDTO {
 		this.sweetItems = sweetItems;
 		this.cart = cart;
 		this.userId = userId;
+		this.customerId=customerId;
+	}   
+	public String getUsername() {
+		return username;
 	}
-	private String username;
-    private Set<SweetOrder> sweetOrders;
-    private List<SweetItem> sweetItems;
-	private Cart cart;
-
-    private Long userId;
-    public Long getUserId() {
-		return userId;
-	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public Set<SweetOrder> getSweetOrders() {
 		return sweetOrders;
@@ -38,20 +41,37 @@ public class CustomerDTO {
 	public List<SweetItem> getSweetItems() {
 		return sweetItems;
 	}
+
 	public void setSweetItems(List<SweetItem> sweetItems) {
 		this.sweetItems = sweetItems;
 	}
+
 	public Cart getCart() {
 		return cart;
 	}
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
+
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 	@Override
 	public String toString() {
 		return "CustomerDTO [username=" + username + ", sweetOrders=" + sweetOrders + ", sweetItems=" + sweetItems
 				+ ", cart=" + cart + ", userId=" + userId + "]";
 	}
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+
 }
 
 
