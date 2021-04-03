@@ -68,8 +68,11 @@ public class Product {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
+	@Override
+	public String toString() {
+		return "Product [productid=" + productid + ", name=" + name + ", price =" + price + ","
+				+ " description=" + description + ", available="+ available + "]";
+	}
 	
 	
-
-
 }

@@ -33,11 +33,7 @@ public class ProductUtils {
 		productdto.setDescription(productdto.getDescription());
 		productdto.setAvailable(productdto.isAvailable());  //boolean
 		return product;
-	}
-	
-	
-		
-		
+	}	
 	
 
 }
