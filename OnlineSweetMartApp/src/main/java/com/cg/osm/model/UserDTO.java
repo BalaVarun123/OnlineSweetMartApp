@@ -1,14 +1,11 @@
-package com.cg.osm.entity;
+package com.cg.osm.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.GenerationType;
-@Entity
-public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserDTO {
     private Long userId;
     private String username;
     private String password;
@@ -16,10 +13,10 @@ public class User {
     private String type;
     
     
-    public User() {
+    public UserDTO() {
     	
     }
-	public User(Long userId, String username, String password, String passwordConfirm, String type) {
+	public UserDTO(Long userId, String username, String password, String passwordConfirm, String type) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -57,9 +54,8 @@ public class User {
 	public void setType(String type) {
 		this.type = type;
 	}
-	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", passwordConfirm="
+		return "UserDTO [userId=" + userId + ", username=" + username + ", password=" + password + ", passwordConfirm="
 				+ passwordConfirm + ", type=" + type + "]";
 	}
     
