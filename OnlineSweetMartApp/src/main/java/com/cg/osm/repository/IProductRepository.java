@@ -7,13 +7,14 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.osm.entity.Product;
 import com.cg.osm.error.ProductNotFoundException;
+import com.cg.osm.model.ProductDTO;
 @Repository
-public interface IProductRepository extends JpaRepository{
+public interface IProductRepository extends JpaRepository<Product, Integer>{
 
-	public Product addProduct(Product product);
-	public Product updateProduct(Product product) throws ProductNotFoundException;
-	public Product cancelProduct(int productId) throws ProductNotFoundException;
-	public List<Product> showAllProducts(int productId);
-	public List<Product> showAllProducts();
+	public ProductDTO addProduct(Product product);
+	public ProductDTO updateProduct(Product product) throws ProductNotFoundException;
+	public void cancelProduct(int productid) throws ProductNotFoundException;
+	public List<ProductDTO> showAllProducts(int productid);
+	public List<ProductDTO> showAllProducts();
 	
 }
