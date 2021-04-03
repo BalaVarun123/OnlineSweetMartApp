@@ -1,4 +1,4 @@
-package com.cg.osm.utils;
+package com.cg.osm.util;
 import java.util.ArrayList;
 import java.util.List;
 
