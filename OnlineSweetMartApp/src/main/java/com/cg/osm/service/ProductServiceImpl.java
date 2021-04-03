@@ -30,13 +30,13 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public void cancelProduct(int productId) throws ProductNotFoundException {
 		// TODO Auto-generated method stub
-		repo.removeByProductId(productId);
+		repo.deleteById(productId);
 	}
 
 	@Override
-	public List<Product> showAllProducts(int productId) {
+	public Product showAllProducts(int productId) {
 		// TODO Auto-generated method stub
-		return repo.findAllById(productId);
+		return repo.findById(productId).orElse(null);
 	}
 
 	@Override

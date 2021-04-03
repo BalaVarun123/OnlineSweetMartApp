@@ -1,12 +1,9 @@
 package com.cg.osm.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cg.osm.entity.Product;
-import com.cg.osm.error.ProductNotFoundException;
 @Repository
 public interface IProductRepository extends JpaRepository<Product,Integer>{
 
