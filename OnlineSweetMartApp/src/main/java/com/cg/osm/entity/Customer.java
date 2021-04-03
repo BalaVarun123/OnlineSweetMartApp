@@ -25,7 +25,7 @@ public class Customer {
 	private Cart cart;
 
 
-    public Customer(Long userId, String username, Set<SweetOrder> sweetOrders, List<SweetItem> sweetItems, Cart cart) {
+    public Customer() {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -34,6 +34,7 @@ public class Customer {
 		this.cart = cart;
 	}
 	
+
 	private Long userId;
     public Long getUserId() {
 		return userId;
@@ -72,10 +73,5 @@ public class Customer {
 		return "Customer [userId=" + userId + ", username=" + username + ", sweetOrders=" + sweetOrders
 				+ ", sweetItems=" + sweetItems + ", cart=" + cart + "]";
 	}
-		public List <SweetItem> getListSweetItem() {
-			return sweetItems;
-		}
-		public void setListSweetItem(List <SweetItem> listSweetItem) {
-			this.sweetItems = listSweetItem;
-		}
+		
 }

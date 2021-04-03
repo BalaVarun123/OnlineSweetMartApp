@@ -8,6 +8,10 @@ import com.cg.osm.customerdto.CustomerDTO;
 import com.cg.osm.entity.Customer;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
+
+	Customer existsById(Long id);
+
+	
 	/* public CustomerDTO addCustomer(Customer Customer);
 	public CustomerDTO updateCustomer(Customer Customer) throws CustomerNotFoundException;
 	public CustomerDTO cancelCustomer(int CustomerId) throws CustomerNotFoundException;
