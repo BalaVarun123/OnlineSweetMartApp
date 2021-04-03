@@ -27,6 +27,7 @@ public class CategoryServiceImp implements ICategoryService {
 	{
 		if (category ==null)
 			return null;
+		
 		Category existingCategory = repo.findById(category.getCategoryId()).orElse(null);
 		if (existingCategory == null)
 		{

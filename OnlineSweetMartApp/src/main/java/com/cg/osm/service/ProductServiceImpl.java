@@ -17,31 +17,31 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Product addProduct(Product product) {
-		// TODO Auto-generated method stub
+		
 		return repo.save(product);
 	}
 
 	@Override
 	public Product updateProduct(Product product) throws ProductNotFoundException {
-		// TODO Auto-generated method stub
+		
 		return repo.save(product);
 	}
 
 	@Override
 	public void cancelProduct(int productId) throws ProductNotFoundException {
-		// TODO Auto-generated method stub
-		repo.removeByProductId(productId);
+		
+		repo.deleteById(productId);
 	}
 
 	@Override
-	public List<Product> showAllProducts(int productId) {
-		// TODO Auto-generated method stub
-		return repo.findAllById(productId);
+	public Product showAllProducts(int productId) {
+		
+		return repo.findById(productId).orElse(null);
 	}
 
 	@Override
 	public List<Product> showAllProducts() {
-		// TODO Auto-generated method stub
+		
 		return repo.findAll();
 	}
 }
