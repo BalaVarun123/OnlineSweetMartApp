@@ -23,6 +23,11 @@ public class Product {
 	private Category category;
 	
 	
+	
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Product(int productid, String name, double price, String description, boolean available) {
 		super();
 		this.productid = productid;
