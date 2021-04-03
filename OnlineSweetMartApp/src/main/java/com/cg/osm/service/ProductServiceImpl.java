@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.osm.entity.Product;
 import com.cg.osm.error.ProductNotFoundException;
+import com.cg.osm.model.ProductDTO;
 import com.cg.osm.repository.IProductRepository;
 
 @Service
@@ -29,13 +30,16 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public void cancelProduct(int productId) throws ProductNotFoundException {
-		
+
+
 		repo.deleteById(productId);
 	}
 
 	@Override
 	public Product showAllProducts(int productId) {
 		
+		// TODO Auto-generated method stub
+
 		return repo.findById(productId).orElse(null);
 	}
 
