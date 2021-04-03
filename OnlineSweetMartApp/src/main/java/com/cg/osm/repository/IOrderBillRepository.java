@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cg.osm.entity.OrderBill;
 import com.cg.osm.error.OrderBillNotFoundException;
-import com.cg.osm.model.OrderBillDTO;
+import com.cg.osm.customerdto.OrderBillDTO;
 
 public interface IOrderBillRepository {
 

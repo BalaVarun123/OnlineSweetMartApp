@@ -2,15 +2,17 @@ package com.cg.osm.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.cg.osm.customerdto.CustomerDTO;
 import com.cg.osm.entity.Customer;
-import com.cg.osm.error.CustomerNotFoundException;
-
-public interface ICustomerRepository {
-	
-	public Customer addCustomer(Customer Customer);
-	public Customer updateCustomer(Customer Customer) throws CustomerNotFoundException;
-	public Customer cancelCustomer(int CustomerId) throws CustomerNotFoundException;
+@Repository
+public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
+	/* public CustomerDTO addCustomer(Customer Customer);
+	public CustomerDTO updateCustomer(Customer Customer) throws CustomerNotFoundException;
+	public CustomerDTO cancelCustomer(int CustomerId) throws CustomerNotFoundException;
 	public List<Customer> showAllCustomers();
 	public List<Customer> showAllCustomers(int CustomerdId);
-
+	public CustomerDTO save(Customer customer);*/
+	
 }
