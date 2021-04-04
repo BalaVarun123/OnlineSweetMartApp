@@ -9,8 +9,9 @@ import com.cg.osm.model.CartDTO;
 public interface ICartService {
 	public CartDTO addCart(Cart cart);
 	public CartDTO updateCart(Cart cart) throws CartNotFoundException;
-	public void cancelCart(int cartId) throws CartNotFoundException;
+	public CartDTO cancelCart(int cartId) throws CartNotFoundException;
+	public CartDTO showCart(int cartdId) throws CartNotFoundException;
 	public List<CartDTO> showAllCarts();
-	public CartDTO showAllCarts(int cartdId);
+	
 
 }
