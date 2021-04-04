@@ -17,6 +17,7 @@ public class Cart {
 	private int productCount;
 	private double total;
 
+	
 	public Cart() { 
 		super();
 	}
