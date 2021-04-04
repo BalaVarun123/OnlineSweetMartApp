@@ -5,13 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.osm.entity.OrderBill;
 import com.cg.osm.entity.Product;
-import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.error.ProductNotFoundException;
 import com.cg.osm.model.ProductDTO;
 import com.cg.osm.repository.IProductRepository;
-import com.cg.osm.util.OrderBillUtils;
 import com.cg.osm.util.ProductUtils;
 
 @Service
@@ -82,4 +79,3 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 }
-	
