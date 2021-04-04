@@ -4,14 +4,15 @@ import java.util.List;
 
 import com.cg.osm.entity.User;
 import com.cg.osm.error.UserNotFoundException;
+import com.cg.osm.model.UserDTO;
 
 public interface IUserService {
 
-	public User addUser(User user);
+	public UserDTO addUser(User user);
 
-	public User updateUser(User user) throws UserNotFoundException;
+	public UserDTO updateUser(User user) throws UserNotFoundException;
 
-	public User cancelUser(int userId) throws UserNotFoundException;
+	public UserDTO cancelUser(long userId) throws UserNotFoundException;//Changed the data type of argument to long because the data type of User's userId attribute is Long. 
 
-	public List<User> showAllUsers();
+	public List<UserDTO> showAllUsers();
 }

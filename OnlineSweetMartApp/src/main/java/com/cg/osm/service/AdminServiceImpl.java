@@ -9,7 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.osm.entity.Admin;
+import com.cg.osm.entity.Cart;
+import com.cg.osm.entity.Category;
+import com.cg.osm.entity.Customer;
+import com.cg.osm.entity.Product;
+import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
+import com.cg.osm.entity.User;
 import com.cg.osm.error.AdminNotFoundException;
 import com.cg.osm.model.AdminDTO;
 import com.cg.osm.repository.IAdminRepository;
@@ -66,16 +72,16 @@ public class AdminServiceImpl implements IAdminService{
 	@Override
 	public List<AdminDTO> showAllAdmins(int adminId) {
 		List<Admin> listAdmins = new ArrayList<Admin>();
-		Optional<Admin> orderBIllOptional = repository.findById(adminId);
-		if (orderBIllOptional.isPresent())
-			listAdmins.add(orderBIllOptional.get());
+		Optional<Admin> adminOptional = repository.findById(adminId);
+		if (adminOptional.isPresent())
+			listAdmins.add(adminOptional.get());
 		return AdminUtils.convertToAdminDtoList(listAdmins);
 	}
 	
 	
 	public static boolean validateAdmin(Admin admin) {
 		boolean flag;
-		if (!(validateAdminCreatedDate(admin) && validateAdminListSweetOrder(admin) &&  validateAdminId(admin) && validateAdminTotalCost(admin))) {
+		if (!(validateId(admin) && validatePassword(admin) &&  validateCustomer(admin) &&  validateUser(admin) &&  validateSweetItem(admin) &&  validateCategory(admin) &&  validateCart(admin) &&  validateProduct(admin))) {
 			flag = false;
 		}
 		else {
@@ -111,14 +117,104 @@ public class AdminServiceImpl implements IAdminService{
 		}
 		else {
 			password = admin.getPassword();
-			if () {
-				flag = false;
+			if (password != null && password.matches(".*[@#$%^&+=].*") && password.matches(".*[a-z].*") && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.length() >= 8) {
+				flag = true;
 			}
 			else {
-				flag = true;
+				flag = false;
 			}
 		}
 		return flag;
 	}
-
+	
+	
+	public static boolean validateCustomer(Admin admin) {
+		boolean flag;
+		if (admin == null ) {
+			flag = false;
+		}
+		else {
+			Customer customer = admin.getCustomer();
+			if (customer == null)
+				flag = false;
+			else
+				flag = true;
+		}
+		return flag;
+	}
+	
+	public static boolean validateUser(Admin admin) {
+		boolean flag;
+		if (admin == null ) {
+			flag = false;
+		}
+		else {
+			User user = admin.getUser();
+			if (user == null)
+				flag = false;
+			else
+				flag = true;
+		}
+		return flag;
+	}
+	public static boolean validateSweetItem(Admin admin) {
+		boolean flag;
+		if (admin == null ) {
+			flag = false;
+		}
+		else {
+			SweetItem sweetItem = admin.getItem();
+			if (sweetItem == null)
+				flag = false;
+			else
+				flag = true;
+		}
+		return flag;
+	}
+	
+	public static boolean validateCategory(Admin admin) {
+		boolean flag;
+		if (admin == null ) {
+			flag = false;
+		}
+		else {
+			Category category = admin.getCategory();
+			if (category == null)
+				flag = false;
+			else
+				flag = true;
+		}
+		return flag;
+	}
+	
+	public static boolean validateCart(Admin admin) {
+		boolean flag;
+		if (admin == null ) {
+			flag = false;
+		}
+		else {
+			Cart cart = admin.getCart();
+			if (cart == null)
+				flag = false;
+			else
+				flag = true;
+		}
+		return flag;
+	}
+	
+	public static boolean validateProduct(Admin admin) {
+		boolean flag;
+		if (admin == null ) {
+			flag = false;
+		}
+		else {
+			Product product = admin.getProduct();
+			if (product == null)
+				flag = false;
+			else
+				flag = true;
+		}
+		return flag;
+	}
+	
 }
