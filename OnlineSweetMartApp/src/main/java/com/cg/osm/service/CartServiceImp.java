@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cg.osm.entity.Cart;
-import com.cg.osm.entity.Category;
 import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.model.CartDTO;
 import com.cg.osm.repository.ICartRepository;

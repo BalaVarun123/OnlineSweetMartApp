@@ -1,14 +1,14 @@
 package com.cg.osm.repository;
 
-
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.cg.osm.entity.User;
+import com.cg.osm.error.UserNotFoundException;
 
-@Repository
-public interface IUserRepository extends JpaRepository<User,Long> {
+public interface IUserRepository  {
 
-	
+	public User addUser(User user);
+	public User updateUser(User user) throws UserNotFoundException;
+	public User cancelUser(int userId) throws UserNotFoundException;
+	public List<User> showAllUsers();
 }

@@ -4,16 +4,12 @@ import java.util.List;
 
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.error.SweetItemNotFoundException;
-import com.cg.osm.model.SweetItemDTO;
 
 public interface ISweetItemService {
-	public SweetItemDTO addSweetItem(SweetItem sweetItem);
-	public SweetItemDTO updateSweetItem(SweetItem sweetItem) throws SweetItemNotFoundException;
-	public SweetItemDTO cancelSweetItem(int orderItemItemId) throws SweetItemNotFoundException;
-	public List<SweetItemDTO> showAllSweetItems();
-	List<SweetItemDTO> showAllSweetItems(int orderItemId);
-	
+
+	public SweetItem addSweetItem(SweetItem SweetItem);
+	public SweetItem updateSweetItem(SweetItem SweetItem) throws SweetItemNotFoundException;
+	public SweetItem cancelSweetItem(int SweetItemId) throws SweetItemNotFoundException;
+	public List<SweetItem> showAllSweetItems();
 
 }
-
-

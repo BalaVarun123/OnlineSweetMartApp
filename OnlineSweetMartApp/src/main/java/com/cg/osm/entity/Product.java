@@ -1,11 +1,10 @@
 package com.cg.osm.entity;
 
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 
@@ -20,14 +19,14 @@ public class Product {
 	private boolean available;
 	
 	
-	@ManyToOne
+	@OneToOne
 	private Category category;
 	
 	
-	
+	//this is a comment
 	public Product() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	public Product(int productid, String name, double price, String description, boolean available) {
 		super();
@@ -68,8 +67,11 @@ public class Product {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
+	@Override
+	public String toString() {
+		return "Product [productid=" + productid + ", name=" + name + ", price =" + price + ","
+				+ " description=" + description + ", available="+ available + "]";
+	}
 	
 	
-
-
 }
