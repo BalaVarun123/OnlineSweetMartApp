@@ -31,16 +31,5 @@ public class CartUtils {
 	}
 
 	
-	/*
-	 * public static Players convertToPlayers(PlayersDTO dto) { Players ply = new
-	 * Players();
-	 * 
-	 * ply.setJerseyNo(dto.getJerseyNo()); ply.setpName(dto.getpName());
-	 * ply.setRuns(dto.getRuns());
-	 * 
-	 * return ply;
-	 * 
-	 * }
-	 */
 
 }
