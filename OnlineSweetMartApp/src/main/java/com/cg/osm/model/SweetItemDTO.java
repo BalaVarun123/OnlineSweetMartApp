@@ -38,7 +38,7 @@ public class SweetItemDTO  {
 		}
 		@Override
 		public String toString() {
-			return "SweetItem [orderItemId=" + orderItemId + ", product=" + product + ", sweetOrder=" + sweetOrder + "]";
+			return "SweetItemDTO [orderItemId=" + orderItemId + ", product=" + product + ", sweetOrder=" + sweetOrder + "]";
 		}
 		
 		

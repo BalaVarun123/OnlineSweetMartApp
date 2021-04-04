@@ -76,7 +76,6 @@ public class SweetItemServiceImp implements ISweetItemService {
 private static boolean validateSweetItemProduct(SweetItem sweetItem) {
 	boolean flag = true;
 	Product product = sweetItem.getProduct();
-	new SweetItemServiceImp();
 	if (product == null)
 		flag = false;
 	return flag;
@@ -85,7 +84,6 @@ private static boolean validateSweetItemProduct(SweetItem sweetItem) {
 private static boolean validateSweetItemSweetOrder(SweetItem sweetItem) {
 	boolean flag = true;
 	SweetOrder sweetOrder = sweetItem.getSweetOrder();
-	new SweetItemServiceImp();
 	if (sweetOrder == null)
 		flag = false;
 	return flag;
