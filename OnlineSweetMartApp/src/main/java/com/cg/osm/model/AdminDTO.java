@@ -22,17 +22,11 @@ public class AdminDTO {
 	
 	private int id;
 	private String password;
-	@OneToOne
 	private Customer customer;
-	@OneToOne
 	private User user;
-	@OneToOne// 1..1 not mentioned in class diagram//I'm just adding for safety
 	private SweetItem item;
-	@OneToOne
 	private Category category;
-	@OneToOne
 	private Cart cart;
-	@OneToOne
 	private Product product;
 	
 	

@@ -94,12 +94,13 @@ public class AdminServiceImpl implements IAdminService{
 	public static boolean validateId(Admin admin) {
 		boolean flag;
 		int id;
+		AdminServiceImpl service = new AdminServiceImpl(); 
 		if (admin == null ) {
 			flag = false;
 		}
 		else {
 			id = admin.getId();
-			if (id < 0) {
+			if (id < 0 && service.repository.existsById(id)) {
 				flag = false;
 			}
 			else {
