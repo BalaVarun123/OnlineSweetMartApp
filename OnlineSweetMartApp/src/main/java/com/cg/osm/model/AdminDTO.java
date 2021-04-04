@@ -1,4 +1,4 @@
-package com.cg.osm.entity;
+package com.cg.osm.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,11 +6,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity 
-public class Admin {
+import org.springframework.stereotype.Component;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+import com.cg.osm.entity.Category;
+import com.cg.osm.entity.Customer;
+import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.User;
+import com.cg.osm.entity.Cart;
+import com.cg.osm.entity.Product;
+
+
+@Component
+public class AdminDTO {
+
+	
 	private int id;
 	private String password;
 	@OneToOne
@@ -27,10 +36,10 @@ public class Admin {
 	private Product product;
 	
 	
-	public Admin() {
+	public AdminDTO() {
 		
 	}
-	public Admin(int id, String password, Customer customer, User user, SweetItem item, Category category,
+	public AdminDTO(int id, String password, Customer customer, User user, SweetItem item, Category category,
 			Cart cart,Product product) {
 		super();
 		this.id = id;
@@ -92,7 +101,7 @@ public class Admin {
 	}
 	@Override
 	public String toString() {
-		return "Admin [id=" + id + ", password=" + password + ", customer=" + customer + ", user=" + user + ", item="
+		return "AdminDTO [id=" + id + ", password=" + password + ", customer=" + customer + ", user=" + user + ", item="
 				+ item + ", category=" + category + ", cart=" + cart + ", product=" + product + "]";
 	}
 
