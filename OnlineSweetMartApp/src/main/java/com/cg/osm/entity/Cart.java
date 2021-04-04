@@ -11,6 +11,7 @@ import javax.persistence.Id;
 public class Cart {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartId;
 	private double grandTotal;
 	private List<Product> listProduct;
