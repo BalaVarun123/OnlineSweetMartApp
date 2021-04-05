@@ -100,7 +100,13 @@ public class UserServiceImpl implements IUserService{
 	
 	public static boolean validatePassword(User user) {
 		boolean flag = true;
-		//Add password validation
+		String password = user.getPassword();
+		if (password != null && password.matches(".*[@#$%^&+=].*") && password.matches(".*[a-z].*") && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.length() >= 8) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
 		return flag;
 	}
 	
@@ -108,7 +114,7 @@ public class UserServiceImpl implements IUserService{
 		String password = user.getPassword();
 		String passwordConfirm = user.getPasswordConfirm();
 		boolean flag;
-		if (password.equals(passwordConfirm) && validatePassword(user)) {
+		if (password != null && passwordConfirm != null && password.equals(passwordConfirm) && validatePassword(user)) {
 			flag = true;
 		}
 		else {
@@ -119,7 +125,19 @@ public class UserServiceImpl implements IUserService{
 	
 	public static boolean validateType(User user) {
 		boolean flag = true;
-		//Add user type validation
+		String type = user.getType();
+		if (type == null) {
+			flag = false;
+		}
+		else {
+			if (type.equals("CUSTOMER") || type.equals("ADMIN")) {
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		}
+
 		return flag;
 	}
 	
