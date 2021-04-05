@@ -51,7 +51,7 @@ public class CategoryController
   }
  
   @PutMapping(value="/category/update")
-  public ResponseEntity<Object> updateCategory(Category category) throws CategoryNotFoundException
+  public ResponseEntity<Object> updateCategory( @RequestBody Category category) throws CategoryNotFoundException
   {
 	  CategoryDTO category_update = null;
 	  ResponseEntity<Object> response = null;
