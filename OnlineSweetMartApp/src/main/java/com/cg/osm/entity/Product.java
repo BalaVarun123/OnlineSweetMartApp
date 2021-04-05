@@ -23,7 +23,7 @@ public class Product {
 	private Category category;
 	
 	
-	//this is a comment
+	
 	public Product() {
 		super();
 		
