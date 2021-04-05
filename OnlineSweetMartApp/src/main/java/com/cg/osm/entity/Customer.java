@@ -6,7 +6,7 @@ import com.cg.osm.entity.SweetOrder;
 
 public class Customer {
 
-    public Customer(Long userId, String username, Set<SweetOrder> sweetOrders, List<SweetItem> sweetItems, Cart cart) {
+    public Customer() {
 		super();
 		this.userId = userId;
 		this.username = username;
