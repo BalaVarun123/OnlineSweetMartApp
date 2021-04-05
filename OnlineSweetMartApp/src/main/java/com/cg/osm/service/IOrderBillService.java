@@ -11,5 +11,5 @@ public interface IOrderBillService {
 	public OrderBillDTO updateOrderBill(OrderBill orderBill) throws OrderBillNotFoundException;
 	public OrderBillDTO cancelOrderBill(int orderBillId) throws OrderBillNotFoundException;
 	public List<OrderBillDTO> showAllOrderBills();
-	public List<OrderBillDTO> showAllOrderBills(int orderBilldId);
+	public List<OrderBillDTO> showAllOrderBills(int orderBillId);
 }
