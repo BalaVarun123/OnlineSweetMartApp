@@ -22,22 +22,31 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	public IOrderBillRepository repository;
 	@Override
 	public OrderBillDTO addOrderBill(OrderBill orderBill) {
+		OrderBillDTO orderBillDTO;
 		if (orderBill == null)
-			return  null;
-		return OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+			orderBillDTO =  null;
+		else 
+			orderBillDTO = OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+		return orderBillDTO;
 	}
 
 	@Override
 	public OrderBillDTO updateOrderBill(OrderBill orderBill) throws OrderBillNotFoundException {
-		if (orderBill == null)
-			return  null;
-		OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
-		if (existingOrderBill == null) {
-			throw new OrderBillNotFoundException("Invalid id.");
+		OrderBillDTO orderBillDTO;
+		if (orderBill == null) {
+			orderBillDTO =   null;
 		}
 		else {
-			return OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+			OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
+			if (existingOrderBill == null) {
+				throw new OrderBillNotFoundException("Invalid id.");
+			}
+			else {
+				orderBillDTO =  OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+			}
 		}
+		
+		return orderBillDTO;
 	}
 
 	@Override

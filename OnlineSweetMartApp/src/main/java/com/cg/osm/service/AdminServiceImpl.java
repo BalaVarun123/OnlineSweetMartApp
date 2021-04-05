@@ -41,13 +41,16 @@ public class AdminServiceImpl implements IAdminService{
 		AdminDTO adminDTO;
 		if (admin == null)
 			adminDTO = null;
-		Admin existingAdmin = repository.findById(admin.getId()).orElse(null);
-		if (existingAdmin == null) {
-			throw new AdminNotFoundException("Invalid id.");
-		}
 		else {
-			adminDTO =  AdminUtils.convertToAdminDto(repository.save(admin));
+			Admin existingAdmin = repository.findById(admin.getId()).orElse(null);
+			if (existingAdmin == null) {
+				throw new AdminNotFoundException("Invalid id.");
+			}
+			else {
+				adminDTO =  AdminUtils.convertToAdminDto(repository.save(admin));
+			}
 		}
+		
 		return adminDTO;
 	}
 
