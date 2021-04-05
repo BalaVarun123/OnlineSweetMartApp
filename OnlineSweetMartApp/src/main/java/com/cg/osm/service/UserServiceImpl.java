@@ -58,8 +58,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public List<UserDTO> showAllUsers() {
-		//Add implementation
-		return null;
+		return UserUtils.convertToUserDtoList(repository.findAll());
 	}
 	
 	
