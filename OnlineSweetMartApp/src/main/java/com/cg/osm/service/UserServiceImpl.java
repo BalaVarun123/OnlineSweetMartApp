@@ -68,7 +68,7 @@ public class UserServiceImpl implements IUserService{
 		if (user == null)
 			flag = false;
 		else {
-			if (validateUserId(user) && validateUserName(user) && validatePassword(user) && validatePasswordConfirm(user) && validateType( user)) {
+			if (validateUserId(user) && validateUserName(user) && validatePassword(user)  && validateType( user)) {
 				flag = true;
 			}
 			else {
@@ -104,18 +104,6 @@ public class UserServiceImpl implements IUserService{
 		return flag;
 	}
 	
-	public static boolean validatePasswordConfirm(User user) {
-		String password = user.getPassword();
-		String passwordConfirm = user.getPasswordConfirm();
-		boolean flag;
-		if (password.equals(passwordConfirm) && validatePassword(user)) {
-			flag = true;
-		}
-		else {
-			flag = false;
-		}
-		return flag;
-	}
 	
 	public static boolean validateType(User user) {
 		boolean flag = true;
