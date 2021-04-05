@@ -57,7 +57,7 @@ public class ProductController {
 	
 	@PutMapping(value = "/product/update", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
-		Object result;
+		Object result=service.updateProduct(product);
 		HttpStatus status;
 		if (!ProductServiceImpl.validateProductId(product)) {
 			result = "Invalid productid.";
@@ -90,7 +90,7 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/product/show/{product}", produces = "application/json")
-	public ProductDTO showAllProductDTO(int productid) throws ProductNotFoundException{
+	public ProductDTO showAllProductDTO(@PathVariable("productid") int productid) throws ProductNotFoundException{
 		return service.showAllProducts(productid);
 	}
 	
