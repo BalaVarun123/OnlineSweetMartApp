@@ -1,4 +1,5 @@
 package com.cg.osm.controller;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,63 +16,113 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cg.osm.entity.Customer;
+import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
+import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.service.ICustomerService;
+import com.cg.osm.service.CustomerServiceImp;
 
 @RestController
-@RequestMapping(value = "/api/osm")
+@RequestMapping("/api/osm")
 public class CustomerController {
-	  @Autowired
-	  ICustomerService service;
-	  final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	  
-	  @PostMapping(value = "/customer/add", consumes = "application/json")
-	  public CustomerDTO addCustomer(@RequestBody Customer customer)
-	  {
-		  return service.addCustomer(customer);	  
-		  }
-	  
-	  
-	  @PutMapping(value = "/customer/update",consumes = "application/json")
-		public CustomerDTO  updateEmployee(@RequestBody Customer customer) throws CustomerNotFoundException {
-			
-		 return 	service.updateCustomer(customer);
-			
-		}
-	  @DeleteMapping("/customer/cancel/{id}")
-		public ResponseEntity<String>  cancelCustomerById(@PathVariable("id") int customerId) throws CustomerNotFoundException {
-			
-			service.cancelCustomer(customerId);
-			
-			return  new ResponseEntity<String>("Record Deleted Successfully",HttpStatus.OK);
-			
 
+	@Autowired
+	ICustomerService service;
+	
+	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
+
+	@PostMapping(value = "/customer/add", produces = "application/json",consumes  = "application/json")
+	public ResponseEntity<Object> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+		Object result;
+		HttpStatus status;
+		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
+			result = "Invalid userid";
+			status = HttpStatus.BAD_REQUEST;
 		}
-		
-		
-		@GetMapping(value="/customer/get-all",produces = "application/json")
-		public  List<CustomerDTO>  showAllCustomers(){
+		else if (!CustomerServiceImp.validateCustomerUsername(customer)) {
+			result = "Invalid username";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
+			result = "Invalid listSweetOrder.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else if (!CustomerServiceImp.validateCustomerSweetItem(customer)) {
+			result = "Invalid listSweetItem";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else {
+			result = service.addCustomer(customer);
+			LOGGER.info("customer is added");
+			status = HttpStatus.OK;
+		}
 			
-			LOGGER.warn("Get All Executed");
+		return new ResponseEntity<Object>(result,status);
+	}
+	
+	
+	@PutMapping(value = "/customer/update", produces = "application/json",consumes  = "application/json")
+	public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+		Object result;
+		HttpStatus status;
+		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
+			result = "Invalid user id";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else if (!CustomerServiceImp.validateCustomerUsername(customer)) {
+			result = "Invalid username";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
+			result = "Invalid list of SweetOrder.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else if (!CustomerServiceImp.validateCustomerSweetItem(customer)) {
+			result = "Invalid List of sweet items";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else {
+			result = service.updateCustomer(customer);
+			status = HttpStatus.OK;
+			LOGGER.info("Customer updated");
+		}
 			
-			return 	service.showAllCustomers();
-			
-		}
-		
-		
-		@GetMapping("/customer/get-by-id/{customerId}")
-		public List<CustomerDTO> findByCustomerId(@PathVariable int CustomerId) {
-			// TODO Auto-generated method stub
-			return service.showAllCustomers(CustomerId);
-		}
-		
-		@ExceptionHandler({CustomerNotFoundException.class})
-		public ResponseEntity<String> handleException(){
-		return new ResponseEntity<String> ("Customer Not Found ", HttpStatus.NOT_FOUND);
-		}
-		
-		
-		
-       }
+		return new ResponseEntity<Object>(result,status);
+	}
+	
+	@DeleteMapping(value="/customer/cancel/{id}")
+	  public ResponseEntity<Object> cancelCustomer(@PathVariable("id") int customerId) throws CustomerNotFoundException
+	  {
+		  CustomerDTO customer_delete = null;
+		  ResponseEntity<Object> response = null;
+		  if (!(customerId<0))
+		  {
+			  customer_delete=service.cancelCustomer(customerId);
+			  response =	new ResponseEntity(customer_delete,HttpStatus.ACCEPTED);
+			  LOGGER.info("Customer cancelled");
+		  }
+		  else 
+		  {
+		    response =	new ResponseEntity("Customer cancel failed",HttpStatus.BAD_REQUEST);
+		    LOGGER.warn("Enter valid customer id");
+		  }
+		  return response;   
+	  }
+	
+	@GetMapping(value = "/customer/show-all", produces = "application/json")
+	public List<CustomerDTO> showAllCustomers(){
+		return service.showAllCustomers();
+	}
+	
+	@GetMapping(value = "/customer/show/", produces = "application/json")
+	public List<CustomerDTO> showAllCustomers(int customerId){
+		return service.showAllCustomers();
+	}
+
+	
+}
