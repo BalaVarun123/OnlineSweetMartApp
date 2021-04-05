@@ -21,7 +21,6 @@ public class AdminDTO {
 
 	
 	private int id;
-	private String password;
 	private Customer customer;
 	private User user;
 	private SweetItem item;
@@ -33,11 +32,10 @@ public class AdminDTO {
 	public AdminDTO() {
 		
 	}
-	public AdminDTO(int id, String password, Customer customer, User user, SweetItem item, Category category,
+	public AdminDTO(int id,  Customer customer, User user, SweetItem item, Category category,
 			Cart cart,Product product) {
 		super();
 		this.id = id;
-		this.password = password;
 		this.customer = customer;
 		this.user = user;
 		this.item = item;
@@ -50,12 +48,6 @@ public class AdminDTO {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public Customer getCustomer() {
 		return customer;
@@ -95,7 +87,7 @@ public class AdminDTO {
 	}
 	@Override
 	public String toString() {
-		return "AdminDTO [id=" + id + ", password=" + password + ", customer=" + customer + ", user=" + user + ", item="
+		return "AdminDTO [id=" + id + ", customer=" + customer + ", user=" + user + ", item="
 				+ item + ", category=" + category + ", cart=" + cart + ", product=" + product + "]";
 	}
 

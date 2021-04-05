@@ -14,7 +14,6 @@ import com.cg.osm.entity.Category;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetItem;
-import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.entity.User;
 import com.cg.osm.error.AdminNotFoundException;
 import com.cg.osm.model.AdminDTO;
@@ -81,7 +80,7 @@ public class AdminServiceImpl implements IAdminService{
 	
 	public static boolean validateAdmin(Admin admin) {
 		boolean flag;
-		if (!(validateId(admin) && validatePassword(admin) &&  validateCustomer(admin) &&  validateUser(admin) &&  validateSweetItem(admin) &&  validateCategory(admin) &&  validateCart(admin) &&  validateProduct(admin))) {
+		if (!(validateId(admin) &&  validateCustomer(admin) &&  validateUser(admin) &&  validateSweetItem(admin) &&  validateCategory(admin) &&  validateCart(admin) &&  validateProduct(admin))) {
 			flag = false;
 		}
 		else {
@@ -110,24 +109,7 @@ public class AdminServiceImpl implements IAdminService{
 		return flag;
 	}
 	
-	public static boolean validatePassword(Admin admin) {
-		boolean flag;
-		String password;
-		if (admin == null ) {
-			flag = false;
-		}
-		else {
-			password = admin.getPassword();
-			if (password != null && password.matches(".*[@#$%^&+=].*") && password.matches(".*[a-z].*") && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.length() >= 8) {
-				flag = true;
-			}
-			else {
-				flag = false;
-			}
-		}
-		return flag;
-	}
-	
+
 	
 	public static boolean validateCustomer(Admin admin) {
 		boolean flag;

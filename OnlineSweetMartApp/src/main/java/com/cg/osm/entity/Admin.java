@@ -12,7 +12,6 @@ public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String password;
 	@OneToOne
 	private Customer customer;
 	@OneToOne
@@ -30,11 +29,10 @@ public class Admin {
 	public Admin() {
 		
 	}
-	public Admin(int id, String password, Customer customer, User user, SweetItem item, Category category,
+	public Admin(int id, Customer customer, User user, SweetItem item, Category category,
 			Cart cart,Product product) {
 		super();
 		this.id = id;
-		this.password = password;
 		this.customer = customer;
 		this.user = user;
 		this.item = item;
@@ -47,12 +45,6 @@ public class Admin {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public Customer getCustomer() {
 		return customer;
@@ -92,7 +84,7 @@ public class Admin {
 	}
 	@Override
 	public String toString() {
-		return "Admin [id=" + id + ", password=" + password + ", customer=" + customer + ", user=" + user + ", item="
+		return "Admin [id=" + id +  ", customer=" + customer + ", user=" + user + ", item="
 				+ item + ", category=" + category + ", cart=" + cart + ", product=" + product + "]";
 	}
 
