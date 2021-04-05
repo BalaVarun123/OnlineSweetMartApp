@@ -2,9 +2,28 @@ package com.cg.osm.entity;
 import java.util.List;
 import java.util.Set;
 
-import com.cg.osm.entity.SweetOrder;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import com.cg.osm.entity.SweetOrder;
+import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.Cart;
+@Entity
 public class Customer {
+		private String username;
+		@Id
+		@GeneratedValue(strategy = GenerationType.AUTO)
+   	 @OneToMany
+    private Set<SweetOrder> sweetOrders;
+	 @OneToMany 
+    private List<SweetItem> sweetItems;
+    @OneToOne
+	private Cart cart;
+
 
     public Customer() {
 		super();
@@ -15,6 +34,7 @@ public class Customer {
 		this.cart = cart;
 	}
 	
+
 	private Long userId;
     public Long getUserId() {
 		return userId;
@@ -40,19 +60,16 @@ public class Customer {
 	public void setSweetItems(List<SweetItem> sweetItems) {
 		this.sweetItems = sweetItems;
 	}
+	
+	
 	public Cart getCart() {
 		return cart;
 	}
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
-	private String username;
-    private Set<SweetOrder> sweetOrders;
-    private List<SweetItem> sweetItems;
-	private Cart cart;
-	@Override
+		@Override
 	public String toString() {
 		return "Customer [userId=" + userId + ", username=" + username + ", sweetOrders=" + sweetOrders
 				+ ", sweetItems=" + sweetItems + ", cart=" + cart + "]";
-	}
-}
+		}}

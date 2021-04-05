@@ -19,7 +19,6 @@ public class AdminUtils {
 	public static AdminDTO convertToAdminDto(Admin admin) {
 		AdminDTO adminDto = new AdminDTO();
 		adminDto.setId(admin.getId());
-		adminDto.setPassword(admin.getPassword());
 		adminDto.setCustomer(admin.getCustomer());
 		adminDto.setUser(admin.getUser());
 		adminDto.setItem(admin.getItem());
@@ -42,7 +41,6 @@ public class AdminUtils {
 	public static Admin convertToAdmin(AdminDTO adminDto) {
 		Admin admin = new Admin();
 		admin.setId(adminDto.getId());
-		admin.setPassword(adminDto.getPassword());
 		admin.setCustomer(adminDto.getCustomer());
 		admin.setUser(adminDto.getUser());
 		admin.setItem(adminDto.getItem());

@@ -20,7 +20,6 @@ public class UserUtils {
 		UserDTO userDto = new UserDTO();
 		userDto.setUserId(user.getUserId());
 		userDto.setPassword(user.getPassword());
-		userDto.setPasswordConfirm(user.getPasswordConfirm());
 		userDto.setUsername(user.getUsername());
 		userDto.setType(user.getType());
 		return userDto;
@@ -40,7 +39,6 @@ public class UserUtils {
 		User user = new User();
 		user.setUserId(userDto.getUserId());
 		user.setPassword(userDto.getPassword());
-		user.setPasswordConfirm(userDto.getPasswordConfirm());
 		user.setUsername(userDto.getUsername());
 		user.setType(userDto.getType());
 		return user;

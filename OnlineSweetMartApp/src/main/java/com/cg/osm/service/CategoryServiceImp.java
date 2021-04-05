@@ -60,8 +60,7 @@ public class CategoryServiceImp implements ICategoryService {
 	@Override
 	public double calculateTotalCost(int categoryId) 
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return repo.calculateTotalCost(categoryId);
 	}
 	/*
 	 * public static boolean validateCategory(Category category) { boolean flag=
