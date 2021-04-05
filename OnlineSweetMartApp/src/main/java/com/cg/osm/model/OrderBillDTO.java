@@ -3,9 +3,10 @@ package com.cg.osm.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 
 import com.cg.osm.entity.SweetOrder;
-
+@Component
 public class OrderBillDTO {
 	private Integer orderBillId;
 	private LocalDate createdDate;
@@ -15,7 +16,9 @@ public class OrderBillDTO {
 	
 	
 	
-	
+	public OrderBillDTO() {
+		
+	}
 	public OrderBillDTO(Integer orderBillId, LocalDate createdDate, float totalCost, List<SweetOrder> listSweetOrder) {
 		super();
 		this.orderBillId = orderBillId;

@@ -1,35 +1,40 @@
-package com.cg.osm.entity;
+package com.cg.osm.model;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.stereotype.Component;
 
-@Entity
-public class Cart {
+import com.cg.osm.entity.Product;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+@Component
+public class CartDTO {
+
 	private int cartId;
 	private double grandTotal;
 	private List<Product> listProduct;
 	private int productCount;
 	private double total;
 
-	
-	public Cart() { 
+	public CartDTO() {
 		super();
+		
 	}
 
-	public Cart(double grandTotal, List<Product> listProduct, int cartId, int productCount, double total) {
+	public CartDTO(int cartId, double grandTotal, List<Product> listProduct, int productCount, double total) {
 		super();
+		this.cartId = cartId;
 		this.grandTotal = grandTotal;
 		this.listProduct = listProduct;
-		this.cartId = cartId;
 		this.productCount = productCount;
 		this.total = total;
+	}
+
+	public int getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
 	}
 
 	public double getGrandTotal() {
@@ -46,14 +51,6 @@ public class Cart {
 
 	public void setListProduct(List<Product> listProduct) {
 		this.listProduct = listProduct;
-	}
-
-	public int getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
 	}
 
 	public int getProductCount() {
@@ -74,8 +71,12 @@ public class Cart {
 
 	@Override
 	public String toString() {
-		return "Cart [grandTotal=" + grandTotal + ", listProduct=" + listProduct + ", cartId=" + cartId
+		return "CartDTO [cartId=" + cartId + ", grandTotal=" + grandTotal + ", listProduct=" + listProduct
 				+ ", productCount=" + productCount + ", total=" + total + "]";
 	}
+	
+	
+	
+
 
 }

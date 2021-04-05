@@ -1,4 +1,4 @@
-package com.cg.osm.entity;
+package com.cg.osm.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,30 +6,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity 
-public class Admin {
+import org.springframework.stereotype.Component;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+import com.cg.osm.entity.Category;
+import com.cg.osm.entity.Customer;
+import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.User;
+import com.cg.osm.entity.Cart;
+import com.cg.osm.entity.Product;
+
+
+@Component
+public class AdminDTO {
+
+	
 	private int id;
-	@OneToOne
 	private Customer customer;
-	@OneToOne
 	private User user;
-	@OneToOne// 1..1 not mentioned in class diagram//I'm just adding for safety
 	private SweetItem item;
-	@OneToOne
 	private Category category;
-	@OneToOne
 	private Cart cart;
-	@OneToOne
 	private Product product;
 	
 	
-	public Admin() {
+	public AdminDTO() {
 		
 	}
-	public Admin(int id, Customer customer, User user, SweetItem item, Category category,
+	public AdminDTO(int id,  Customer customer, User user, SweetItem item, Category category,
 			Cart cart,Product product) {
 		super();
 		this.id = id;
@@ -84,7 +87,7 @@ public class Admin {
 	}
 	@Override
 	public String toString() {
-		return "Admin [id=" + id +  ", customer=" + customer + ", user=" + user + ", item="
+		return "AdminDTO [id=" + id + ", customer=" + customer + ", user=" + user + ", item="
 				+ item + ", category=" + category + ", cart=" + cart + ", product=" + product + "]";
 	}
 
