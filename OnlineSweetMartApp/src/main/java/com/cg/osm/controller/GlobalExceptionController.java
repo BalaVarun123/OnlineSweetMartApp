@@ -29,4 +29,11 @@ public class GlobalExceptionController {
 	public void  handleOrderBillNotFoundException(){
 		LOGGER.error("Invalid orderBillId , OrderBill Not Found.");
 	}
+	
+	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid Productid, Product Not Found.")
+	@ResponseBody
+	@ExceptionHandler({AdminNotFoundException.class})
+	public void handleProductNotFoundException(){
+		LOGGER.error("Invalid productid , Product Not Found.");
+	}
 }
