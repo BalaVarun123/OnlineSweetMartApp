@@ -11,7 +11,6 @@ import com.cg.osm.util.CustomerUtils;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
-import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
