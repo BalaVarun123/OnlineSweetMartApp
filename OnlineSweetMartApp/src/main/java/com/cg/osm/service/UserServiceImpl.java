@@ -58,8 +58,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public List<UserDTO> showAllUsers() {
-		//Add implementation
-		return null;
+		return UserUtils.convertToUserDtoList(repository.findAll());
 	}
 	
 	
@@ -68,7 +67,7 @@ public class UserServiceImpl implements IUserService{
 		if (user == null)
 			flag = false;
 		else {
-			if (validateUserId(user) && validateUserName(user) && validatePassword(user)  && validateType( user)) {
+			if (validateUserId(user) && validateUserName(user) && validatePassword(user) && validateType( user)) {
 				flag = true;
 			}
 			else {
@@ -100,14 +99,32 @@ public class UserServiceImpl implements IUserService{
 	
 	public static boolean validatePassword(User user) {
 		boolean flag = true;
-		//Add password validation
+		String password = user.getPassword();
+		if (password != null && password.matches(".*[@#$%^&+=].*") && password.matches(".*[a-z].*") && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.length() >= 8) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
 		return flag;
 	}
 	
 	
 	public static boolean validateType(User user) {
 		boolean flag = true;
-		//Add user type validation
+		String type = user.getType();
+		if (type == null) {
+			flag = false;
+		}
+		else {
+			if (type.equals("CUSTOMER") || type.equals("ADMIN")) {
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		}
+
 		return flag;
 	}
 	
