@@ -11,7 +11,7 @@ import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.repository.ICategoryRepository;
 import com.cg.osm.util.CategoryUtils;
 @Service
-public class CategoryServiceImp implements ICategoryService {
+public class CategoryServiceImpl implements ICategoryService {
 
 	@Autowired
 	ICategoryRepository repo;
@@ -62,11 +62,7 @@ public class CategoryServiceImp implements ICategoryService {
 	{
 		return repo.calculateTotalCost(categoryId);
 	}
-	/*
-	 * public static boolean validateCategory(Category category) { boolean flag=
-	 * false; if(category.getCategoryId()>0 && category.getName().length()>2) {
-	 * flag=true; } return flag; }
-	 */
+	
 	public static boolean validateCategoryId(Category category) throws CategoryNotFoundException
 	{
 		boolean flag=false;
@@ -87,5 +83,7 @@ public class CategoryServiceImp implements ICategoryService {
 			
 			
 	}
+
+	
 }
 
