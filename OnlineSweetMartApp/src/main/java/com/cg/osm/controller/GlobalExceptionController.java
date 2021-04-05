@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.cg.osm.error.AdminNotFoundException;
+import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.OrderBillNotFoundException;
 
 @ControllerAdvice
@@ -28,5 +29,13 @@ public class GlobalExceptionController {
 	@ExceptionHandler({OrderBillNotFoundException.class})
 	public void  handleOrderBillNotFoundException(){
 		LOGGER.error("Invalid orderBillId , OrderBill Not Found.");
+	}
+	
+	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid categoryId, Category Not Found")
+	@ResponseBody
+	@ExceptionHandler({CategoryNotFoundException.class})
+	public void handleCategoryNotFoundException()
+	{
+		LOGGER.error("Invalid categoryId, Category Not Found");
 	}
 }
