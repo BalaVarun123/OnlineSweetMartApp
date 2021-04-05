@@ -1,7 +1,6 @@
 package com.cg.osm.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,7 @@ import com.cg.osm.entity.Customer;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.service.ICustomerService;
+
 import com.cg.osm.service.CustomerServiceImp;
 
 @RestController
@@ -28,7 +28,7 @@ public class CustomerController {
 	ICustomerService service;
 
 	@PostMapping(value = "/customer/add", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> addCustomer(@RequestBody Customer customer) {
+	public ResponseEntity<Object> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
 		Object result;
 		HttpStatus status;
 		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
@@ -50,6 +50,7 @@ public class CustomerController {
 		else {
 			result = service.addCustomer(customer);
 			status = HttpStatus.OK;
+			
 		}
 			
 		return new ResponseEntity<Object>(result,status);
@@ -61,11 +62,11 @@ public class CustomerController {
 		Object result;
 		HttpStatus status;
 		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
-			result = "Invalid user id";
+			result = "Enter valid user id";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerUsername(customer)) {
-			result = "Invalid username";
+			result = "Enter valid username";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {

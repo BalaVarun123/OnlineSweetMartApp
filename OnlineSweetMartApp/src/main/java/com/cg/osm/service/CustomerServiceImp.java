@@ -11,6 +11,7 @@ import com.cg.osm.util.CustomerUtils;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
+import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
@@ -65,7 +66,7 @@ public class CustomerServiceImp implements ICustomerService{
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
 	
-	public static boolean validateCust(Customer customer) {
+	public static boolean validateCust(Customer customer) throws CustomerNotFoundException {
 		boolean flag;
 		if (customer == null  ) {
 			flag = false;
@@ -80,19 +81,22 @@ public class CustomerServiceImp implements ICustomerService{
 	}
 	
 
-	public static boolean validateCustomerUsername(Customer customer) {
+	public static boolean validateCustomerUsername(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
-		if (customer.getUsername() == null)
-			flag = false;
-		return flag;
+		if(customer.getUsername().matches("^[a-zA-Z]+$") && customer.getUsername().length()>2)
+			flag=true;
+		else 
+			throw new CustomerNotFoundException("Enter a valid name");
+		return flag; 
+			
 	}
 
-	public static boolean validateCustomerUserId(Customer customer) {
+	public static boolean validateCustomerUserId(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
-		Long id = customer.getUserId();
-		CustomerServiceImp service1 = new CustomerServiceImp();
-		if (id == null|| id < 0)
-			flag = false;
+		if(customer.getUserId()>0)
+			flag=true;
+		else
+			throw new CustomerNotFoundException("Enter valid user id");
 		return flag;
 	}
 	
