@@ -1,6 +1,9 @@
 package com.cg.osm.controller;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cg.osm.entity.Customer;
+import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
+import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.service.ICustomerService;
-
 import com.cg.osm.service.CustomerServiceImp;
 
 @RestController
@@ -26,6 +33,8 @@ public class CustomerController {
 
 	@Autowired
 	ICustomerService service;
+	
+	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
 
 	@PostMapping(value = "/customer/add", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
@@ -49,8 +58,8 @@ public class CustomerController {
 		}
 		else {
 			result = service.addCustomer(customer);
+			LOGGER.info("customer is added");
 			status = HttpStatus.OK;
-			
 		}
 			
 		return new ResponseEntity<Object>(result,status);
@@ -62,11 +71,11 @@ public class CustomerController {
 		Object result;
 		HttpStatus status;
 		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
-			result = "Enter valid user id";
+			result = "Invalid user id";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerUsername(customer)) {
-			result = "Enter valid username";
+			result = "Invalid username";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
@@ -80,15 +89,30 @@ public class CustomerController {
 		else {
 			result = service.updateCustomer(customer);
 			status = HttpStatus.OK;
+			LOGGER.info("Customer updated");
 		}
 			
 		return new ResponseEntity<Object>(result,status);
 	}
 	
-	@DeleteMapping(value = "/customer/cancel/", produces = "application/json")
-	public CustomerDTO cancelCustomer(@PathVariable("Customer") int customer) throws CustomerNotFoundException{
-		return service.cancelCustomer(customer);
-	}
+	@DeleteMapping(value="/customer/cancel/{id}")
+	  public ResponseEntity<Object> cancelCustomer(@PathVariable("id") int customerId) throws CustomerNotFoundException
+	  {
+		  CustomerDTO customer_delete = null;
+		  ResponseEntity<Object> response = null;
+		  if (!(customerId<0))
+		  {
+			  customer_delete=service.cancelCustomer(customerId);
+			  response =	new ResponseEntity(customer_delete,HttpStatus.ACCEPTED);
+			  LOGGER.info("Customer cancelled");
+		  }
+		  else 
+		  {
+		    response =	new ResponseEntity("Customer cancel failed",HttpStatus.BAD_REQUEST);
+		    LOGGER.warn("Enter valid customer id");
+		  }
+		  return response;   
+	  }
 	
 	@GetMapping(value = "/customer/show-all", produces = "application/json")
 	public List<CustomerDTO> showAllCustomers(){
@@ -102,5 +126,3 @@ public class CustomerController {
 
 	
 }
-
-
