@@ -5,6 +5,11 @@ import java.util.Set;
 import com.cg.osm.entity.SweetOrder;
 
 public class Customer {
+	
+	private String username;
+    private Set<SweetOrder> sweetOrders;
+    private List<SweetItem> sweetItems;
+	private Cart cart;
 
     public Customer(Long userId, String username, Set<SweetOrder> sweetOrders, List<SweetItem> sweetItems, Cart cart) {
 		super();
@@ -15,6 +20,10 @@ public class Customer {
 		this.cart = cart;
 	}
 	
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private Long userId;
     public Long getUserId() {
 		return userId;
@@ -46,10 +55,7 @@ public class Customer {
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
-	private String username;
-    private Set<SweetOrder> sweetOrders;
-    private List<SweetItem> sweetItems;
-	private Cart cart;
+	
 	@Override
 	public String toString() {
 		return "Customer [userId=" + userId + ", username=" + username + ", sweetOrders=" + sweetOrders
