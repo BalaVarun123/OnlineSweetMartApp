@@ -16,14 +16,14 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartId;
-	private double grandTotal;
+	
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "productid")
 	private List<Product> listProduct;
-	
 	private int productCount;
 	private double total;
+	private double grandTotal;
 
 	
 	public Cart() { 
