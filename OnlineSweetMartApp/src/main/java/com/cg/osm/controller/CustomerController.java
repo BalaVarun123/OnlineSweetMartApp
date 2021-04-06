@@ -24,6 +24,7 @@ import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
+import com.cg.osm.model.OrderBillDTO;
 import com.cg.osm.service.ICustomerService;
 import com.cg.osm.service.CustomerServiceImp;
 
@@ -49,11 +50,11 @@ public class CustomerController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
-			result = "Invalid listSweetOrder.";
+			result = "Invalid set SweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerSweetItem(customer)) {
-			result = "Invalid listSweetItem";
+			result = "Invalid list SweetItem";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else {
@@ -79,7 +80,7 @@ public class CustomerController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
-			result = "Invalid list of SweetOrder.";
+			result = "Invalid set of SweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else if (!CustomerServiceImp.validateCustomerSweetItem(customer)) {
@@ -119,10 +120,27 @@ public class CustomerController {
 		return service.showAllCustomers();
 	}
 	
-	@GetMapping(value = "/customer/show/", produces = "application/json")
-	public List<CustomerDTO> showAllCustomers(int customerId){
-		return service.showAllCustomers();
-	}
+	@GetMapping(value = "/customer/show/{CustomerId}", produces = "application/json")
+	public ResponseEntity<Object>  showAllCustomers(@PathVariable("id") int customerId) throws CustomerNotFoundException
+	  {
+		List<CustomerDTO> customer_showAll = null;
+		  ResponseEntity<Object> response = null;
+		  if (!(customerId<0))
+		  {
+			  customer_showAll=service.showAllCustomers(customerId);
+			  response =	new ResponseEntity(customer_showAll,HttpStatus.ACCEPTED);
+			  LOGGER.info("Customer displayed");
+		  }
+		  else 
+		  {
+		    response =	new ResponseEntity("Customer display failed",HttpStatus.BAD_REQUEST);
+		    LOGGER.warn("Enter valid customer id");
+		  }
+		   return response;
+	  }
+	
 
 	
-}
+	}
+	
+
