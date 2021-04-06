@@ -13,6 +13,7 @@ import com.cg.osm.error.AdminNotFoundException;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.error.SweetItemNotFoundException;
+import com.cg.osm.error.SweetOrderNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionController {
@@ -52,5 +53,11 @@ public class GlobalExceptionController {
 	@ExceptionHandler({SweetItemNotFoundException.class})
 	public void handleSweetItemNotFoundException(){
 		LOGGER.error("Invalid orderItemId , SweetItem Not Found.");
+	}
+	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid SweetOrderId, SweetOrder Not Found.")
+	@ResponseBody
+	@ExceptionHandler({SweetOrderNotFoundException.class})
+	public void handleSweetOrderNotFoundException(){
+		LOGGER.error("Invalid sweetOrderId , SweetOrder Not Found.");
 	}
 }

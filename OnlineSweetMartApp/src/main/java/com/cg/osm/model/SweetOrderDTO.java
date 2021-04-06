@@ -90,7 +90,7 @@ public class SweetOrderDTO {
 	
 	@Override
 	public String toString() {
-		   return "SweetOrderDTO[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" + groupedProducts +"]";
+		   return "SweetOrderDTO[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listSweetItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" + groupedProducts +"]";
 	}
 	public Map<Product,Long> initiateGroupedProducts() {
 		

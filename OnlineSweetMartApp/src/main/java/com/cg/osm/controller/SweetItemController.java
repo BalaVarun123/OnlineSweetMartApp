@@ -85,7 +85,7 @@ public class SweetItemController{
 		  {
 			  SweetItemDTO sweetItem_cancel = null;
 			  ResponseEntity<Object> response = null;
-			  if (!(orderItemId<0))
+			  if (!(orderItemId==0))
 			  {
 				  sweetItem_cancel=sweetItemService.cancelSweetItem(orderItemId);
 				  response =new ResponseEntity<Object>(sweetItem_cancel,HttpStatus.ACCEPTED);
@@ -99,7 +99,7 @@ public class SweetItemController{
 		  }
 	
 	@GetMapping(value="/showAllSweetItems", produces = "application/json")
-	public ResponseEntity<List<SweetItemDTO>> showAllSweetItem() {
+	public ResponseEntity<List<SweetItemDTO>> showAllSweetItems() {
 		List<SweetItemDTO> showAllSweetItems = sweetItemService.showAllSweetItems();
 		LOGGER.info("Showing All Sweet Items");
 		return new ResponseEntity<List<SweetItemDTO>>(showAllSweetItems, HttpStatus.ACCEPTED);
