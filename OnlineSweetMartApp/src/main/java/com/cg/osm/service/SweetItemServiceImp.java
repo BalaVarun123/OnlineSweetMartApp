@@ -1,14 +1,10 @@
 package com.cg.osm.service;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetOrder;
-import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.error.SweetItemNotFoundException;
 import com.cg.osm.model.SweetItemDTO;
 import com.cg.osm.repository.ISweetItemRepository;
