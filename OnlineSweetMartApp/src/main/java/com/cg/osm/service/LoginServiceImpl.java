@@ -73,7 +73,8 @@ public class LoginServiceImpl implements ILoginService {
 	}
 	
 	public static boolean validateLoginPassword(String password) {
-		return (password != null && password.length() >= 8);
+		//Write Logic
+		return true;
 	}
 
 }
