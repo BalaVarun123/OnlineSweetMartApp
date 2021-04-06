@@ -120,8 +120,18 @@ public class AdminController {
 	}
 	
 	@DeleteMapping(value = "/admin/cancel/{adminId}", produces = "application/json")
-	public AdminDTO cancelAdmin(@PathVariable("adminId") int adminId) throws AdminNotFoundException{
-		return service.cancelAdmin(adminId);
+	public ResponseEntity<Object> cancelAdmin(@PathVariable("adminId") int adminId) throws AdminNotFoundException{
+		Object result;
+		HttpStatus status;
+		if (adminId < 0) {
+			result = "Invalid adminId.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else {
+			result = service.cancelAdmin(adminId);
+			status = HttpStatus.OK;
+		}
+		return new ResponseEntity<Object> (result,status);
 	}
 	
 	@GetMapping(value = "/admin/show-all", produces = "application/json")
@@ -130,8 +140,18 @@ public class AdminController {
 	}
 	
 	@GetMapping(value = "/admin/show/{adminId}", produces = "application/json")
-	public List<AdminDTO> showAllAdmins(@PathVariable("adminId") int adminId){
-		return service.showAllAdmins(adminId);
+	public ResponseEntity<Object> showAllAdmins(@PathVariable("adminId") int adminId){
+		Object result;
+		HttpStatus status;
+		if (adminId < 0) {
+			result = "Invalid adminId.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else {
+			result = service.showAllAdmins(adminId);
+			status = HttpStatus.OK;
+		}
+		return new ResponseEntity<Object> (result,status);
 	}
 	
 
