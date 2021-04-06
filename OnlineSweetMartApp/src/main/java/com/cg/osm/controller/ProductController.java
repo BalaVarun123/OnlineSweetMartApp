@@ -32,7 +32,7 @@ public class ProductController {
 	
 	@PostMapping(value = "/product/add", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object> addProduct(@RequestBody Product product) throws ProductNotFoundException {
-		Object result;
+		Object result=service.addProduct(product);
 		HttpStatus status;
 		if (!ProductServiceImpl.validateProductId(product)) {
 			result = "Invalid productid.";
