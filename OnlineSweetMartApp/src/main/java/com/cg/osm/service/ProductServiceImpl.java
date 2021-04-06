@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.osm.entity.Category;
 import com.cg.osm.entity.Product;
-import com.cg.osm.error.CategoryNotFoundException;
+import com.cg.osm.entity.SweetItem;
 import com.cg.osm.error.ProductNotFoundException;
 import com.cg.osm.model.ProductDTO;
 import com.cg.osm.repository.IProductRepository;
