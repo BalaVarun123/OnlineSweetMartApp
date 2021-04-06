@@ -27,7 +27,7 @@ import com.cg.osm.service.ICategoryService;
 public class CategoryController 
 {
   @Autowired
-  ICategoryService service;
+  private ICategoryService service;
   
   final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
  

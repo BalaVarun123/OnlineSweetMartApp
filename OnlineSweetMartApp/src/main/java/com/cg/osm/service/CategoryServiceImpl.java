@@ -14,7 +14,7 @@ import com.cg.osm.util.CategoryUtils;
 public class CategoryServiceImpl implements ICategoryService {
 
 	@Autowired
-	ICategoryRepository repo;
+	private ICategoryRepository repo;
 	
 	@Override
 	public CategoryDTO addCategory(Category category) {
