@@ -68,13 +68,16 @@ public class LoginServiceImpl implements ILoginService {
 	}
 	
 	
-	public static boolean validateLoginUsername(String username) {
-		return (username != null && username.matches("[a-zA-Z ]+"));
+	public static boolean validateUserId(Long userId) {
+		if (userId > 0 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-	
 	public static boolean validateLoginPassword(String password) {
-		//Write Logic
-		return true;
+		return password != null && password.matches(".*[@#$%^&+=].*") && password.matches(".*[a-z].*") && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.length() >= 8;
 	}
 
 }
