@@ -5,5 +5,9 @@ public class CategoryNotFoundException extends Exception {
 	{
 		super(message);
 	}
+	public CategoryNotFoundException()
+	{
+		
+	}
 
 }

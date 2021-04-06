@@ -28,7 +28,7 @@ public class ProductServiceImpl implements IProductService {
 		
 		Product productCheck = repo.findById(product.getProductid()).orElse(null);
 		if ( productCheck== null) {
-			throw new ProductNotFoundException("Invalid productid.");
+			throw new ProductNotFoundException("Cannot find the product with the given id.");
 		}
 		else {
 			return ProductUtils.convertToProductDto(repo.save(product));
@@ -51,7 +51,7 @@ public class ProductServiceImpl implements IProductService {
 		try {
 			return ProductUtils.convertToProductDto(repo.findById(productid).orElse(null)); 
 		} catch (Exception e) {
-			throw new ProductNotFoundException("Cannot find the product with id" +productid);
+			throw new ProductNotFoundException("Cannot find the product with the given id");
 		}
 		
 	}
@@ -66,16 +66,28 @@ public class ProductServiceImpl implements IProductService {
 		boolean flag = true;
 		Integer pid = product.getProductid();
 		ProductServiceImpl service1 = new ProductServiceImpl();
-		if (pid == null|| pid < 0 || !service1.repo.existsById(pid))
+		if (pid == null || !service1.repo.existsById(pid))
 			flag = false;
 		return flag;
 	}
+	
+	public static boolean validateName(Product product) throws ProductNotFoundException
+	{
+		boolean flag=false;
+		if(product.getName().matches("^[a-zA-Z]+$") && product.getName().length()>3)
+			flag=true;
+		else 
+			throw new ProductNotFoundException("Enter a valid product name");
+		return flag; 		
+	}
+	
 	public static boolean validateProductPrice(Product product) {
 		boolean flag = true;
 		double price = product.getPrice();
-		if ( price < 0 || Double.isNaN(price))
+		if ( price <= 0 || Double.isNaN(price)==true)
 			flag = false;
 		return flag;
 	}
+	
 	
 }

@@ -66,6 +66,4 @@ public class CustomerDTO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
-

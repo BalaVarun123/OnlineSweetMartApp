@@ -72,8 +72,4 @@ public class Customer {
 	public String toString() {
 		return "Customer [userId=" + userId + ", username=" + username + ", sweetOrders=" + sweetOrders
 				+ ", sweetItems=" + sweetItems + ", cart=" + cart + "]";
-		}
-}
-		
-
-
+		}}
