@@ -21,6 +21,7 @@ public class Cart {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "productid")
 	private List<Product> listProduct;
+	
 	private int productCount;
 	private double total;
 	private double grandTotal;
