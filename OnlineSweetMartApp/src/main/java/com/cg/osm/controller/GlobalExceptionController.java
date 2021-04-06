@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.cg.osm.error.AdminNotFoundException;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.OrderBillNotFoundException;
+import com.cg.osm.error.ProductNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionController {
@@ -41,7 +42,7 @@ public class GlobalExceptionController {
 	
 	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid Productid, Product Not Found.")
 	@ResponseBody
-	@ExceptionHandler({AdminNotFoundException.class})
+	@ExceptionHandler({ProductNotFoundException.class})
 	public void handleProductNotFoundException(){
 		LOGGER.error("Invalid productid , Product Not Found.");
 	}
