@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,7 +81,7 @@ public class SweetItemController{
 	}
 	@DeleteMapping(value="/cancelSweetItem/{orderItemId}", produces = "application/json")
 	
-		 public ResponseEntity<Object> cancelSweetItem(@PathVariable("id") int orderItemId) throws SweetItemNotFoundException
+		 public ResponseEntity<Object> cancelSweetItem(@PathVariable("orderItemId") int orderItemId) throws SweetItemNotFoundException
 		  {
 			  SweetItemDTO sweetItem_cancel = null;
 			  ResponseEntity<Object> response = null;
@@ -106,10 +105,5 @@ public class SweetItemController{
 		return new ResponseEntity<List<SweetItemDTO>>(showAllSweetItems, HttpStatus.ACCEPTED);
 		
 	}
-	@ExceptionHandler
-	({SweetItemNotFoundException.class})
-	public ResponseEntity<String> handleException(){
-	return new ResponseEntity<String> ("SweetItem Not Found ", HttpStatus.NOT_FOUND);
-	}
-
+	
 }
