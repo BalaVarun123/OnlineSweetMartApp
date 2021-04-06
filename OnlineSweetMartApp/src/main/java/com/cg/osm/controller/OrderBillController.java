@@ -93,9 +93,19 @@ public class OrderBillController {
 		return new ResponseEntity<Object>(result,status);
 	}
 	
-	@DeleteMapping(value = "/order-bill/cancel/{orderBillId}", produces = "application/json")
-	public OrderBillDTO cancelOrderBill(@PathVariable("orderBillId") int orderBillId) throws OrderBillNotFoundException{
-		return service.cancelOrderBill(orderBillId);
+	@DeleteMapping(value = "/order-bill/cancel/{orderBillId}")
+	public ResponseEntity<Object> cancelOrderBill(@PathVariable("orderBillId") int orderBillId) throws OrderBillNotFoundException{
+		Object result;
+		HttpStatus status;
+		if (orderBillId < 0) {
+			result = "Invalid orderBillId.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else {
+			result = service.cancelOrderBill(orderBillId);
+			status = HttpStatus.OK;
+		}
+		return new ResponseEntity<Object> (result,status);
 	}
 	
 	@GetMapping(value = "/order-bill/show-all", produces = "application/json")
@@ -104,8 +114,18 @@ public class OrderBillController {
 	}
 	
 	@GetMapping(value = "/order-bill/show/{orderBillId}", produces = "application/json")
-	public List<OrderBillDTO> showAllOrderBills(int orderBillId){
-		return service.showAllOrderBills(orderBillId);
+	public ResponseEntity<Object> showAllOrderBills(@PathVariable("orderBillId") int orderBillId){
+		Object result;
+		HttpStatus status;
+		if (orderBillId < 0) {
+			result = "Invalid orderBillId.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		else {
+			result = service.showAllOrderBills(orderBillId);
+			status = HttpStatus.OK;
+		}
+		return new ResponseEntity<Object> (result,status);
 	}
 	
 

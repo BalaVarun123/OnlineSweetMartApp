@@ -23,7 +23,7 @@ public class Customer {
     private List<SweetItem> sweetItems;
     @OneToOne
 	private Cart cart;
-
+    private Long userId;
 
     public Customer() {
 		super();
@@ -35,7 +35,7 @@ public class Customer {
 	}
 	
 
-	private Long userId;
+	
     public Long getUserId() {
 		return userId;
 	}

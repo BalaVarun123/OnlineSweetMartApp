@@ -21,11 +21,10 @@ public class SweetItem {
     	this.product=product;
     	this.sweetOrder=sweetOrder;
     }
-   
-    public SweetItem (){
-    	
-    } 
-	
+   public SweetItem() {
+	   super();		
+	}
+
 	public Integer getOrderItemId() {
 		return orderItemId;
 	}

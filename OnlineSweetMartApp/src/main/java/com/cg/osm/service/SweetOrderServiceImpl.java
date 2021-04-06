@@ -1,5 +1,6 @@
 package com.cg.osm.service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +105,50 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 				result = false;
 			}
 		}
+		return result;
+	}
+	
+	public static boolean validateSweetOrderId(SweetOrder sweetOrder) {
+		boolean result;
+		if (sweetOrder== null) {
+			result = false;
+		}
+		else {
+			Integer id = sweetOrder.getSweetOrderId();
+			if (id != null && id >= 0) {
+				result = true;
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	public static boolean validateUser(SweetOrder sweetOrder) {
+		return (sweetOrder != null && sweetOrder.getUser()!= null);
+	}
+	
+	public static boolean validateListItems(SweetOrder sweetOrder) {
+		boolean result = false;
+		if (sweetOrder != null) {
+			List  items = sweetOrder.getListItems();
+			if (items != null && items.size() >= 0) {
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	public static boolean validateCreatedDate(SweetOrder sweetOrder) {
+		boolean result = false;
+		if (sweetOrder != null) {
+			LocalDate  date = sweetOrder.getCreatedDate();
+			if (date != null && date.isBefore(LocalDate.now())) {
+				result = true;
+			}
+		}
+		
 		return result;
 	}
 
