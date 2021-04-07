@@ -19,7 +19,6 @@ public class Cart {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Product> listProduct;
-	
 	private int productCount;
 	private double total;
 	private double grandTotal;
