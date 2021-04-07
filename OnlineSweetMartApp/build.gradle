@@ -21,7 +21,9 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
 	testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
+
 }
 
 test {
