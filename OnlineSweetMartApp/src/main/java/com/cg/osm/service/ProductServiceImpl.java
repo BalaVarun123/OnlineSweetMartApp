@@ -67,7 +67,7 @@ public class ProductServiceImpl implements IProductService {
 	public static boolean validateProduct(Product product) throws ProductNotFoundException {
 		boolean flag = false;
 		if (product == null)
-			throw new ProductNotFoundException("Cart details cannot be blank");
+			throw new ProductNotFoundException("Product details cannot be null");
 		else if (!(validateName(product.getName()) && validateProductPrice(product.getPrice())
 				&& validatePhotoPath(product.getPhotopath())&& validateAvailable(product.isAvailable())))
 
