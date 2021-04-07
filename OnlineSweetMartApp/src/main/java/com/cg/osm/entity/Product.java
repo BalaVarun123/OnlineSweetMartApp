@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -19,9 +20,11 @@ public class Product {
 	private double price;
 	private String description;
 	private boolean available;
+	private String photopath;
 	
 	
 	@ManyToOne(fetch= FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name="categoryId")
 	private Category category;
 	
 	
@@ -30,13 +33,14 @@ public class Product {
 		super();
 		
 	}
-	public Product(int productid, String name, double price, String description, boolean available) {
+	public Product(int productid, String name, double price, String description, boolean available,String photopath) {
 		super();
 		this.productid = productid;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.available = available;
+		this.photopath = photopath;
 		
 	}
 	public int getProductid() {
@@ -68,6 +72,12 @@ public class Product {
 	}
 	public void setAvailable(boolean available) {
 		this.available = available;
+	}
+	public void setPthotopath(String photopath){
+		this.photopath = photopath;
+	}
+	public String getPhotopath() {
+		return photopath;
 	}
 	@Override
 	public String toString() {

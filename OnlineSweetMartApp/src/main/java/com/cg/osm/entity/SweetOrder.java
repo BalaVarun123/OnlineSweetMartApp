@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -18,10 +20,12 @@ public class SweetOrder {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer sweetOrderId;
+    @ManyToOne
 	private User user;
 	@OneToMany
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
+	@ElementCollection
 	private Map<Product, Long> groupedProducts;
 	
 	public SweetOrder() {

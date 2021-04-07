@@ -3,13 +3,14 @@ package com.cg.osm.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cg.osm.entity.User;
 import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.model.UserDTO;
 import com.cg.osm.repository.IUserRepository;
 import com.cg.osm.util.UserUtils;
-
+@Service
 public class UserServiceImpl implements IUserService{
 
 	@Autowired
@@ -81,7 +82,7 @@ public class UserServiceImpl implements IUserService{
 		boolean flag;
 		UserServiceImpl service = new UserServiceImpl();
 		Long userId = user.getUserId();
-		if (userId >= 0 && service.repository.existsById(userId)) {
+		if (userId >= 0 ) {
 			flag = true;
 		}
 		else {
@@ -92,7 +93,7 @@ public class UserServiceImpl implements IUserService{
 	public static boolean validateUserName(User user) {
 		boolean flag = false;
 		String username = user.getUsername();
-		if (username != null && username.matches("[a-zA-Z ]+"))
+		if (username != null && username.matches("^[a-zA-Z0-9 ]+$")&& user.getUsername().length()>2)
 			flag = true;
 		return flag;
 	}

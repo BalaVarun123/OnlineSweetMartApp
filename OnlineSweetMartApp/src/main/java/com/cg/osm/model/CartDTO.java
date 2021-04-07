@@ -10,23 +10,23 @@ import com.cg.osm.entity.Product;
 public class CartDTO {
 
 	private int cartId;
-	private double grandTotal;
 	private List<Product> listProduct;
 	private int productCount;
 	private double total;
+	private double grandTotal;
 
 	public CartDTO() {
 		super();
-		
+
 	}
 
-	public CartDTO(int cartId, double grandTotal, List<Product> listProduct, int productCount, double total) {
+	public CartDTO(int cartId, List<Product> listProduct, int productCount, double total, double grandTotal) {
 		super();
 		this.cartId = cartId;
-		this.grandTotal = grandTotal;
 		this.listProduct = listProduct;
 		this.productCount = productCount;
 		this.total = total;
+		this.grandTotal = grandTotal;
 	}
 
 	public int getCartId() {
@@ -35,14 +35,6 @@ public class CartDTO {
 
 	public void setCartId(int cartId) {
 		this.cartId = cartId;
-	}
-
-	public double getGrandTotal() {
-		return grandTotal;
-	}
-
-	public void setGrandTotal(double grandTotal) {
-		this.grandTotal = grandTotal;
 	}
 
 	public List<Product> getListProduct() {
@@ -69,14 +61,18 @@ public class CartDTO {
 		this.total = total;
 	}
 
+	public double getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(double grandTotal) {
+		this.grandTotal = grandTotal;
+	}
+
 	@Override
 	public String toString() {
-		return "CartDTO [cartId=" + cartId + ", grandTotal=" + grandTotal + ", listProduct=" + listProduct
-				+ ", productCount=" + productCount + ", total=" + total + "]";
+		return "CartDTO [cartId=" + cartId + ", listProduct=" + listProduct + ", productCount=" + productCount
+				+ ", total=" + total + ", grandTotal=" + grandTotal + "]";
 	}
-	
-	
-	
-
 
 }

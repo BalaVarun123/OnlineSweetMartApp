@@ -19,8 +19,9 @@ public class ProductUtils {
 		productdto.setProductid(product.getProductid());
 		productdto.setName(product.getName());
 		productdto.setPrice(product.getPrice());
-		productdto.setDescription(productdto.getDescription());
-		productdto.setAvailable(productdto.isAvailable());  //boolean
+		productdto.setPhotopath(product.getPhotopath());
+		productdto.setDescription(product.getDescription());
+		productdto.setAvailable(product.isAvailable());  
 		return productdto;
 	}
 	

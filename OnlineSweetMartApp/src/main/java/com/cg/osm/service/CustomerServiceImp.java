@@ -13,7 +13,6 @@ import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
-
 import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
@@ -67,6 +66,7 @@ public class CustomerServiceImp implements ICustomerService{
 		if (customerOptional.isPresent())
 			listCustomers.add(customerOptional.get());
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
+		
 	}
 	
 	
@@ -87,7 +87,7 @@ public class CustomerServiceImp implements ICustomerService{
 
 	public static boolean validateCustomerUsername(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
-		if(customer.getUsername().matches("^[a-zA-Z]+$") && customer.getUsername().length()>2)
+		if(customer.getUsername().matches("^[a-zA-Z0-9 ]+$") && customer.getUsername().length()>2)
 			flag=true;
 		else 
 			throw new CustomerNotFoundException("Enter a valid name");

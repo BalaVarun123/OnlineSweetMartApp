@@ -30,9 +30,7 @@ public class CartController {
 	@Autowired
 	ICartService cartService;
 
-	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
-	
-	
+	final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	// 1. ADD-CART
 	@PostMapping(value = "/add-cart", consumes = "application/json")
@@ -44,7 +42,7 @@ public class CartController {
 		if (CartServiceImp.validateCart(cart)) {
 
 			cartdto = cartService.addCart(cart);
-            cartResponse = new ResponseEntity<CartDTO>(cartdto, HttpStatus.ACCEPTED);
+			cartResponse = new ResponseEntity<CartDTO>(cartdto, HttpStatus.ACCEPTED);
 			LOGGER.info("Cart added");
 
 		} else
@@ -67,51 +65,41 @@ public class CartController {
 			cartdto = cartService.updateCart(cart);
 
 			cartResponse = new ResponseEntity<Object>(cartdto, HttpStatus.ACCEPTED);
-			
-			 LOGGER.info("Cart updated");
 
-		} else
+			LOGGER.info("Cart updated");
+
+		} else {
+
 			throw new CartNotFoundException("No Cart available in given ID");
 
+		}
 		return cartResponse;
 
 	}
+
 	// 3. DELETE - CART
 	@DeleteMapping("delete-cart/{id}")
-	public ResponseEntity<Object> cancelCart(@PathVariable("id") int cartId) throws CartNotFoundException {
-
-		CartDTO cartdto = null;
-		ResponseEntity<Object> cartResponse = null;
-
-		Optional<CartDTO> optional = Optional.of(cartService.cancelCart(cartId));
-
-		if (optional.isPresent()) {
-			cartdto = optional.get();
-			cartResponse = new ResponseEntity<Object>(cartdto, HttpStatus.ACCEPTED);
-			  LOGGER.info("Cart deleted");
-		} else
-			throw new CartNotFoundException("No Cart available in given ID");
-		return cartResponse;
-
+	public ResponseEntity<Object> cancelCart(int cartId) throws CartNotFoundException
+	{
+		CartDTO cartDTO = cartService.cancelCart(cartId);
+		LOGGER.info("Cart deleted");
+		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
+		
 	}
 
 	// 4. SHOW-CART BY ID
 	@GetMapping("/show-cart/{id}")
-	 public CartDTO showCart(@PathVariable("id") int cartId)   throws CartNotFoundException {
-		
+	public CartDTO showCart(@PathVariable("id") int cartId) throws CartNotFoundException {
+
 		CartDTO cartdto = null;
-		
-			if (!(cartId<0)) {
-				cartdto = cartService.showCart(cartId);
-			}
-			else
-			
-				throw new CartNotFoundException("No Cart available in given ID");
-			return cartdto;
-				
+
+		if (!(cartId <= 0)) {
+			cartdto = cartService.showCart(cartId);
+		}
+
+		return cartdto;
+
 	}
-	
-	
 
 	// 5. SHOW ALL CARTS
 	@GetMapping("/show-all-carts")

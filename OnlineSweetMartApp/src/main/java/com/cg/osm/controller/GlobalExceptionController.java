@@ -15,6 +15,7 @@ import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.error.ProductNotFoundException;
+import com.cg.osm.error.UserNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionController {
@@ -57,6 +58,13 @@ public class GlobalExceptionController {
 	@ExceptionHandler({ProductNotFoundException.class})
 	public void handleProductNotFoundException(){
 		LOGGER.error("Invalid productid , Product Not Found.");
+	}
+
+	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid userid, Product Not Found.")
+	@ResponseBody
+	@ExceptionHandler({UserNotFoundException.class})
+	public void handleUserNotFoundException(){
+		LOGGER.error("Invalid userId , User Not Found.");
 	}
 }
 

@@ -30,58 +30,46 @@ public class ProductController {
 	
 	
 	
-	@PostMapping(value = "/product/add", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> addProduct(@RequestBody Product product) throws ProductNotFoundException {
-		Object result=service.addProduct(product);
-		HttpStatus status;
-		if (!ProductServiceImpl.validateProductId(product)) {
-			result = "Invalid productid.";
-			status = HttpStatus.BAD_REQUEST;
-		}
-		else if (!ProductServiceImpl.validateName(product)) {
-			result = "Invalid product-name.";
-			status = HttpStatus.BAD_REQUEST;
-		}
-		else if (!ProductServiceImpl.validateProductPrice(product)) {
-			result = "Invalid price.";
-			status = HttpStatus.BAD_REQUEST;
-		}
-		else {
-			result = service.addProduct(product);
-			status = HttpStatus.OK;
-		}
+	@PostMapping(value = "/product/add", produces = "application/json", consumes  = "application/json")
+	public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product) throws ProductNotFoundException {
+		ResponseEntity<ProductDTO> productResponse;
+		if (ProductServiceImpl.validateProduct(product)) {
 			
-		return new ResponseEntity<Object>(result,status);
+			
+			
+			ProductDTO result=service.addProduct(product);
+			productResponse = new ResponseEntity<ProductDTO>(result,HttpStatus.ACCEPTED);
+			System.out.println("Product Added");
+
+		} else
+
+			throw new ProductNotFoundException("Please enter valid product details");
+
+		return productResponse;
+		
 	}
 	
 	
 	@PutMapping(value = "/product/update", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
-		Object result=service.updateProduct(product);
-		HttpStatus status;
-		if (!ProductServiceImpl.validateProductId(product)) {
-			result = "Invalid productid.";
-			status = HttpStatus.BAD_REQUEST;
-		}
-		else if (!ProductServiceImpl.validateName(product)) {
-			result = "Invalid product-name.";
-			status = HttpStatus.BAD_REQUEST;
-		}
-		else if (!ProductServiceImpl.validateProductPrice(product)) {
-			result = "Invalid price.";
-			status = HttpStatus.BAD_REQUEST;
-		}
-		else {
-			result = service.addProduct(product);
-			status = HttpStatus.OK;
-		}
+	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
+		ResponseEntity<ProductDTO> productResponse;
+		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(product)) {
 			
-		return new ResponseEntity<Object>(result,status);
+			ProductDTO result=service.updateProduct(product);
+			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
+			System.out.println("Product Updated");
+
+		} else
+
+			throw new ProductNotFoundException("Please enter valid product details");
+
+		return productResponse;
 	}
 	
 	@DeleteMapping(value = "/product/cancel/{productid}", produces = "application/json")
 	public void cancelProduct(@PathVariable("productid") int productid) throws ProductNotFoundException{
-		 service.cancelProduct(productid);
+		service.cancelProduct(productid);
+		
 	}
 	
 	@GetMapping(value = "/product/show-all", produces = "application/json")
@@ -89,9 +77,10 @@ public class ProductController {
 		return service.showAllProducts();
 	} 
 	
-	@GetMapping(value = "/product/show/{product}", produces = "application/json")
+	@GetMapping(value = "/product/show-by-id/{product}", produces = "application/json")
 	public ProductDTO showAllProductDTO(@PathVariable("productid") int productid) throws ProductNotFoundException{
 		return service.showAllProducts(productid);
+	
 	}
 	
 
