@@ -68,24 +68,12 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	}
 	
 	
-	public static boolean validateOrder(OrderBill orderBill) {
-		boolean flag;
-		if (orderBill == null  ) {
-			flag = false;
-		}
-		else if (!(validateOrderBillCreatedDate(orderBill) && validateOrderBillListSweetOrder(orderBill) &&  validateOrderBillId(orderBill) && validateOrderBillTotalCost(orderBill))) {
-			flag = false;
-		}
-		else {
-			flag = true;
-		}
-		return flag;
-	}
+
 	
 
 	public static boolean validateOrderBillCreatedDate(OrderBill orderBill) {
 		boolean flag = true;
-		if (orderBill.getCreatedDate() == null || orderBill.getCreatedDate().isAfter(LocalDate.now()))
+		if (orderBill == null || orderBill.getCreatedDate() == null || orderBill.getCreatedDate().isAfter(LocalDate.now()))
 			flag = false;
 		return flag;
 	}
@@ -101,7 +89,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		boolean flag = true;
 		Integer id = orderBill.getOrderBillId();
 		OrderBillServiceImpl service1 = new OrderBillServiceImpl();
-		if (id == null|| id < 0 || !service1.repository.existsById(id))
+		if (id == null|| id < 0 )
 			flag = false;
 		return flag;
 	}

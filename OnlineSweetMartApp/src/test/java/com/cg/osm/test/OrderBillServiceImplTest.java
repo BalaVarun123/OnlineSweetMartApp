@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -28,7 +30,7 @@ class OrderBillServiceImplTest {
 	IOrderBillService service;
 	
 	
-	
+	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
 	@Test
 	void testAddOrderBill() {
 		OrderBill orderBill = new OrderBill(1,LocalDate.now(),0,new ArrayList<SweetOrder>());
@@ -40,7 +42,9 @@ class OrderBillServiceImplTest {
 	void testUpdateOrderBill() throws OrderBillNotFoundException {
 		OrderBill orderBill = new OrderBill(2,LocalDate.now(),0,new ArrayList<SweetOrder>());
 		assertThrows(OrderBillNotFoundException.class, () -> service.updateOrderBill(orderBill));
-		assertNotNull(service.addOrderBill(orderBill));
+		OrderBillDTO orderBillDTO = service.addOrderBill(orderBill);
+		assertNotNull(orderBillDTO);
+		orderBill.setOrderBillId(orderBillDTO.getOrderBillId());
 		orderBill.setTotalCost(11331.0f);
 		assertNotNull(service.updateOrderBill(orderBill));
 		assertNull(service.updateOrderBill(null));
@@ -48,12 +52,16 @@ class OrderBillServiceImplTest {
 
 	@Test
 	void testCancelOrderBill() throws OrderBillNotFoundException {
-		OrderBill orderBill = new OrderBill(3,LocalDate.now(),0,new ArrayList<SweetOrder>());
+		OrderBill orderBill = new OrderBill(3,LocalDate.now(),23,new ArrayList<SweetOrder>());
+		
 		assertThrows(OrderBillNotFoundException.class, () -> service.cancelOrderBill(3));
-		assertNotNull(service.addOrderBill(orderBill));
-		orderBill.setTotalCost(11331.0f);
-		assertNotNull(service.cancelOrderBill(3));
-		assertEquals(0,service.showAllOrderBills(3).size());
+		OrderBillDTO orderBillDTO = service.addOrderBill(orderBill);
+		assertNotNull(orderBillDTO);
+		int id = orderBillDTO.getOrderBillId();
+		//orderBill.setTotalCost(11331.0f);
+		LOGGER.info("orderBIll id = "+id);
+		assertNotNull(service.cancelOrderBill(id));
+		assertEquals(0,service.showAllOrderBills(id).size());
 	}
 
 	@Test
@@ -68,17 +76,15 @@ class OrderBillServiceImplTest {
 	@Test
 	void testShowAllOrderBillsInt() {
 		OrderBill orderBill = new OrderBill(5,LocalDate.now(),0,new ArrayList<SweetOrder>());
-		assertNotNull(service.addOrderBill(orderBill));
-		List<OrderBillDTO> orderbillDTOList = service.showAllOrderBills(5);
+		OrderBillDTO orderBillDTO = service.addOrderBill(orderBill);
+		assertNotNull(orderBillDTO);
+		List<OrderBillDTO> orderbillDTOList = service.showAllOrderBills(orderBillDTO.getOrderBillId());
 		assertNotNull(orderbillDTOList);
 		assertEquals(1,orderbillDTOList.size());
-		assertTrue(orderbillDTOList.contains(OrderBillUtils.convertToOrderBillDto(orderBill)));
+		assertTrue(orderbillDTOList.get(0).getOrderBillId().equals(orderBillDTO.getOrderBillId()));
 	}
 
-	@Test
-	void testValidateOrder() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	void testValidateOrderBillCreatedDate() {
@@ -107,12 +113,21 @@ class OrderBillServiceImplTest {
 
 	@Test
 	void testValidateOrderBillId() {
-		fail("Not yet implemented");
+		OrderBill orderBill = new OrderBill(5,LocalDate.now(),0,null);
+		assertNotNull(service.addOrderBill(orderBill));
+		assertTrue(OrderBillServiceImpl.validateOrderBillId(orderBill));
+		orderBill.setOrderBillId(-5);
+		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
+		orderBill.setOrderBillId(2342434);
+		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
 	}
 
 	@Test
 	void testValidateOrderBillTotalCost() {
-		fail("Not yet implemented");
+		OrderBill orderBill = new OrderBill(-5,LocalDate.now(),-1,null);
+		assertFalse(OrderBillServiceImpl.validateOrderBillTotalCost(orderBill));
+		orderBill.setTotalCost(200);
+		assertTrue(OrderBillServiceImpl.validateOrderBillTotalCost(orderBill));
 	}
 
 }
