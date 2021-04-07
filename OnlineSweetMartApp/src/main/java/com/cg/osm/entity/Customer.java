@@ -17,6 +17,7 @@ public class Customer {
 		private String username;
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
+		private Long userId;
    	 @OneToMany
     private Set<SweetOrder> sweetOrders;
 	 @OneToMany 
@@ -35,7 +36,7 @@ public class Customer {
 	}
 	
 
-	private Long userId;
+	
     public Long getUserId() {
 		return userId;
 	}
