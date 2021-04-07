@@ -24,8 +24,7 @@ public class Customer {
     private List<SweetItem> sweetItems;
     @OneToOne
 	private Cart cart;
-
-
+   
     public Customer() {
 		super();
 		this.userId = userId;

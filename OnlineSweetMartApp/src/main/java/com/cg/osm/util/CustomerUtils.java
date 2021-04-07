@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.cg.osm.model.CustomerDTO;
+import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Customer;
 @Component
 public class CustomerUtils {
@@ -21,6 +22,7 @@ public class CustomerUtils {
 		customerDto.setUsername(customer.getUsername());
 		customerDto.setSweetOrders(customer.getSweetOrders());
 		customerDto.setSweetItems(customer.getSweetItems());
+		customerDto.setCart(customer.getCart());
 		return customerDto;
 	}
 	
@@ -39,6 +41,7 @@ public class CustomerUtils {
 		customer.setUsername (customerDto.getUsername());
 		customer.setSweetOrders(customerDto.getSweetOrders());
         customer.setSweetItems(customerDto.getListSweetItem());
+        customer.setCart(customerDto.getCart());
 		return customer;
 	}
 

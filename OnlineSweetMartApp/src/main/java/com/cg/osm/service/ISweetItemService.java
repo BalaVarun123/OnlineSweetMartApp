@@ -11,9 +11,6 @@ public interface ISweetItemService {
 	public SweetItemDTO updateSweetItem(SweetItem sweetItem) throws SweetItemNotFoundException;
 	public SweetItemDTO cancelSweetItem(int orderItemItemId) throws SweetItemNotFoundException;
 	public List<SweetItemDTO> showAllSweetItems();
-	List<SweetItemDTO> showAllSweetItems(int orderItemId);
-	
-
 }
 
 

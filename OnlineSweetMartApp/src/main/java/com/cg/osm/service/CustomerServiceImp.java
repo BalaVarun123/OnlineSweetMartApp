@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.cg.osm.util.CustomerUtils;
 import com.cg.osm.model.CustomerDTO;
+import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
+
+import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
@@ -65,6 +69,7 @@ public class CustomerServiceImp implements ICustomerService{
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
 	
+	
 	public static boolean validateCust(Customer customer) throws CustomerNotFoundException {
 		boolean flag;
 		if (customer == null  ) {
@@ -114,5 +119,15 @@ public class CustomerServiceImp implements ICustomerService{
 			flag = false;
 		return flag;
 	}
+		
+		public static boolean validateCartId(Cart cart) throws CartNotFoundException
+		{
+			boolean flag=false;
+			if(cart.getCartId()>0)
+				flag=true;
+			else
+				throw new CartNotFoundException("Not a valid cart id");
+			return flag;
+		}
 
 }

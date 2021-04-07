@@ -9,7 +9,9 @@ import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.model.CartDTO;
 import com.cg.osm.repository.ICartRepository;
 import com.cg.osm.util.CartUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CartServiceImp implements ICartService {
 
 	@Autowired
@@ -20,37 +22,44 @@ public class CartServiceImp implements ICartService {
 	@Override
 	public CartDTO addCart(Cart cart) {
 		Cart cartEntity;
-		if (cart == null)
-			cartEntity = null;
-		else
-			cartEntity = cartRepo.save(cart);
+
+		cartEntity = cartRepo.save(cart);
 		return CartUtils.convertToCartDto(cartEntity);
 	}
 
+	
 	@Override
 	public CartDTO updateCart(Cart cart) throws CartNotFoundException {
-		Cart cartEntity;
-		if (cart == null)
-			cartEntity = null;
+		
+		Cart updatecart;
+		
 		Cart existCart = cartRepo.findById(cart.getCartId()).orElse(null);
+		
 		if (existCart == null)
 			throw new CartNotFoundException(cartNotFound);
-		else
-			cartEntity = cartRepo.save(cart);
-		return CartUtils.convertToCartDto(cartEntity);
-	}
 
+		else
+			updatecart = cartRepo.save(cart);
+		return CartUtils.convertToCartDto(updatecart);
+	}
 	@Override
-	public CartDTO cancelCart(int cartId) throws CartNotFoundException {
+	public CartDTO cancelCart(int cartId) {
 
 		Cart existCart = cartRepo.findById(cartId).orElse(null);
-		if (existCart == null)
-			throw new CartNotFoundException(cartNotFound);
-		else
-			cartRepo.delete(existCart);
+
+		cartRepo.delete(existCart);
 		return CartUtils.convertToCartDto(existCart);
 	}
 
+	@Override
+	public CartDTO showCart(int cartId) throws CartNotFoundException {
+
+		Cart showCart = cartRepo.findById(cartId).orElse(null);
+		if (showCart == null)
+			throw new CartNotFoundException(cartNotFound);
+		return CartUtils.convertToCartDto(showCart);
+	}
+	
 	@Override
 	public List<CartDTO> showAllCarts() {
 
@@ -59,76 +68,60 @@ public class CartServiceImp implements ICartService {
 		return CartUtils.convertToCartDtoList(list);
 	}
 
-	@Override
-	public CartDTO showCart(int cartdId) throws CartNotFoundException {
-
-		Cart existCart = cartRepo.findById(cartdId).orElse(null);
-		if (existCart == null)
-			throw new CartNotFoundException(cartNotFound);
-		return CartUtils.convertToCartDto(existCart);
-	}
-
 	
 	
 	
-	
-	
-	//VALIDATIONS
-	public static boolean validateCart(Cart cart) throws CartNotFoundException
-	{
+	// VALIDATIONS
+	public static boolean validateCart(Cart cart) throws CartNotFoundException {
 		boolean flag = false;
-		if(cart == null)
+		if (cart == null)
 			throw new CartNotFoundException("Cart details cannot be blank");
-		else if(!(validateTotal(cart.getTotal()) && validateProductCount(cart.getProductCount())))
-				
+		else if (!(validateTotalCost(cart.getTotal()) && validateTotalCost(cart.getGrandTotal())
+				&& validateProductCount(cart.getProductCount())))
+
 			throw new CartNotFoundException("Invalid Data");
 		else
 			flag = true;
 		return flag;
 	}
-	
-	
-	
-	// int cartId validation
-	public boolean validateCartId(int cartId) throws CartNotFoundException
+
+	// integer cartId validation
+
+	public static boolean validateCartId(Cart cart) throws CartNotFoundException
 	{
-		boolean flag = cartRepo.existsById(cartId);
-		if(flag == false)
-			throw new CartNotFoundException(cartNotFound);
+		boolean flag=false;
+		if(cart.getCartId()>0)
+			flag=true;
+		else
+			throw new CartNotFoundException("Not a valid cart id");
 		return flag;
 	}
 	
 	
 	
 	
+	
+
 	// double total validation
-	public static boolean validateTotal(double total) throws CartNotFoundException
-	{
+	public static boolean validateTotalCost(double total) throws CartNotFoundException {
 		boolean flag = false;
-		if(total <= 0)
+		if (total <= 0)
 			throw new CartNotFoundException("Please add some Product to cart");
-		else if(total < 200)
+		else if (total < 200)
 			throw new CartNotFoundException(" Minimum purchase should be atleast for Rs 200 /-");
 		else
 			flag = true;
 		return flag;
 	}
-	
-	
-	
-	
-	// int productCount validation
-	public static boolean validateProductCount(int productCount) throws CartNotFoundException
-	{
+
+	// integer productCount validation
+	public static boolean validateProductCount(int productCount) throws CartNotFoundException {
 		boolean flag = false;
-		if(productCount <= 0)
+		if (productCount <= 0)
 			throw new CartNotFoundException("No products added yet in cart.. Add some products please ");
 		else
 			flag = true;
 		return flag;
 	}
-	
-	
-	
 
 }
