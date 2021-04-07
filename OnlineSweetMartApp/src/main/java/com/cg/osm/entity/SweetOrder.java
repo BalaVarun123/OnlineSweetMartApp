@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class SweetOrder {
 	@OneToMany
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
+	@ElementCollection
 	private Map<Product, Long> groupedProducts;
 	
 	public SweetOrder() {
