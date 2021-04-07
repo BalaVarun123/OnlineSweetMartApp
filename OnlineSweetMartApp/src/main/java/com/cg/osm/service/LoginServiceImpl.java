@@ -1,11 +1,12 @@
 package com.cg.osm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cg.osm.entity.User;
 import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.repository.IUserRepository;
-
+@Service
 public class LoginServiceImpl implements ILoginService {
 
 	@Autowired

@@ -27,22 +27,6 @@ public class CustomerUtils {
 	}
 	
 	
-	public static List<Customer> convertToCustomerList(List<CustomerDTO> dtoList){
-		List<Customer> list = new ArrayList<Customer>();
-		for(CustomerDTO customerDTO : dtoList) 
-			list.add(convertToCustomer(customerDTO));
-		return list;
-	}
 	
-	
-	public static Customer convertToCustomer(CustomerDTO customerDto) {
-		Customer customer = new Customer();
-		customer.setUserId(customerDto.getUserId());
-		customer.setUsername (customerDto.getUsername());
-		customer.setSweetOrders(customerDto.getSweetOrders());
-        customer.setSweetItems(customerDto.getListSweetItem());
-        customer.setCart(customerDto.getCart());
-		return customer;
-	}
 
 }

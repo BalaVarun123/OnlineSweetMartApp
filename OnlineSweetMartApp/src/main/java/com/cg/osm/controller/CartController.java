@@ -79,20 +79,12 @@ public class CartController {
 
 	// 3. DELETE - CART
 	@DeleteMapping("delete-cart/{id}")
-	public ResponseEntity<Object> cancelCart(@PathVariable("id") int cartId) throws CartNotFoundException {
-
-		CartDTO cartdto = null;
-		ResponseEntity<Object> cartResponse = null;
-
-		Optional<CartDTO> optional = Optional.of(cartService.cancelCart(cartId));
-
-		if (optional.isPresent()) {
-			cartdto = optional.get();
-			cartResponse = new ResponseEntity<Object>(cartdto, HttpStatus.ACCEPTED);
-			LOGGER.info("Cart deleted");
-		}
-		return cartResponse;
-
+	public ResponseEntity<Object> cancelCart(int cartId) throws CartNotFoundException
+	{
+		CartDTO cartDTO = cartService.cancelCart(cartId);
+		LOGGER.info("Cart deleted");
+		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
+		
 	}
 
 	// 4. SHOW-CART BY ID

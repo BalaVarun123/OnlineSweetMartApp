@@ -17,17 +17,16 @@ import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.repository.ISweetOrderRepository;
 import com.cg.osm.util.SweetOrderUtils;
 
- @Service
+@Service
 
 public class SweetOrderServiceImpl implements ISweetOrderService {
-	 @Autowired
-	 
-	 ISweetOrderRepository repository;
+	@Autowired
 
+	ISweetOrderRepository repository;
 
 	@Override
 	public SweetOrderDTO addSweetOrder(SweetOrder sweetOrder) {
-		return  SweetOrderUtils. convertToSweetOrderDto( repository.save(sweetOrder));
+		return SweetOrderUtils.convertToSweetOrderDto(repository.save(sweetOrder));
 	}
 
 	@Override
@@ -35,12 +34,10 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		SweetOrderDTO sweetOrderDTO;
 		if (sweetOrder == null) {
 			sweetOrderDTO = null;
-		}
-		else {
+		} else {
 			if (repository.existsById(sweetOrder.getSweetOrderId())) {
-				sweetOrderDTO = SweetOrderUtils. convertToSweetOrderDto( repository.save(sweetOrder));
-			}
-			else {
+				sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(repository.save(sweetOrder));
+			} else {
 				throw new SweetOrderNotFoundException();
 			}
 		}
@@ -63,7 +60,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 
 	@Override
 	public List<SweetOrderDTO> showAllSweetOrders() {
-		
+
 		return SweetOrderUtils.convertToSweetOrderDtoList(repository.findAll());
 	}
 
@@ -77,78 +74,74 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 			if (groupedProducts != null) {
 				Set<Product> keys = groupedProducts.keySet();
 				for (Product product : keys) {
-					count =  groupedProducts.get(product);
+					count = groupedProducts.get(product);
 					if (count != null) {
 						sum += (product.getPrice() * count);
 					}
 				}
 			}
-			
+
 		}
 		return sum;
 	}
-	
+
 	public static boolean vaidateGroupedProducts(SweetOrder sweetOrder) {
 		boolean result;
-		Map<Product,Long> groupedProducts = null;
+		Map<Product, Long> groupedProducts = null;
 		groupedProducts = sweetOrder.getGroupedProducts();
-		
+
 		if (groupedProducts == null) {
 			result = false;
-		}
-		else {
-			Map<Product,Long> correctGroupedProducts = sweetOrder.initiateGroupedProducts();
+		} else {
+			Map<Product, Long> correctGroupedProducts = sweetOrder.initiateGroupedProducts();
 			if (groupedProducts.equals(correctGroupedProducts)) {
 				result = true;
-			}
-			else {
+			} else {
 				result = false;
 			}
 		}
 		return result;
 	}
-	
+
 	public static boolean validateSweetOrderId(SweetOrder sweetOrder) {
 		boolean result;
-		if (sweetOrder== null) {
+		if (sweetOrder == null) {
 			result = false;
-		}
-		else {
+		} else {
 			Integer id = sweetOrder.getSweetOrderId();
 			if (id != null && id >= 0) {
 				result = true;
-			}
-			else {
+			} else {
 				result = false;
 			}
 		}
 		return result;
 	}
-	
+
 	public static boolean validateUser(SweetOrder sweetOrder) {
-		return (sweetOrder != null && sweetOrder.getUser()!= null);
+		return (sweetOrder != null && sweetOrder.getUser() != null);
 	}
-	
+
 	public static boolean validateListItems(SweetOrder sweetOrder) {
 		boolean result = false;
 		if (sweetOrder != null) {
-			List  items = sweetOrder.getListItems();
+			List items = sweetOrder.getListItems();
 			if (items != null && items.size() >= 0) {
 				result = true;
 			}
 		}
 		return result;
 	}
-	
+
 	public static boolean validateCreatedDate(SweetOrder sweetOrder) {
 		boolean result = false;
 		if (sweetOrder != null) {
-			LocalDate  date = sweetOrder.getCreatedDate();
+			LocalDate date = sweetOrder.getCreatedDate();
 			if (date != null && date.isBefore(LocalDate.now())) {
 				result = true;
 			}
 		}
-		
+
 		return result;
 	}
 

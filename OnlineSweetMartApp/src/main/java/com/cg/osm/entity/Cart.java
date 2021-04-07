@@ -17,9 +17,7 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartId;
 	
-	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "productid")
 	private List<Product> listProduct;
 	
 	private int productCount;
@@ -31,59 +29,72 @@ public class Cart {
 		super();
 	}
 
-	public Cart(double grandTotal, List<Product> listProduct, int cartId, int productCount, double total) {
+
+	public Cart(int cartId, List<Product> listProduct, int productCount, double total, double grandTotal) {
 		super();
-		this.grandTotal = grandTotal;
-		this.listProduct = listProduct;
 		this.cartId = cartId;
+		this.listProduct = listProduct;
 		this.productCount = productCount;
 		this.total = total;
-	}
-
-	public double getGrandTotal() {
-		return grandTotal;
-	}
-
-	public void setGrandTotal(double grandTotal) {
 		this.grandTotal = grandTotal;
 	}
 
-	public List<Product> getListProduct() {
-		return listProduct;
-	}
-
-	public void setListProduct(List<Product> listProduct) {
-		this.listProduct = listProduct;
-	}
 
 	public int getCartId() {
 		return cartId;
 	}
 
+
 	public void setCartId(int cartId) {
 		this.cartId = cartId;
 	}
+
+
+	public List<Product> getListProduct() {
+		return listProduct;
+	}
+
+
+	public void setListProduct(List<Product> listProduct) {
+		this.listProduct = listProduct;
+	}
+
 
 	public int getProductCount() {
 		return productCount;
 	}
 
+
 	public void setProductCount(int productCount) {
 		this.productCount = productCount;
 	}
+
 
 	public double getTotal() {
 		return total;
 	}
 
+
 	public void setTotal(double total) {
 		this.total = total;
 	}
 
-	@Override
-	public String toString() {
-		return "Cart [grandTotal=" + grandTotal + ", listProduct=" + listProduct + ", cartId=" + cartId
-				+ ", productCount=" + productCount + ", total=" + total + "]";
+
+	public double getGrandTotal() {
+		return grandTotal;
 	}
 
+
+	public void setGrandTotal(double grandTotal) {
+		this.grandTotal = grandTotal;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Cart [cartId=" + cartId + ", listProduct=" + listProduct + ", productCount=" + productCount + ", total="
+				+ total + ", grandTotal=" + grandTotal + "]";
+	}
+
+	
 }
