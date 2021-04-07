@@ -10,22 +10,21 @@ public class ProductDTO {
 	private double price;
 	private String description;
 	private boolean available;
-	private String category;
-	
+	private String photopath;
 	
 	public ProductDTO() {
 		super();
 		
 	}
 	public ProductDTO(int productid, String name, double price, String description, boolean available,
-			String category) {
+			String photopath) {
 		super();
 		this.productid = productid;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.available = available;
-		this.category = category;
+		this.photopath = photopath;
 	}
 	public int getProductid() {
 		return productid;
@@ -57,11 +56,11 @@ public class ProductDTO {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
-	public String getCategory() {
-		return category;
+	public String getPhotopath() {
+		return photopath;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setPhotopath(String photopath) {
+		this.photopath = photopath;
 	}
 	
 
