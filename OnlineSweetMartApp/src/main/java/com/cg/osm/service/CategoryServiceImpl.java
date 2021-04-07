@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	public static boolean validateCategoryId(Category category) throws CategoryNotFoundException
 	{
 		boolean flag=false;
-		if(category.getCategoryId()>0)
+		if(category.getCategoryId()>=0)
 			flag=true;
 		else
 			throw new CategoryNotFoundException("Not a valid category id");

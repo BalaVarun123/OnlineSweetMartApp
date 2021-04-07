@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Category {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer categoryId;
+	private int categoryId;
     private String name;
     public Category()
     {
