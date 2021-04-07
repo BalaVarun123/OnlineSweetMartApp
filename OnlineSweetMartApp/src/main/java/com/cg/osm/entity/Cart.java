@@ -18,8 +18,8 @@ public class Cart {
 	private int cartId;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="cart")
 	private List<Product> listProduct;
-	
 	private int productCount;
 	private double total;
 	private double grandTotal;

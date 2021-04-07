@@ -2,6 +2,8 @@ package com.cg.osm.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +15,48 @@ import com.cg.osm.repository.ICartRepository;
 import com.cg.osm.util.CartUtils;
 import org.springframework.stereotype.Service;
 
+/*
+ * Author : UJJWAL SINGH A
+ * Version : 1.0
+ * Date : 05-04-2021
+ * Description : This is Cart Service Layer
+*/
+
 @Service
 public class CartServiceImp implements ICartService {
 
+	final static Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
+
 	@Autowired
-	ICartRepository cartRepo;
+	private ICartRepository cartRepo;
 
 	static String cartNotFound = "No Cart found with given ID";
+	
+	/*
+	 * Description : This method Adds new Cart
+	 * Input Param : Cart Object 
+	 * Return Value : CartDTO Object 
+	*/
 
 	@Override
 	public CartDTO addCart(Cart cart) {
+		LOGGER.info("addCart() service is initiated");
 		Cart cartEntity;
-
 		cartEntity = cartRepo.save(cart);
+		LOGGER.info("addCart() service has executed");
 		return CartUtils.convertToCartDto(cartEntity);
 	}
 
+	/*
+	 * Description : This method Updates existing Cart
+	 * Input Param : Cart Object 
+	 * Return Value : CartDTO Object 
+	 * Exception : CartNotFoundException
+	 */
+
 	@Override
 	public CartDTO updateCart(Cart cart) throws CartNotFoundException {
-
+		LOGGER.info("updateCart() service is initiated");
 		Cart updatecart;
 
 		Cart existCart = cartRepo.findById(cart.getCartId()).orElse(null);
@@ -42,12 +67,23 @@ public class CartServiceImp implements ICartService {
 		} else
 
 			updatecart = cartRepo.save(cart);
+
+		LOGGER.info("updateCart() service has executed");
+
 		return CartUtils.convertToCartDto(updatecart);
 
 	}
 
+	/*
+	 * Description : This method Deletes existing Cart
+	 * Input Param : int 
+	 * Return Value : CartDTO Object 
+	 * Exception : CartNotFoundException
+	 */
+	
 	@Override
 	public CartDTO cancelCart(int cartId) throws CartNotFoundException {
+		LOGGER.info("cancelCart() service is initiated");
 
 		Cart existCart = cartRepo.findById(cartId).orElse(null);
 
@@ -56,23 +92,43 @@ public class CartServiceImp implements ICartService {
 		else
 
 			cartRepo.delete(existCart);
+
+		LOGGER.info("cancelCart() service has executed");
+
 		return CartUtils.convertToCartDto(existCart);
 	}
 
+	/*
+	 * Description : This method Shows existing Cart
+	 *  Input Param : int
+	 *  Return Value: CartDTO Object 
+	 * Exception : CartNotFoundException
+	 */
+
 	@Override
 	public CartDTO showCart(int cartId) throws CartNotFoundException {
-
+		LOGGER.info("showCart() service is initiated");
 		Cart showCart = cartRepo.findById(cartId).orElse(null);
 		if (showCart == null)
 			throw new CartNotFoundException(cartNotFound);
+
+		LOGGER.info("showCart() service has executed");
+
 		return CartUtils.convertToCartDto(showCart);
 	}
+	
+	/*
+	 * Description : This method Shows existing Cart
+	 * Input Param : int
+	 * Return Value : CartDTO Object 
+	 * Exception : CartNotFoundException
+	 */
 
 	@Override
 	public List<CartDTO> showAllCarts() {
-
+		LOGGER.info("showAllCarts() service is initiated");
 		List<Cart> list = cartRepo.findAll();
-
+		LOGGER.info("showAllCarts() service has executed");
 		return CartUtils.convertToCartDtoList(list);
 	}
 
