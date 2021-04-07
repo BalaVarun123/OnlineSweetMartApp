@@ -7,21 +7,26 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.osm.entity.OrderBill;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.repository.IOrderBillRepository;
 import com.cg.osm.service.IOrderBillService;
+import com.cg.osm.service.OrderBillServiceImpl;
+import com.cg.osm.util.OrderBillUtils;
 
 import java.util.List;
 import com.cg.osm.model.OrderBillDTO;
+
+
+@SpringBootTest
 class OrderBillServiceImplTest {
 
 	@Autowired
 	IOrderBillService service;
-	@Autowired 
-	IOrderBillRepository repo;
+	
 	
 	
 	@Test
@@ -53,14 +58,21 @@ class OrderBillServiceImplTest {
 
 	@Test
 	void testShowAllOrderBills() {
-		OrderBill orderBill = new OrderBill(1,LocalDate.now(),0,new ArrayList<SweetOrder>());
+		OrderBill orderBill = new OrderBill(4,LocalDate.now(),0,new ArrayList<SweetOrder>());
 		assertNotNull(service.addOrderBill(orderBill));
 		List<OrderBillDTO> orderbillDTOList = service.showAllOrderBills();
+		assertNotNull(orderbillDTOList);
+		assertTrue(orderbillDTOList.contains(OrderBillUtils.convertToOrderBillDto(orderBill)));
 	}
 
 	@Test
 	void testShowAllOrderBillsInt() {
-		fail("Not yet implemented");
+		OrderBill orderBill = new OrderBill(5,LocalDate.now(),0,new ArrayList<SweetOrder>());
+		assertNotNull(service.addOrderBill(orderBill));
+		List<OrderBillDTO> orderbillDTOList = service.showAllOrderBills(5);
+		assertNotNull(orderbillDTOList);
+		assertEquals(1,orderbillDTOList.size());
+		assertTrue(orderbillDTOList.contains(OrderBillUtils.convertToOrderBillDto(orderBill)));
 	}
 
 	@Test
@@ -70,12 +82,27 @@ class OrderBillServiceImplTest {
 
 	@Test
 	void testValidateOrderBillCreatedDate() {
-		fail("Not yet implemented");
+		LocalDate date1 = LocalDate.now();
+		LocalDate date2 = date1.withYear(1990);
+		LocalDate date3 = date1.withYear(2030);
+		OrderBill orderBill = new OrderBill(5,date1,0,new ArrayList<SweetOrder>());
+		assertTrue(OrderBillServiceImpl.validateOrderBillCreatedDate(orderBill));
+		orderBill.setCreatedDate(date2);
+		assertTrue(OrderBillServiceImpl.validateOrderBillCreatedDate(orderBill));
+		orderBill.setCreatedDate(date3);
+		assertFalse(OrderBillServiceImpl.validateOrderBillCreatedDate(orderBill));
+		assertFalse(OrderBillServiceImpl.validateOrderBillCreatedDate(null));
 	}
 
 	@Test
 	void testValidateOrderBillListSweetOrder() {
-		fail("Not yet implemented");
+		OrderBill orderBill = new OrderBill(5,LocalDate.now(),0,null);
+		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
+		List<SweetOrder> sweetOrderList = new ArrayList<SweetOrder>();
+		orderBill.setListSweetOrder(sweetOrderList);
+		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
+		sweetOrderList.add(new SweetOrder());
+		assertTrue(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
 	}
 
 	@Test

@@ -111,6 +111,19 @@ public class UserServiceImpl implements IUserService{
 	}
 	
 	
+	public static boolean validatePasswordConfirm(User user) {
+		boolean flag = true;
+		String password = user.getPasswordConfirm();
+		if (password != null && password.matches(".*[@#$%^&+=].*") && password.matches(".*[a-z].*") && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.length() >= 8) {
+			flag = true;
+		}
+		else {
+			flag = false;
+		}
+		return flag;
+	}
+	
+	
 	public static boolean validateType(User user) {
 		boolean flag = true;
 		String type = user.getType();

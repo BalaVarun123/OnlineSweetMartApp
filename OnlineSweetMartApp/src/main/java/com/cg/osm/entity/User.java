@@ -12,17 +12,19 @@ public class User {
     private Long userId;
     private String username;
     private String password;
+    private String passwordConfirm;
     private String type;
     private boolean isLoggedIn;
     
     public User() {
     	
     }
-	public User(Long userId, String username, String password, String type,boolean isLoggedIn) {
+	public User(Long userId, String username, String password,String passwordConfirm, String type,boolean isLoggedIn) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.type = type;
 		this.isLoggedIn = isLoggedIn;
 	}
@@ -56,11 +58,19 @@ public class User {
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
 	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", type=" + type
-				+ ", isLoggedIn=" + isLoggedIn + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", passwordConfirm="
+				+ passwordConfirm + ", type=" + type + ", isLoggedIn=" + isLoggedIn + "]";
 	}
+	
+	
 	
     
     
