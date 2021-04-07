@@ -31,8 +31,8 @@ public class ProductController {
 	
 	
 	@PostMapping(value = "/product/add", produces = "application/json", consumes  = "application/json")
-	public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product, ResponseEntity<ProductDTO> productResponse) throws ProductNotFoundException {
-		
+	public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product) throws ProductNotFoundException {
+		ResponseEntity<ProductDTO> productResponse;
 		if (ProductServiceImpl.validateProduct(product)) {
 			
 			
@@ -51,8 +51,8 @@ public class ProductController {
 	
 	
 	@PutMapping(value = "/product/update", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product, ResponseEntity<ProductDTO> productResponse) throws ProductNotFoundException {
-
+	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
+		ResponseEntity<ProductDTO> productResponse;
 		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(product)) {
 			
 			ProductDTO result=service.updateProduct(product);

@@ -114,7 +114,7 @@ public class ProductServiceImpl implements IProductService {
 	
 	public static boolean validatePhotoPath(String photopath) throws ProductNotFoundException{
 		boolean flag=false;
-		File path=new File("E:\\photos");
+		File path=new File(photopath);
 		if(path.isFile() && path!=null)
 			flag=true;
 		else
