@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 
 
 
+
+
 @Entity
 public class Product {
 	@Id

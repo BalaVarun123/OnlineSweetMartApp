@@ -1,19 +1,13 @@
 package com.cg.osm.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 import org.springframework.stereotype.Component;
 
+import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Category;
 import com.cg.osm.entity.Customer;
+import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.User;
-import com.cg.osm.entity.Cart;
-import com.cg.osm.entity.Product;
 
 
 @Component

@@ -2,8 +2,6 @@ package com.cg.osm.service;
 
 import java.util.List;
 
-
-
 import com.cg.osm.entity.Category;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.model.CategoryDTO;
