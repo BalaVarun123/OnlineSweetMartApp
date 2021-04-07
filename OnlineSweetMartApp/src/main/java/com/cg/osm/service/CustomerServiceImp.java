@@ -86,7 +86,7 @@ public class CustomerServiceImp implements ICustomerService{
 
 	public static boolean validateCustomerUsername(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
-		if(customer.getUsername().matches("^[a-zA-Z]+$") && customer.getUsername().length()>2)
+		if(customer.getUsername().matches("^[a-zA-Z0-9 ]+$") && customer.getUsername().length()>2)
 			flag=true;
 		else 
 			throw new CustomerNotFoundException("Enter a valid name");
