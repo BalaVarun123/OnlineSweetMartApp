@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class CartServiceImp implements ICartService {
 
 	@Autowired
-	ICartRepository cartRepo;
+	private ICartRepository cartRepo;
 
 	static String cartNotFound = "No Cart found with given ID";
 

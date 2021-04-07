@@ -28,7 +28,7 @@ import com.cg.osm.service.ICartService;
 public class CartController {
 
 	@Autowired
-	ICartService cartService;
+	private ICartService cartService;
 
 	final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
