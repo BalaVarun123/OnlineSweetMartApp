@@ -23,6 +23,13 @@ import com.cg.osm.model.CartDTO;
 import com.cg.osm.service.CartServiceImp;
 import com.cg.osm.service.ICartService;
 
+/*
+ * Author : UJJWAL SINGH A
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Cart Controller
+*/
+
 @RestController
 @RequestMapping("/api/osm")
 public class CartController {
@@ -35,15 +42,16 @@ public class CartController {
 	// 1. ADD-CART
 	@PostMapping(value = "/add-cart", consumes = "application/json")
 	public ResponseEntity<CartDTO> addCart(@RequestBody Cart cart) throws CartNotFoundException {
-
+		LOGGER.info("add-cart URL is opened");
+		LOGGER.info("addCart() is initiated");
 		CartDTO cartdto = null;
 		ResponseEntity<CartDTO> cartResponse = null;
 
 		if (CartServiceImp.validateCart(cart)) {
 
 			cartdto = cartService.addCart(cart);
+			LOGGER.info("addCart() has executed");
 			cartResponse = new ResponseEntity<CartDTO>(cartdto, HttpStatus.ACCEPTED);
-			LOGGER.info("Cart added");
 
 		} else
 
@@ -56,6 +64,8 @@ public class CartController {
 	// 2. UPDATE-CART
 	@PutMapping("/update-cart")
 	public ResponseEntity<Object> updateCart(@RequestBody Cart cart) throws CartNotFoundException {
+		LOGGER.info("update-cart URL is opened");
+		LOGGER.info("updateCart() is initiated");
 
 		CartDTO cartdto = null;
 		ResponseEntity<Object> cartResponse = null;
@@ -63,10 +73,9 @@ public class CartController {
 		if (CartServiceImp.validateCart(cart) && CartServiceImp.validateCartId(cart)) {
 
 			cartdto = cartService.updateCart(cart);
+			LOGGER.info("updateCart() has executed");
 
 			cartResponse = new ResponseEntity<Object>(cartdto, HttpStatus.ACCEPTED);
-
-			LOGGER.info("Cart updated");
 
 		} else {
 
@@ -79,22 +88,26 @@ public class CartController {
 
 	// 3. DELETE - CART
 	@DeleteMapping("delete-cart/{id}")
-	public ResponseEntity<Object> cancelCart(int cartId) throws CartNotFoundException
-	{
+	public ResponseEntity<Object> cancelCart(int cartId) throws CartNotFoundException {
+		LOGGER.info("cancel-Cart URL is opened");
+		LOGGER.info("cancelCart() is initiated");
 		CartDTO cartDTO = cartService.cancelCart(cartId);
-		LOGGER.info("Cart deleted");
+		LOGGER.info("cancelCart() has executed");
 		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
-		
+
 	}
 
 	// 4. SHOW-CART BY ID
 	@GetMapping("/show-cart/{id}")
 	public CartDTO showCart(@PathVariable("id") int cartId) throws CartNotFoundException {
+		LOGGER.info("show-cart URL is opened");
+		LOGGER.info("showCart() is initiated");
 
 		CartDTO cartdto = null;
 
 		if (!(cartId <= 0)) {
 			cartdto = cartService.showCart(cartId);
+			LOGGER.info("showCart() has executed");
 		}
 
 		return cartdto;
@@ -104,6 +117,8 @@ public class CartController {
 	// 5. SHOW ALL CARTS
 	@GetMapping("/show-all-carts")
 	public List<CartDTO> showAllCarts() {
+		LOGGER.info("show-all-carts URL is opened");
+		LOGGER.info("getAllTenant() is initiated");
 		return cartService.showAllCarts();
 
 	}

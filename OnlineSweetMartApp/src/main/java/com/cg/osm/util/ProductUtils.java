@@ -22,6 +22,7 @@ public class ProductUtils {
 		productdto.setPhotopath(product.getPhotopath());
 		productdto.setDescription(product.getDescription());
 		productdto.setAvailable(product.isAvailable());  
+		productdto.setCategory(product.getCategory());  
 		return productdto;
 	}
 	
