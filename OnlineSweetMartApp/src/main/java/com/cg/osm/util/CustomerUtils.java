@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.cg.osm.model.CustomerDTO;
-import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Customer;
+import com.cg.osm.model.CustomerDTO;
 @Component
 public class CustomerUtils {
 	public static List<CustomerDTO> convertToCustomerDtoList(List<Customer> list){

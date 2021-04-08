@@ -1,7 +1,6 @@
 package com.cg.osm.service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.osm.entity.Product;
-import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.SweetOrderNotFoundException;
 import com.cg.osm.model.SweetOrderDTO;

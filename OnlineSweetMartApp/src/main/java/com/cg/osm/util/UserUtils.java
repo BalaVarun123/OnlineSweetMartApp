@@ -3,8 +3,6 @@ package com.cg.osm.util;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 import com.cg.osm.entity.User;
 import com.cg.osm.model.UserDTO;
 

@@ -91,13 +91,13 @@ public class CategoryServiceImpl implements ICategoryService {
 		return CategoryUtils.convertToCategoryDtoList(list);
 	}
 
-	//VALIDATIONS
 	@Override
 	public double calculateTotalCost(int categoryId) 
 	{
 		return repo.calculateTotalCost(categoryId);
 	}
 	
+	//VALIDATIONS
 	public static boolean validateCategoryId(Category category) throws CategoryNotFoundException
 	{
 		boolean flag=false;
