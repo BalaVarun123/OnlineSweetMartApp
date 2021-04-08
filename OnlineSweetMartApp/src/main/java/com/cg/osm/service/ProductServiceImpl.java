@@ -25,14 +25,19 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public ProductDTO updateProduct(Product product) throws ProductNotFoundException {
+	public ProductDTO updateProduct(int productid,Product product) throws ProductNotFoundException {
 		
-		Product productCheck = repo.findById(product.getProductid()).orElse(null);
+		Product productCheck = repo.findById(productid).orElse(null);
 		if ( productCheck== null) {
 			throw new ProductNotFoundException("Cannot find the product with the given id.");
 		}
 		else {
-			return ProductUtils.convertToProductDto(repo.save(product));
+			productCheck.setName(product.getName());
+			productCheck.setDescription(product.getDescription());
+			productCheck.setPrice(product.getPrice());
+			productCheck.setAvailable(product.isAvailable());
+			productCheck.setPhotopath(product.getPhotopath());
+			return ProductUtils.convertToProductDto(repo.save(productCheck));
 		}
 	}
 
@@ -67,7 +72,7 @@ public class ProductServiceImpl implements IProductService {
 	public static boolean validateProduct(Product product) throws ProductNotFoundException {
 		boolean flag = false;
 		if (product == null)
-			throw new ProductNotFoundException("Product details cannot be null");
+			throw new ProductNotFoundException("Product details cannot be blank");
 		else if (!(validateName(product.getName()) && validateProductPrice(product.getPrice())
 				&& validatePhotoPath(product.getPhotopath())&& validateAvailable(product.isAvailable())))
 
@@ -76,11 +81,10 @@ public class ProductServiceImpl implements IProductService {
 			flag = true;
 		return flag;
 	}
-	public static boolean validateProductId(Product product) {
+	public static boolean validateProductId(int productid) {
 		boolean flag = true;
-		Integer pid = product.getProductid();
-		ProductServiceImpl service1 = new ProductServiceImpl();
-		if (pid == null || !service1.repo.existsById(pid))
+		Integer pid = productid;
+		if (pid == null )
 			flag = false;
 		return flag;
 	}
