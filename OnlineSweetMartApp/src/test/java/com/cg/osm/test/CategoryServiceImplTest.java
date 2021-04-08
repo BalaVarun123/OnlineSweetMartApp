@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ class CategoryServiceImplTest {
 	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
 	
 	Category category=null;
+	
 	
 	@Test
 	void testAddCategory() 
