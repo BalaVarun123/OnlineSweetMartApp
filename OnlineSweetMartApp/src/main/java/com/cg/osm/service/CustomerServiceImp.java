@@ -18,16 +18,39 @@ import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
 
+/*
+ * Author : JEEVETHA
+ * Version : 1.0
+ * Date : 05-04-2021
+ * Description : This is CUSTOMER Service Layer
+*/
+
 @Service
 public class CustomerServiceImp implements ICustomerService{
     @Autowired
     public ICustomerRepository repository;
+    
+    /*
+	 * Description : This method Adds new Customer
+	 * Input Param : Customer Object 
+	 * Return Value : CustomerDTO Object 
+	*/
+
+    
 	@Override
 	public CustomerDTO addCustomer(Customer customer) {
 		if(customer==null)
 			return null;
 		return CustomerUtils.convertToCustomerDto(repository.save(customer));
 	}
+	
+	/*
+	 * Description : This method updates Customer
+	 * Input Param : Customer Object 
+	 * Return Value : CustomerDTO Object 
+	 * Exception : Customer Not Found Exception
+	*/
+
 	
 	@Override
 	public CustomerDTO updateCustomer(Customer customer)throws CustomerNotFoundException {
@@ -40,6 +63,14 @@ public class CustomerServiceImp implements ICustomerService{
 	}
 		
 	}
+	
+	/*
+	 * Description : This method cancels Customer
+	 * Input Param : int 
+	 * Return Value : CustomerDTO Object 
+	 * Exception : Customer Not Found Exception
+	*/
+
 
 	@Override
 	public CustomerDTO cancelCustomer(int customerId) throws CustomerNotFoundException 
@@ -54,11 +85,24 @@ public class CustomerServiceImp implements ICustomerService{
 		}
 	}
 	
+	/*
+	 * Description : This method displays existing Customer
+	 * Return Value : CustomerDTO Object 
+	*/
+
+	
 	@Override
 	public List<CustomerDTO> showAllCustomers() {
 		List<Customer> listCustomers = repository.findAll();
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
+	
+	/*
+	 * Description : This method displays existing Customer
+	 * Input Param : int 
+	 * Return Value : CustomerDTO Object 
+	*/
+
 
 	public List<CustomerDTO> showAllCustomers(int customerId) {
 		List <Customer> listCustomers = new ArrayList<Customer>();
@@ -69,8 +113,9 @@ public class CustomerServiceImp implements ICustomerService{
 		
 	}
 	
+	//Validations
 	
-	public static boolean validateCust(Customer customer) throws CustomerNotFoundException {
+	public static boolean validateCustomer(Customer customer) throws CustomerNotFoundException {
 		boolean flag;
 		if (customer == null  ) {
 			flag = false;
@@ -84,6 +129,7 @@ public class CustomerServiceImp implements ICustomerService{
 		return flag;
 	}
 	
+	//username
 
 	public static boolean validateCustomerUsername(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
@@ -95,6 +141,8 @@ public class CustomerServiceImp implements ICustomerService{
 			
 	}
 
+	//userId
+	
 	public static boolean validateCustomerUserId(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
 		if(customer.getUserId()>0)
@@ -104,7 +152,8 @@ public class CustomerServiceImp implements ICustomerService{
 		return flag;
 	}
 	
-
+	//Validating sweet order
+	
 	public static boolean validateCustomerSetSweetOrders(Customer customer) {
 		boolean flag = true;
 		Set<SweetOrder> setSweetOrder = customer.getSweetOrders();
@@ -112,6 +161,9 @@ public class CustomerServiceImp implements ICustomerService{
 			flag = false;
 		return flag;
 	}
+	
+	//validating sweetItem	
+	
 		public static boolean validateCustomerSweetItem(Customer customer) {
 		boolean flag = true;
 		List<SweetItem> listSweetItem = customer.getSweetItems();
@@ -119,6 +171,7 @@ public class CustomerServiceImp implements ICustomerService{
 			flag = false;
 		return flag;
 	}
+		//Validating Cart
 		
 		public static boolean validateCartId(Cart cart) throws CartNotFoundException
 		{

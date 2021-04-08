@@ -22,6 +22,14 @@ import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.service.ICustomerService;
 import com.cg.osm.service.CustomerServiceImp;
 
+/*
+ * Author : JEEVETHA 
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Customer Controller
+*/
+
+
 @RestController
 @RequestMapping("/api/osm")
 public class CustomerController {
@@ -31,6 +39,7 @@ public class CustomerController {
 
 	final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
+	//ADD CUSTOMER
 	@PostMapping(value = "/customer/add", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Object> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
 		Object result;
@@ -56,6 +65,7 @@ public class CustomerController {
 		return new ResponseEntity<Object>(result, status);
 	}
 
+	//UPDATE CUSTOMER
 	@PutMapping(value = "/customer/update", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
 		Object result;
@@ -81,6 +91,7 @@ public class CustomerController {
 		return new ResponseEntity<Object>(result, status);
 	}
 
+	//CANCEL CUSTOMER
 	@DeleteMapping(value = "/customer/cancel/{id}")
 	public ResponseEntity<Object> cancelCustomer(@PathVariable("id") int customerId) throws CustomerNotFoundException {
 		CustomerDTO customer_delete = null;
@@ -96,11 +107,14 @@ public class CustomerController {
 		return response;
 	}
 
+	
+	//SHOW ALL CUSTOMER
 	@GetMapping(value = "/customer/show-all", produces = "application/json")
 	public List<CustomerDTO> showAllCustomers() {
 		return service.showAllCustomers();
 	}
 
+	//SHOW CUSTOMER USING CUSTOMER ID
 	@GetMapping(value = "/customer/show/{CustomerId}", produces = "application/json")
 	public ResponseEntity<Object> showAllCustomers(@PathVariable("id") int customerId)
 			throws CustomerNotFoundException {
