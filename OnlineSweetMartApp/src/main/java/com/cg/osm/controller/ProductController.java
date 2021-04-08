@@ -77,7 +77,7 @@ public class ProductController {
 		return service.showAllProducts();
 	} 
 	
-	@GetMapping(value = "/product/show-by-id/{product}", produces = "application/json")
+	@GetMapping(value = "/product/show-by-id/{productid}", produces = "application/json")
 	public ProductDTO showAllProductDTO(@PathVariable("productid") int productid) throws ProductNotFoundException{
 		return service.showAllProducts(productid);
 	
