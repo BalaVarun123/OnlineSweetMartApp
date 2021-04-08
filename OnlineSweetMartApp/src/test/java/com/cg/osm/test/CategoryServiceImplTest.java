@@ -51,7 +51,6 @@ class CategoryServiceImplTest {
 		CategoryDTO categoryDTO = service.addCategory(category);
 		assertNotNull(categoryDTO);
 		int id = categoryDTO.getCategoryId();
-		//orderBill.setTotalCost(11331.0f);
 		LOGGER.info("category id = "+id);
 		assertNotNull(service.cancelCategory(id));
 	}
