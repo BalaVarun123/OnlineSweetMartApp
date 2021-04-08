@@ -10,17 +10,39 @@ import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.repository.ICategoryRepository;
 import com.cg.osm.util.CategoryUtils;
+/*
+ * Author : RAKSHA R
+ * Version : 1.0
+ * Date : 02-04-2021
+ * Description : This is Category Controller
+*/
+
 @Service
 public class CategoryServiceImpl implements ICategoryService {
 
 	@Autowired
 	private ICategoryRepository repo;
 	
+	/*
+	 * Description : This method Adds new Category
+	 * Input Param : Category Object 
+	 * Return Value : CategoryDTO Object 
+	*/
+
 	@Override
 	public CategoryDTO addCategory(Category category) {
 		Category ctgy = repo.save(category);
 		return CategoryUtils.convertToCategoryDto(ctgy);
 	}
+	
+
+	/*
+	 * Description : This method updates the Category
+	 * Input Param : Category Object 
+	 * Return Value : CategoryDTO Object 
+	 * 	 * Exception : CategoryNotFoundException
+
+	*/
 
 	@Override
 	public CategoryDTO updateCategory(Category category) throws CategoryNotFoundException 
@@ -36,6 +58,13 @@ public class CategoryServiceImpl implements ICategoryService {
 		return CategoryUtils.convertToCategoryDto(repo.save(category));
 	}
 
+	/*
+	 * Description : This method deletes the Category
+	 * Input Param : int
+	 * Return Value : CategoryDTO Object 
+	 * Exception : CategoryNotFoundException
+
+	*/
 	@Override
 	public CategoryDTO cancelCategory(int categoryId) throws CategoryNotFoundException {
 		Category existingCategory = repo.findById(categoryId).orElse(null);
@@ -49,7 +78,12 @@ public class CategoryServiceImpl implements ICategoryService {
 			return CategoryUtils.convertToCategoryDto(existingCategory);
 		}
 	}
+	
 
+	/*
+	 * Description: This method displays all the categories Return Value:
+	 * CayegoryDTO object
+	 */
 	@Override
 	public List<CategoryDTO> showAllCategorys() {
 		List<Category> list= repo.findAll();
@@ -63,6 +97,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		return repo.calculateTotalCost(categoryId);
 	}
 	
+	//VALIDATIONS
 	public static boolean validateCategoryId(Category category) throws CategoryNotFoundException
 	{
 		boolean flag=false;
