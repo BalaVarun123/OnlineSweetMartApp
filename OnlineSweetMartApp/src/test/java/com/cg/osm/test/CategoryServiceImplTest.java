@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,26 +29,26 @@ class CategoryServiceImplTest {
 	@Test
 	void testAddCategory() 
 	{ 
-		 category = new Category(1,"sweetCategoryone");
+		 category = new Category(1,"ChoclateCategory");
 	     assertNotNull(service.addCategory(category));
 	}
 	
 	
       @Test void testUpdateCategory() throws CategoryNotFoundException 
       {
-	  category = new Category(2,"sweetCategoryone");
+	  category = new Category(2,"ChoclateCategory");
 	  assertThrows(CategoryNotFoundException.class, () -> service.updateCategory(category)); 
 	  CategoryDTO categoryDTO =service.addCategory(category); 
 	  assertNotNull(categoryDTO);
 	  category.setCategoryId(categoryDTO.getCategoryId());
-	  category.setName("sweet");
+	  category.setName("MilkSweet");
 	  assertNotNull(service.updateCategory(category));
 	  assertNull(service.updateCategory(null)); 
 	  }
 	
 	@Test
 	void testCancelCategory() throws CategoryNotFoundException {
-		category= new Category (3,"sweetCategorythree");
+		category= new Category (3,"ChoclateSweets");
 		assertThrows(CategoryNotFoundException.class, () -> service.cancelCategory(3));
 		CategoryDTO categoryDTO = service.addCategory(category);
 		assertNotNull(categoryDTO);
@@ -55,15 +57,21 @@ class CategoryServiceImplTest {
 		assertNotNull(service.cancelCategory(id));
 	}
 
-	@Test 
+	@Test
 	void testShowAllCategorys() 
-	{ 
-		assertNotNull(service.showAllCategorys());
+	{
+		category = new Category(4,"NutsSweet");
+		assertNotNull(service.addCategory(category));
+		List<CategoryDTO> categoryDTOList = service.showAllCategorys();
+		assertNotNull(categoryDTOList);
+		
 	}
-
-  @Test void testCalculateTotalCost() 
+  @Test
+  void testCalculateTotalCost() 
   { 
-	 
+	  double cost=0;
+	 assertEquals(cost, service.calculateTotalCost(1));
+	
   }
 	  
 	 
