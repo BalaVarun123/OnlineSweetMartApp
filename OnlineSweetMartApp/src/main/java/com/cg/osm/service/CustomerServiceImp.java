@@ -1,22 +1,21 @@
 package com.cg.osm.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import com.cg.osm.util.CustomerUtils;
-import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
+import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.repository.ICustomerRepository;
-import com.cg.osm.entity.SweetOrder;
+import com.cg.osm.util.CustomerUtils;
 
 @Service
 public class CustomerServiceImp implements ICustomerService{

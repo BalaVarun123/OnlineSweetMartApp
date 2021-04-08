@@ -16,17 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cg.osm.entity.Customer;
-import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
-import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
-import com.cg.osm.model.OrderBillDTO;
-import com.cg.osm.service.ICustomerService;
 import com.cg.osm.service.CustomerServiceImp;
+import com.cg.osm.service.ICustomerService;
 
 @RestController
 @RequestMapping("/api/osm")

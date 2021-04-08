@@ -21,6 +21,12 @@ import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.service.CategoryServiceImpl;
 import com.cg.osm.service.ICategoryService;
+/*
+ * Author : RAKSHA R
+ * Version : 1.0
+ * Date : 05-04-2021
+ * Description : This is Category Controller
+*/
 
 @RestController
 @RequestMapping(value="/api/osm")
@@ -31,6 +37,7 @@ public class CategoryController
   
   final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
  
+  // 1.ADD CATEGORY
   @PostMapping(value="/category/add")
   public ResponseEntity<Object> addCategory(@RequestBody Category category) throws CategoryNotFoundException
   {
@@ -50,6 +57,7 @@ public class CategoryController
 	  return response;  
   }
  
+  // 2.UPDATE CATEGORY
   @PutMapping(value="/category/update")
   public ResponseEntity<Object> updateCategory( @RequestBody Category category) throws CategoryNotFoundException
   {
@@ -68,6 +76,7 @@ public class CategoryController
 	  return response;  
   }
   
+  // 3.DELETE CATEGORY
   @DeleteMapping(value="/category/delete/{id}")
   public ResponseEntity<Object> cancelCategory(@PathVariable("id") int categoryId) throws CategoryNotFoundException
   {
@@ -85,13 +94,16 @@ public class CategoryController
 	  }
 	  return response;   
   }
- 
+  
+  
+ // 4.SHOW-ALL CATEGORY
   @GetMapping(value="/category/get-all")
   public List<CategoryDTO> showAllCategorys()
   {
 	return service.showAllCategorys();  
   }
  
+  //5. TOTAL COST BY CATEGORY ID
   @GetMapping(value="/category/total-cost/{id}")
   public double calculateTotalCost(@PathVariable("id") int categoryId) 
 	{
