@@ -12,7 +12,7 @@ public interface ICustomerService {
 
 	public CustomerDTO addCustomer(Customer customer);
 	public CustomerDTO updateCustomer(Customer customer) throws CustomerNotFoundException;
-	public CustomerDTO cancelCustomer(int customerId) throws CustomerNotFoundException;
+	public CustomerDTO cancelCustomer(long customerId) throws CustomerNotFoundException;
 	public List<CustomerDTO> showAllCustomers();
-	public List<CustomerDTO> showAllCustomers(int customerdId);
+	public List<CustomerDTO> showAllCustomers(long customerdId);
 	}

@@ -12,7 +12,7 @@ import com.cg.osm.entity.SweetOrder;
 @Component
 public class CustomerDTO {
 
-	private Long userId;
+	private long userId;
 	private String username;
 	private Set<SweetOrder> sweetOrders;
 	private List<SweetItem> sweetItems;
@@ -41,7 +41,7 @@ public class CustomerDTO {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
+	public String DTO() {
 		return username;
 	}
 
@@ -71,6 +71,12 @@ public class CustomerDTO {
 
 	public void setCart(Cart cart) {
 		this.cart = cart;
+	}
+
+	
+	
+	public String getUsername() {
+		return username;
 	}
 
 	@Override

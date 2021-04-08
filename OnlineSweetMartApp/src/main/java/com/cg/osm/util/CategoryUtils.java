@@ -24,4 +24,21 @@ public class CategoryUtils
 		return dtolist;
 	}
 	
+	
+	public static Category convertToCategory(CategoryDTO categoryDTO)
+	{
+		Category category = new Category();
+		category.setCategoryId(categoryDTO.getCategoryId());
+		category.setName(categoryDTO.getName());
+		return category;
+	}
+	
+	public static List<Category> convertToCategoryList(List<CategoryDTO> dtolist)
+	{
+		List<Category> list = new ArrayList<Category>();
+		for ( CategoryDTO categoryDTO : dtolist)
+			list.add(convertToCategory(categoryDTO));
+		return list;
+	}
+	
 }

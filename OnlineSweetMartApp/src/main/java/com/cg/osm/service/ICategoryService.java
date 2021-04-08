@@ -15,5 +15,6 @@ public interface ICategoryService  {
 	public CategoryDTO cancelCategory(int categoryId) throws CategoryNotFoundException;
 	public List<CategoryDTO> showAllCategorys();
 	public double calculateTotalCost(int categoryId);
+	public CategoryDTO showCategory(int categoryId) throws CategoryNotFoundException;
 
 }

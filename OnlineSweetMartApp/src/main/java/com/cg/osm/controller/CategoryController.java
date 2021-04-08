@@ -101,4 +101,9 @@ public class CategoryController
 			return 0;
 		
 	}
+  
+  @GetMapping(value="/category/show/{id}")
+  public CategoryDTO showCategory(@PathVariable("id") int categoryId) throws CategoryNotFoundException{
+	  return service.showCategory(categoryId);
+  }
 }

@@ -11,6 +11,6 @@ import com.cg.osm.entity.Customer;
 
 
 @Repository
-public interface ICustomerRepository extends JpaRepository<Customer,Integer>{
+public interface ICustomerRepository extends JpaRepository<Customer,Long>{
 
 }

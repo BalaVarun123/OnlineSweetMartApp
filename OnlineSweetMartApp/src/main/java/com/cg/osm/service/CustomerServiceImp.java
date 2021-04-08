@@ -42,7 +42,7 @@ public class CustomerServiceImp implements ICustomerService{
 	}
 
 	@Override
-	public CustomerDTO cancelCustomer(int customerId) throws CustomerNotFoundException 
+	public CustomerDTO cancelCustomer(long customerId) throws CustomerNotFoundException 
 	{
 		Customer existingCustomer = repository.findById(customerId).orElse(null);
 		if (existingCustomer == null) {
@@ -60,7 +60,7 @@ public class CustomerServiceImp implements ICustomerService{
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
 
-	public List<CustomerDTO> showAllCustomers(int customerId) {
+	public List<CustomerDTO> showAllCustomers(long customerId) {
 		List <Customer> listCustomers = new ArrayList<Customer>();
 		Optional<Customer> customerOptional = repository.findById(customerId);
 		if (customerOptional.isPresent())

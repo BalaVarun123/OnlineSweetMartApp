@@ -1,5 +1,6 @@
 package com.cg.osm.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Admin {
 	private Customer customer;
 	@OneToOne
 	private User user;
-	@OneToOne// 1..1 not mentioned in class diagram//I'm just adding for safety
+	@OneToOne(cascade = CascadeType.ALL)
 	private SweetItem item;
 	@OneToOne
 	private Category category;

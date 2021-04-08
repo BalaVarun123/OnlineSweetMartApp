@@ -63,6 +63,20 @@ public class CategoryServiceImpl implements ICategoryService {
 		return repo.calculateTotalCost(categoryId);
 	}
 	
+	
+	public CategoryDTO showCategory(int categoryId) throws CategoryNotFoundException{
+		Category existingCategory = repo.findById(categoryId).orElse(null);
+		if(existingCategory == null)
+		{
+			throw new CategoryNotFoundException("No such category");
+		}
+		else
+		{
+			return CategoryUtils.convertToCategoryDto(existingCategory);
+		}
+	}
+	
+	
 	public static boolean validateCategoryId(Category category) throws CategoryNotFoundException
 	{
 		boolean flag=false;

@@ -172,20 +172,20 @@ public class CustomerController {
 		return service.showAllCustomers();
 	}
 	
-	@GetMapping(value = "/customer/show/{CustomerId}", produces = "application/json")
-	public ResponseEntity<Object>  showAllCustomers(@PathVariable("id") int customerId) throws CustomerNotFoundException
+	@GetMapping(value = "/customer/show/{id}", produces = "application/json")
+	public CustomerDTO  showAllCustomers(@PathVariable("id") int customerId) throws CustomerNotFoundException
 	  {
 		List<CustomerDTO> customer_showAll = null;
-		  ResponseEntity<Object> response = null;
+		CustomerDTO response;
 		  if (!(customerId<0))
 		  {
 			  customer_showAll=service.showAllCustomers(customerId);
-			  response =	new ResponseEntity(customer_showAll,HttpStatus.ACCEPTED);
+			  response =customer_showAll.get(0);
 			  LOGGER.info("Customer displayed");
 		  }
 		  else 
 		  {
-		    response =	new ResponseEntity("Customer display failed",HttpStatus.BAD_REQUEST);
+		    response =	null;
 		    LOGGER.warn("Enter valid customer id");
 		  }
 		   return response;
