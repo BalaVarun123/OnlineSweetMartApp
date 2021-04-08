@@ -13,11 +13,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.SweetItemInput;
+import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.SweetItemNotFoundException;
+import com.cg.osm.model.ProductDTO;
 import com.cg.osm.model.SweetItemDTO;
+import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.ISweetItemService;
 import com.cg.osm.service.SweetItemServiceImp;
+import com.cg.osm.util.ProductUtils;
+import com.cg.osm.util.SweetOrderUtils;
 
 @RestController
 @RequestMapping("/api/osm")
@@ -26,26 +35,33 @@ public class SweetItemController{
 	@Autowired
 	ISweetItemService sweetItemService;
 	 final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	@PostMapping(value = "/addSweetItem", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> addSweetItem(@RequestBody SweetItem sweetItem) {
+	 @Autowired
+	 RestTemplate restTemplate;
+	@PostMapping(value = "/addSweetItem",consumes  = "application/json")
+	public ResponseEntity<Object> addSweetItem(@RequestBody SweetItemInput sweetItem) {
 		Object result;
 		HttpStatus status;
-		if (!SweetItemServiceImp.validateSweetItemProduct(sweetItem)) {
+		SweetItem sweetItem1 = new SweetItem();
+		Product product = ProductUtils.convertToProduct(restTemplate.getForObject("http://localhost:9191/api/osm/product/show-by-id/"+sweetItem.getProductId(), ProductDTO.class));
+		SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
+		sweetItem1.setProduct(product);
+		sweetItem1.setSweetOrder(sweetOrder);
+		if (!SweetItemServiceImp.validateSweetItemProduct(sweetItem1)) {
 			result = "Invalid product.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		
-		else if (!SweetItemServiceImp.validateSweetItemSweetOrder(sweetItem)) {
+		else if (!SweetItemServiceImp.validateSweetItemSweetOrder(sweetItem1)) {
 			result = "Invalid SweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!SweetItemServiceImp.validateSweetItemOrderItemId(sweetItem)) {
+		else if (!SweetItemServiceImp.validateSweetItemOrderItemId(sweetItem1)) {
 			result = "Invalid orderItemId.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		
 		else {
-			result = sweetItemService.addSweetItem(sweetItem);
+			result = sweetItemService.addSweetItem(sweetItem1);
 			status = HttpStatus.ACCEPTED;
 			 LOGGER.info("Sweet Item Added Successfully");
 		}
@@ -53,25 +69,30 @@ public class SweetItemController{
 		return new ResponseEntity<Object>(result,status);
 	}
 	@PutMapping(value = "/updateSweetItem", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> updateSweetItem(@RequestBody SweetItem sweetItem) throws SweetItemNotFoundException {
+	public ResponseEntity<Object> updateSweetItem(@RequestBody SweetItemInput sweetItem) throws SweetItemNotFoundException {
 		Object result;
 		HttpStatus status;
-		if (!SweetItemServiceImp.validateSweetItemProduct(sweetItem)) {
+		SweetItem sweetItem1 = new SweetItem();
+		Product product = ProductUtils.convertToProduct(restTemplate.getForObject("http://localhost:9191/api/osm/product/show-by-id/"+sweetItem.getProductId(), ProductDTO.class));
+		SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
+		sweetItem1.setProduct(product);
+		sweetItem1.setSweetOrder(sweetOrder);
+		if (!SweetItemServiceImp.validateSweetItemProduct(sweetItem1)) {
 			result = "Invalid product.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		
-		else if (!SweetItemServiceImp.validateSweetItemSweetOrder(sweetItem)) {
+		else if (!SweetItemServiceImp.validateSweetItemSweetOrder(sweetItem1)) {
 			result = "Invalid SweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!SweetItemServiceImp.validateSweetItemOrderItemId(sweetItem)) {
+		else if (!SweetItemServiceImp.validateSweetItemOrderItemId(sweetItem1)) {
 			result = "Invalid orderItemId.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		
 		else {
-			result = sweetItemService.updateSweetItem(sweetItem);
+			result = sweetItemService.updateSweetItem(sweetItem1);
 			status = HttpStatus.ACCEPTED;
 			LOGGER.info("Sweet Item Updated Successfully");
 		}
@@ -104,6 +125,11 @@ public class SweetItemController{
 		LOGGER.info("Showing All Sweet Items");
 		return new ResponseEntity<List<SweetItemDTO>>(showAllSweetItems, HttpStatus.ACCEPTED);
 		
+	}
+	
+	@GetMapping(value="/showSweetItem/{id}", produces = "application/json")
+	public SweetItemDTO showSweetItem(@PathVariable("id") int orderItemItemId) throws SweetItemNotFoundException{
+		return sweetItemService.showSweetItem(orderItemItemId);
 	}
 	
 }

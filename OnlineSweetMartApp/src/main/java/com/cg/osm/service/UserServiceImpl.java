@@ -62,6 +62,17 @@ public class UserServiceImpl implements IUserService{
 		return UserUtils.convertToUserDtoList(repository.findAll());
 	}
 	
+	public UserDTO showUser(long  userId) throws UserNotFoundException{
+		User user = repository.findById( userId).orElse(null);
+		 UserDTO userDTO = null;
+		 if (user == null)
+			 throw new UserNotFoundException("Invalid user id.");
+		 else {
+			 userDTO = UserUtils.convertToUserDto(user);
+		 }
+		return userDTO;
+	}
+	
 	
 	public static boolean validateUser(User user) {
 		boolean flag;

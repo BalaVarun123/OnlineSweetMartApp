@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,40 +15,40 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class SweetOrder {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer sweetOrderId;
-    @ManyToOne
+	private int sweetOrderId;
+    //@ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
 	private User user;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
-	@ElementCollection
-	private Map<Product, Long> groupedProducts;
+	//@ElementCollection
+	//private Map<Product, Long> groupedProducts;
 	
 	public SweetOrder() {
 		
 	}
 	
-	public SweetOrder(Integer sweetOrderId, User user, List<SweetItem> listItems, LocalDate createdDate,  Map<Product, Long> groupedProducts)
-	{
-	super();
-
-	this.sweetOrderId = sweetOrderId;
-	this.user = user;
-	this.listItems = listItems;
-    this.createdDate = createdDate;
-    if (groupedProducts == null)
-    	this.groupedProducts = initiateGroupedProducts();
-    else
-    	this.groupedProducts = groupedProducts;
+	
+	
+	
+	public SweetOrder(int sweetOrderId, User user, List<SweetItem> listItems, LocalDate createdDate) {
+		super();
+		this.sweetOrderId = sweetOrderId;
+		this.user = user;
+		this.listItems = listItems;
+		this.createdDate = createdDate;
 	}
-	
-	
-	
+
+
+
+
 	public Integer getSweetOrderId() {
 		return sweetOrderId;
 	}
@@ -80,17 +81,16 @@ public class SweetOrder {
 		this.createdDate = createdDate;
 	}
 
-	public Map<Product, Long> getGroupedProducts() {
-		return groupedProducts;
-	}
-
-	public void setGroupedProducts(Map<Product, Long> groupedProducts) {
-		this.groupedProducts = groupedProducts;
-	}
+	/*
+	 * public Map<Product, Long> getGroupedProducts() { return groupedProducts; }
+	 * 
+	 * public void setGroupedProducts(Map<Product, Long> groupedProducts) {
+	 * this.groupedProducts = groupedProducts; }
+	 */
 	
 	@Override
 	public String toString() {
-		   return "SweetOrder[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" + groupedProducts +"]";
+		   return "SweetOrder[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" +"]";
 	}
 	
 	

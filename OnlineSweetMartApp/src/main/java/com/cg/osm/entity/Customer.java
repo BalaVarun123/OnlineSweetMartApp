@@ -3,6 +3,7 @@ package com.cg.osm.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +16,13 @@ public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userId;
+	private long userId;
 	private String username;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<SweetOrder> sweetOrders;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<SweetItem> sweetItems;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cart cart;
 
 	public Customer() {

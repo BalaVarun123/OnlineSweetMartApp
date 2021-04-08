@@ -1,6 +1,9 @@
 package com.cg.osm.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.cg.osm.entity.OrderBill;
+import com.cg.osm.entity.OrderBillInput;
+import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.model.OrderBillDTO;
+import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.IOrderBillService;
 import com.cg.osm.service.OrderBillServiceImpl;
+import com.cg.osm.util.SweetOrderUtils;
 
 @RestController
 @RequestMapping("/api/osm")
@@ -32,32 +40,44 @@ public class OrderBillController {
 	
 	@Autowired
 	IOrderBillService service;
-	
+	@Autowired
+	RestTemplate restTemplate;
 	
 	
 	
 	@PostMapping(value = "/order-bill/add", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> addOrderBill(@RequestBody OrderBill orderbill) {
+	public ResponseEntity<Object> addOrderBill(@RequestBody OrderBillInput orderBill) {
 		Object result;
 		HttpStatus status;
-		if (!OrderBillServiceImpl.validateOrderBillCreatedDate(orderbill)) {
+		
+		OrderBill orderBill1 = new OrderBill();
+		orderBill1.setCreatedDate(orderBill.getCreatedDate());
+		orderBill1.setTotalCost(orderBill.getTotalCost());
+		List<Integer> orderIds = orderBill.getListSweetOrder();
+		List<SweetOrder> sweetOrders = new ArrayList<SweetOrder>();
+		for (Integer orderId : orderIds) {
+			sweetOrders.add(SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+orderId, SweetOrderDTO.class)));
+		}
+		orderBill1.setListSweetOrder(sweetOrders);
+		
+		if (!OrderBillServiceImpl.validateOrderBillCreatedDate(orderBill1)) {
 			result = "Invalid createdDate.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!OrderBillServiceImpl.validateOrderBillId(orderbill)) {
+		else if (!OrderBillServiceImpl.validateOrderBillId(orderBill1)) {
 			result = "Invalid orderBillId.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!OrderBillServiceImpl.validateOrderBillListSweetOrder(orderbill)) {
+		else if (!OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill1)) {
 			result = "Invalid listSweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!OrderBillServiceImpl.validateOrderBillTotalCost(orderbill)) {
+		else if (!OrderBillServiceImpl.validateOrderBillTotalCost(orderBill1)) {
 			result = "Invalid totalCost.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else {
-			result = service.addOrderBill(orderbill);
+			result = service.addOrderBill(orderBill1);
 			status = HttpStatus.OK;
 		}
 			

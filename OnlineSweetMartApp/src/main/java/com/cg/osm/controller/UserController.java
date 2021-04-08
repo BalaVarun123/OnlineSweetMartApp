@@ -122,5 +122,10 @@ public class UserController {
 		return service.showAllUsers();
 	}
 	
+	@GetMapping(value="/user/show/{id}" , produces="application/json")
+	public UserDTO showUser(@PathVariable("id") long  userId) throws UserNotFoundException{
+		return service.showUser(userId);
+	}
+	
 	
 }

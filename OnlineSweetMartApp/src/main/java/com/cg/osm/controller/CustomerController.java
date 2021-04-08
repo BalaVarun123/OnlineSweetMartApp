@@ -1,6 +1,9 @@
 package com.cg.osm.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,17 +18,24 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cg.osm.entity.Customer;
+import com.cg.osm.entity.CustomerInput;
+import com.cg.osm.entity.SweetItem;
+import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.model.OrderBillDTO;
+import com.cg.osm.model.SweetItemDTO;
+import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.ICustomerService;
+import com.cg.osm.util.SweetItemUtils;
+import com.cg.osm.util.SweetOrderUtils;
 import com.cg.osm.service.CustomerServiceImp;
 
 @RestController
@@ -34,31 +44,51 @@ public class CustomerController {
 
 	@Autowired
 	ICustomerService service;
-	
+	@Autowired
+	RestTemplate restTemplate;
 	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
-
+	
 	@PostMapping(value = "/customer/add", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+	public ResponseEntity<Object> addCustomer(@RequestBody CustomerInput customer) throws CustomerNotFoundException {
 		Object result;
 		HttpStatus status;
-		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
+		
+		Customer customer1 = new Customer();
+		customer1.setUsername(customer.getUsername());
+		customer1.setUserId(customer.getUserId());
+		//SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
+		List<Integer> itemIds = customer.getSweetItems();
+		List<SweetItem> sweetItems = new ArrayList<SweetItem>();
+		for (Integer itemId : itemIds) {
+			sweetItems.add(SweetItemUtils.convertToSweetItem(restTemplate.getForObject("http://localhost:9191/api/osm/showSweetItem/"+itemId, SweetItemDTO.class)));
+		}
+		List<Integer> orderIds = customer.getSweetOrders();
+		Set<SweetOrder> sweetOrders = new HashSet<SweetOrder>();
+		for (Integer orderId : orderIds) {
+			sweetOrders.add(SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+orderId, SweetOrderDTO.class)));
+		}
+		
+		customer1.setSweetItems(sweetItems);
+		customer1.setSweetOrders(sweetOrders);
+		
+		if (!CustomerServiceImp.validateCustomerUserId(customer1)) {
 			result = "Invalid userid";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!CustomerServiceImp.validateCustomerUsername(customer)) {
+		else if (!CustomerServiceImp.validateCustomerUsername(customer1)) {
 			result = "Invalid username";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
+		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer1)) {
 			result = "Invalid set SweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!CustomerServiceImp.validateCustomerSweetItem(customer)) {
+		else if (!CustomerServiceImp.validateCustomerSweetItem(customer1)) {
 			result = "Invalid list SweetItem";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else {
-			result = service.addCustomer(customer);
+			result = service.addCustomer(customer1);
 			LOGGER.info("customer is added");
 			status = HttpStatus.OK;
 		}
@@ -68,27 +98,49 @@ public class CustomerController {
 	
 	
 	@PutMapping(value = "/customer/update", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+	public ResponseEntity<Object> updateCustomer(@RequestBody CustomerInput customer) throws CustomerNotFoundException {
 		Object result;
 		HttpStatus status;
-		if (!CustomerServiceImp.validateCustomerUserId(customer)) {
+		
+
+		Customer customer1 = new Customer();
+		customer1.setUsername(customer.getUsername());
+		customer1.setUserId(customer.getUserId());
+		//SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
+		List<Integer> itemIds = customer.getSweetItems();
+		List<SweetItem> sweetItems = new ArrayList<SweetItem>();
+		for (Integer itemId : itemIds) {
+			sweetItems.add(SweetItemUtils.convertToSweetItem(restTemplate.getForObject("http://localhost:9191/api/osm/showSweetItem/"+itemId, SweetItemDTO.class)));
+		}
+		List<Integer> orderIds = customer.getSweetOrders();
+		Set<SweetOrder> sweetOrders = new HashSet<SweetOrder>();
+		for (Integer orderId : orderIds) {
+			sweetOrders.add(SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+orderId, SweetOrderDTO.class)));
+		}
+		
+		customer1.setSweetItems(sweetItems);
+		customer1.setSweetOrders(sweetOrders);
+		
+		
+		
+		if (!CustomerServiceImp.validateCustomerUserId(customer1)) {
 			result = "Invalid user id";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!CustomerServiceImp.validateCustomerUsername(customer)) {
+		else if (!CustomerServiceImp.validateCustomerUsername(customer1)) {
 			result = "Invalid username";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer)) {
+		else if (!CustomerServiceImp.validateCustomerSetSweetOrders(customer1)) {
 			result = "Invalid set of SweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!CustomerServiceImp.validateCustomerSweetItem(customer)) {
+		else if (!CustomerServiceImp.validateCustomerSweetItem(customer1)) {
 			result = "Invalid List of sweet items";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else {
-			result = service.updateCustomer(customer);
+			result = service.updateCustomer(customer1);
 			status = HttpStatus.OK;
 			LOGGER.info("Customer updated");
 		}

@@ -57,7 +57,7 @@ public class CartDTO {
 		return total;
 	}
 
-	public void setTotal(double total) {
+	public void cart(double total) {
 		this.total = total;
 	}
 
@@ -67,6 +67,10 @@ public class CartDTO {
 
 	public void setGrandTotal(double grandTotal) {
 		this.grandTotal = grandTotal;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	@Override

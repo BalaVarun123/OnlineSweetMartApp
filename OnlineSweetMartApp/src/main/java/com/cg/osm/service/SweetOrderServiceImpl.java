@@ -57,6 +57,22 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 
 		return sweetOrderDTO;
 	}
+	
+	
+	
+	
+	@Override
+	public SweetOrderDTO showSweetOrder(int sweetOrderId) throws SweetOrderNotFoundException {
+		SweetOrderDTO sweetOrderDTO;
+		SweetOrder sweetOrder = repository.findById(sweetOrderId).orElse(null);
+		if (sweetOrder != null) {
+			sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(sweetOrder);
+		} else {
+			throw new SweetOrderNotFoundException();
+		}
+
+		return sweetOrderDTO;
+	}
 
 	@Override
 	public List<SweetOrderDTO> showAllSweetOrders() {
@@ -64,44 +80,28 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		return SweetOrderUtils.convertToSweetOrderDtoList(repository.findAll());
 	}
 
-	@Override
-	public double calculateTotalCost(int sweetOrderId) {
-		double sum = 0.0;
-		Long count;
-		SweetOrder sweetOrder = repository.findById(sweetOrderId).orElse(null);
-		if (sweetOrder != null) {
-			Map<Product, Long> groupedProducts = sweetOrder.getGroupedProducts();
-			if (groupedProducts != null) {
-				Set<Product> keys = groupedProducts.keySet();
-				for (Product product : keys) {
-					count = groupedProducts.get(product);
-					if (count != null) {
-						sum += (product.getPrice() * count);
-					}
-				}
-			}
+	/*
+	 * @Override public double calculateTotalCost(int sweetOrderId) { double sum =
+	 * 0.0; Long count; SweetOrder sweetOrder =
+	 * repository.findById(sweetOrderId).orElse(null); if (sweetOrder != null) {
+	 * Map<Product, Long> groupedProducts = sweetOrder.getGroupedProducts(); if
+	 * (groupedProducts != null) { Set<Product> keys = groupedProducts.keySet(); for
+	 * (Product product : keys) { count = groupedProducts.get(product); if (count !=
+	 * null) { sum += (product.getPrice() * count); } } }
+	 * 
+	 * } return sum; }
+	 */
 
-		}
-		return sum;
-	}
-
-	public static boolean vaidateGroupedProducts(SweetOrder sweetOrder) {
-		boolean result;
-		Map<Product, Long> groupedProducts = null;
-		groupedProducts = sweetOrder.getGroupedProducts();
-
-		if (groupedProducts == null) {
-			result = false;
-		} else {
-			Map<Product, Long> correctGroupedProducts = sweetOrder.initiateGroupedProducts();
-			if (groupedProducts.equals(correctGroupedProducts)) {
-				result = true;
-			} else {
-				result = false;
-			}
-		}
-		return result;
-	}
+	/*
+	 * public static boolean vaidateGroupedProducts(SweetOrder sweetOrder) { boolean
+	 * result; Map<Product, Long> groupedProducts = null; groupedProducts =
+	 * sweetOrder.getGroupedProducts();
+	 * 
+	 * if (groupedProducts == null) { result = false; } else { Map<Product, Long>
+	 * correctGroupedProducts = sweetOrder.initiateGroupedProducts(); if
+	 * (groupedProducts.equals(correctGroupedProducts)) { result = true; } else {
+	 * result = false; } } return result; }
+	 */
 
 	public static boolean validateSweetOrderId(SweetOrder sweetOrder) {
 		boolean result;
@@ -143,6 +143,12 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public double calculateTotalCost(int sweetOrderId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

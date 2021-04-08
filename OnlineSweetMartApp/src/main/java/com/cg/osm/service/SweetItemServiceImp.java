@@ -52,6 +52,17 @@ public class SweetItemServiceImp implements ISweetItemService {
 		return SweetItemUtils.convertToSweetItemDtoList(listSweetItems);
 	}	
 	
+	
+	public SweetItemDTO showSweetItem(int orderItemItemId) throws SweetItemNotFoundException{
+		SweetItem existingSweetItem = repo.findById(orderItemItemId).orElse(null);
+		if (existingSweetItem == null) {
+			throw new SweetItemNotFoundException("Invalid ID");
+		}
+		else {
+			return SweetItemUtils.convertToSweetItemDto(existingSweetItem);
+		}
+	}
+	
  
  public static boolean validateSweetItem(SweetItem sweetItem) {
 		boolean flag;
@@ -85,8 +96,8 @@ public static boolean validateSweetItemSweetOrder(SweetItem sweetItem) {
 public static boolean validateSweetItemOrderItemId(SweetItem sweetItem) {
 	boolean flag = true;
 	Integer id = sweetItem.getOrderItemId();
-	SweetItemServiceImp service = new SweetItemServiceImp();
-	if (id == null||  !service.repo.existsById(id))
+	//SweetItemServiceImp service = new SweetItemServiceImp();
+	if (id == null)
 		flag = false;
 	return flag;
 }

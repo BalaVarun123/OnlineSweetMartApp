@@ -25,6 +25,23 @@ public class ProductUtils {
 		productdto.setCategory(product.getCategory());  
 		return productdto;
 	}
+	public static List<Product> convertToProductList(List<ProductDTO> dtolist){
+		List<Product> list = new ArrayList<Product>();
+		for(ProductDTO productDto : dtolist) 
+			list.add(convertToProduct(productDto));
+		return list;
+	}
 	
+	public static Product convertToProduct(ProductDTO productDTO) {
+		Product product = new Product();
+		product.setProductid(productDTO.getProductid());
+		product.setName(productDTO.getName());
+		product.setPrice(productDTO.getPrice());
+		product.setPhotopath(productDTO.getPhotopath());
+		product.setDescription(productDTO.getDescription());
+		product.setAvailable(productDTO.isAvailable());  
+		product.setCategory(productDTO.getCategory());  
+		return product;
+	}
 
 }

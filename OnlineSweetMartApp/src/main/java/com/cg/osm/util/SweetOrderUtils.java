@@ -21,7 +21,7 @@ public class SweetOrderUtils {
 		sweetOrderDto.setCreatedDate(sweetOrder.getCreatedDate());
 		sweetOrderDto.setUser(sweetOrder.getUser());
 		sweetOrderDto.setListItems(sweetOrder.getListItems());
-		sweetOrderDto.setGroupedProducts(sweetOrder.getGroupedProducts());
+		//sweetOrderDto.setGroupedProducts(sweetOrder.getGroupedProducts());
 		sweetOrderDto.setSweetOrderId(sweetOrder.getSweetOrderId());
 		return sweetOrderDto;
 	}
@@ -38,11 +38,11 @@ public class SweetOrderUtils {
 	
 	public static SweetOrder convertToSweetOrder(SweetOrderDTO sweetOrderDto) {
 		SweetOrder sweetOrder = new SweetOrder();
-		sweetOrderDto.setCreatedDate(sweetOrderDto.getCreatedDate());
-		sweetOrderDto.setUser(sweetOrderDto.getUser());
-		sweetOrderDto.setListItems(sweetOrderDto.getListItems());
-		sweetOrderDto.setGroupedProducts(sweetOrderDto.getGroupedProducts());
-		sweetOrderDto.setSweetOrderId(sweetOrderDto.getSweetOrderId());
+		sweetOrder.setCreatedDate(sweetOrderDto.getCreatedDate());
+		sweetOrder.setUser(sweetOrderDto.getUser());
+		sweetOrder.setListItems(sweetOrderDto.getListItems());
+		//sweetOrder.setGroupedProducts(sweetOrderDto.getGroupedProducts());
+		sweetOrder.setSweetOrderId(sweetOrderDto.getSweetOrderId());
 		return sweetOrder;
 	}
 }

@@ -29,7 +29,26 @@ public class CartUtils {
 	    dto.setTotal(cart.getTotal());
 		return dto;
 	}
+	
+	
+	public static Cart convertToCart(CartDTO dto) {
+		Cart cart = new Cart();
+		
+		cart.setCartId(dto.getCartId());
+		cart.setGrandTotal(dto.getGrandTotal());
+		cart.setProductCount(dto.getProductCount());
+		cart.setListProduct(dto.getListProduct());
+		cart.setTotal(dto.getTotal());
+		return cart;
+	}
 
+	
+	public static List<Cart> convertToCartList(List<CartDTO> dtolist) {
+		List<Cart> list = new ArrayList<Cart>();
+		for (CartDTO cartdto : dtolist)
+			list.add(convertToCart(cartdto));
+		return list;
+	}
 	
 
 }

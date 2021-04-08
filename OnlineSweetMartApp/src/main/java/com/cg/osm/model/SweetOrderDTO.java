@@ -23,30 +23,28 @@ import com.cg.osm.entity.User;
 public class SweetOrderDTO {
 
 
-	private Integer sweetOrderId;
+	private int sweetOrderId;
 	private User user;
 
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
-	private Map<Product, Long> groupedProducts;
+	//private Map<Product, Long> groupedProducts;
 	
 	public SweetOrderDTO() {
 		
 	}
 	
-	public SweetOrderDTO(Integer sweetOrderId, User user, List<SweetItem> listItems, LocalDate createdDate,  Map<Product, Long> groupedProducts)
-	{
-	super();
+	
 
-	this.sweetOrderId = sweetOrderId;
-	this.user = user;
-	this.listItems = listItems;
-    this.createdDate = createdDate;
-    if (groupedProducts == null)
-    	this.groupedProducts = initiateGroupedProducts();
-    else
-    	this.groupedProducts = groupedProducts;
+	public SweetOrderDTO(int sweetOrderId, User user, List<SweetItem> listItems, LocalDate createdDate) {
+		super();
+		this.sweetOrderId = sweetOrderId;
+		this.user = user;
+		this.listItems = listItems;
+		this.createdDate = createdDate;
 	}
+
+
 
 	public Integer getSweetOrderId() {
 		return sweetOrderId;
@@ -80,17 +78,18 @@ public class SweetOrderDTO {
 		this.createdDate = createdDate;
 	}
 
-	public Map<Product, Long> getGroupedProducts() {
-		return groupedProducts;
-	}
+	/*
+	 * public Map<Product, Long> getGroupedProducts() { return groupedProducts; }
+	 */
 
-	public void setGroupedProducts(Map<Product, Long> groupedProducts) {
-		this.groupedProducts = groupedProducts;
-	}
+	/*
+	 * public void setGroupedProducts(Map<Product, Long> groupedProducts) {
+	 * this.groupedProducts = groupedProducts; }
+	 */
 	
 	@Override
 	public String toString() {
-		   return "SweetOrderDTO[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" + groupedProducts +"]";
+		   return "SweetOrderDTO[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts="  +"]";
 	}
 	public Map<Product,Long> initiateGroupedProducts() {
 		
