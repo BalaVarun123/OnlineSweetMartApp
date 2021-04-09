@@ -40,13 +40,16 @@ public class AdminServiceImpl implements IAdminService{
 		AdminDTO adminDTO;
 		if (admin == null)
 			adminDTO = null;
-		Admin existingAdmin = repository.findById(admin.getId()).orElse(null);
-		if (existingAdmin == null) {
-			throw new AdminNotFoundException("Invalid id.");
-		}
 		else {
-			adminDTO =  AdminUtils.convertToAdminDto(repository.save(admin));
+			Admin existingAdmin = repository.findById(admin.getId()).orElse(null);
+			if (existingAdmin == null) {
+				throw new AdminNotFoundException("Invalid id.");
+			}
+			else {
+				adminDTO =  AdminUtils.convertToAdminDto(repository.save(admin));
+			}
 		}
+
 		return adminDTO;
 	}
 
@@ -78,16 +81,7 @@ public class AdminServiceImpl implements IAdminService{
 	}
 	
 	
-	public static boolean validateAdmin(Admin admin) {
-		boolean flag;
-		if (!(validateId(admin) &&  validateCustomer(admin) &&  validateUser(admin) &&  validateSweetItem(admin) &&  validateCategory(admin) &&  validateCart(admin) &&  validateProduct(admin))) {
-			flag = false;
-		}
-		else {
-			flag = true;
-		}
-		return flag;
-	}
+
 	
 	
 	public static boolean validateId(Admin admin) {
@@ -99,7 +93,7 @@ public class AdminServiceImpl implements IAdminService{
 		}
 		else {
 			id = admin.getId();
-			if (id < 0 && service.repository.existsById(id)) {
+			if (id < 0 ) {
 				flag = false;
 			}
 			else {

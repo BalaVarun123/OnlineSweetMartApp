@@ -17,7 +17,7 @@ public class Admin {
 	private Customer customer;
 	@OneToOne
 	private User user;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private SweetItem item;
 	@OneToOne
 	private Category category;
