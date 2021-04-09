@@ -23,7 +23,7 @@ public class SweetOrder {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int sweetOrderId;
     //@ManyToOne(cascade = CascadeType.ALL)
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
 	private User user;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<SweetItem> listItems;

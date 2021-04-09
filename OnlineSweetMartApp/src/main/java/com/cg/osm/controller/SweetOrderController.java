@@ -87,6 +87,7 @@ public class SweetOrderController {
 	public ResponseEntity<Object> updateSweetOrder(@RequestBody SweetOrderInput sweetOrder)throws SweetOrderNotFoundException {
 		Object result;
 		HttpStatus status;
+		
 		SweetOrder sweetOrder1 = new SweetOrder();
 		User user = UserUtils.convertToUser(restTemplate.getForObject("http://localhost:9191/api/osm/user/show/"+sweetOrder.getUserId(), UserDTO.class));
 		List<Integer> itemIds = sweetOrder.getListItems();
@@ -98,6 +99,7 @@ public class SweetOrderController {
 		sweetOrder1.setUser(user);
 		sweetOrder1.setListItems(sweetItems);
 		sweetOrder1.setCreatedDate(sweetOrder.getCreatedDate());
+		sweetOrder1.setSweetOrderId(sweetOrder.getSweetOrderId());
 		
 		if (!SweetOrderServiceImpl.validateCreatedDate(sweetOrder1)) {
 			result = "Invalid createdDate.";

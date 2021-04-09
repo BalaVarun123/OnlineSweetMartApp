@@ -77,6 +77,7 @@ public class SweetItemController{
 		SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
 		sweetItem1.setProduct(product);
 		sweetItem1.setSweetOrder(sweetOrder);
+		sweetItem1.setOrderItemId(sweetItem.getOrderItemId());
 		if (!SweetItemServiceImp.validateSweetItemProduct(sweetItem1)) {
 			result = "Invalid product.";
 			status = HttpStatus.BAD_REQUEST;

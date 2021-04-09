@@ -36,9 +36,9 @@ public class SweetItemUtils {
 	
 	public static SweetItem convertToSweetItem(SweetItemDTO sweetItemDto) {
 		SweetItem sweetItem = new SweetItem();
-		sweetItemDto.setOrderItemId(sweetItemDto.getOrderItemId());
-		sweetItemDto.setProduct(sweetItemDto.getProduct());
-		sweetItemDto.setSweetOrder(sweetItemDto.getSweetOrder());
+		sweetItem.setOrderItemId(sweetItemDto.getOrderItemId());
+		sweetItem.setProduct(sweetItemDto.getProduct());
+		sweetItem.setSweetOrder(sweetItemDto.getSweetOrder());
 		return sweetItem;
 	}
 }

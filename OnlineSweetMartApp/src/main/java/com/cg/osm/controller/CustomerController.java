@@ -28,12 +28,14 @@ import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
+import com.cg.osm.model.CartDTO;
 import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
 import com.cg.osm.model.OrderBillDTO;
 import com.cg.osm.model.SweetItemDTO;
 import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.ICustomerService;
+import com.cg.osm.util.CartUtils;
 import com.cg.osm.util.SweetItemUtils;
 import com.cg.osm.util.SweetOrderUtils;
 import com.cg.osm.service.CustomerServiceImp;
@@ -70,7 +72,7 @@ public class CustomerController {
 		
 		customer1.setSweetItems(sweetItems);
 		customer1.setSweetOrders(sweetOrders);
-		
+		customer1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart/"+customer.getCartId(), CartDTO.class)));
 		if (!CustomerServiceImp.validateCustomerUserId(customer1)) {
 			result = "Invalid userid";
 			status = HttpStatus.BAD_REQUEST;
@@ -120,6 +122,7 @@ public class CustomerController {
 		
 		customer1.setSweetItems(sweetItems);
 		customer1.setSweetOrders(sweetOrders);
+		customer1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart/"+customer.getCartId(), CartDTO.class)));
 		
 		
 		

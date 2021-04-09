@@ -79,8 +79,7 @@ public class ProductServiceImpl implements IProductService {
 	public static boolean validateProductId(Product product) {
 		boolean flag = true;
 		Integer pid = product.getProductid();
-		ProductServiceImpl service1 = new ProductServiceImpl();
-		if (pid == null || !service1.repo.existsById(pid))
+		if (pid == null  )
 			flag = false;
 		return flag;
 	}

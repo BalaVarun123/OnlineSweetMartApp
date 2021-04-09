@@ -86,27 +86,38 @@ public class OrderBillController {
 	
 	
 	@PutMapping(value = "/order-bill/update", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<Object> updateOrderBill(@RequestBody OrderBill orderbill) throws OrderBillNotFoundException {
+	public ResponseEntity<Object> updateOrderBill(@RequestBody OrderBillInput orderBill) throws OrderBillNotFoundException {
 		Object result;
 		HttpStatus status;
-		if (!OrderBillServiceImpl.validateOrderBillCreatedDate(orderbill)) {
+		
+		OrderBill orderBill1 = new OrderBill();
+		orderBill1.setCreatedDate(orderBill.getCreatedDate());
+		orderBill1.setTotalCost(orderBill.getTotalCost());
+		List<Integer> orderIds = orderBill.getListSweetOrder();
+		List<SweetOrder> sweetOrders = new ArrayList<SweetOrder>();
+		for (Integer orderId : orderIds) {
+			sweetOrders.add(SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+orderId, SweetOrderDTO.class)));
+		}
+		orderBill1.setListSweetOrder(sweetOrders);
+		orderBill1.setOrderBillId(orderBill.getOrderBillId());
+		if (!OrderBillServiceImpl.validateOrderBillCreatedDate(orderBill1)) {
 			result = "Invalid createdDate.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!OrderBillServiceImpl.validateOrderBillId(orderbill)) {
+		else if (!OrderBillServiceImpl.validateOrderBillId(orderBill1)) {
 			result = "Invalid orderBillId.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!OrderBillServiceImpl.validateOrderBillListSweetOrder(orderbill)) {
+		else if (!OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill1)) {
 			result = "Invalid listSweetOrder.";
 			status = HttpStatus.BAD_REQUEST;
 		}
-		else if (!OrderBillServiceImpl.validateOrderBillTotalCost(orderbill)) {
+		else if (!OrderBillServiceImpl.validateOrderBillTotalCost(orderBill1)) {
 			result = "Invalid totalCost.";
 			status = HttpStatus.BAD_REQUEST;
 		}
 		else {
-			result = service.updateOrderBill(orderbill);
+			result = service.updateOrderBill(orderBill1);
 			status = HttpStatus.OK;
 		}
 			
