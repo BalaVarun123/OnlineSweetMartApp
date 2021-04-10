@@ -21,7 +21,7 @@ import com.cg.osm.service.IProductService;
 import com.cg.osm.service.ProductServiceImpl;
 
 @RestController
-@RequestMapping("/api/osmproduct")
+@RequestMapping("/api/osm")
 public class ProductController {
 	
 	@Autowired
@@ -30,7 +30,7 @@ public class ProductController {
 	
 	
 	
-	@PostMapping(value = "/add", produces = "application/json", consumes  = "application/json")
+	@PostMapping(value = "/product/add", produces = "application/json", consumes  = "application/json")
 	public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
 		if (ProductServiceImpl.validateProduct(product)) {
@@ -50,7 +50,7 @@ public class ProductController {
 	}
 	
 	
-	@PutMapping(value = "/update/{productid}", produces = "application/json",consumes  = "application/json")
+	@PutMapping(value = "/product/update/{productid}", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product ,@PathVariable("productid") int productid) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
 		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(productid)) {
@@ -66,7 +66,7 @@ public class ProductController {
 		return productResponse;
 	}
 	
-	@DeleteMapping(value = "/cancel/{productid}", produces = "application/json")
+	@DeleteMapping(value = "/product/cancel/{productid}", produces = "application/json")
 	public void cancelProduct(@PathVariable("productid") int productid) throws ProductNotFoundException{
 		ResponseEntity<ProductDTO> productResponse;
 		 service.cancelProduct(productid);
@@ -75,13 +75,13 @@ public class ProductController {
 		
 	}
 	
-	@GetMapping(value = "/show-all", produces = "application/json")
+	@GetMapping(value = "/product/show-all", produces = "application/json")
 	public List<ProductDTO> showAllProducts(){
 		return service.showAllProducts();
 		
 	} 
 	
-	@GetMapping(value = "/show-by-id/{productid}", produces = "application/json")
+	@GetMapping(value = "/product/show-by-id/{productid}", produces = "application/json")
 	public ProductDTO showAllProductDTO(@PathVariable("productid") int productid) throws ProductNotFoundException{
 		return service.showAllProducts(productid);
 	
