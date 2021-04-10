@@ -21,7 +21,7 @@ import com.cg.osm.service.IProductService;
 import com.cg.osm.service.ProductServiceImpl;
 
 @RestController
-@RequestMapping("/api/osm")
+@RequestMapping("/api/osmproduct")
 public class ProductController {
 	
 	@Autowired
@@ -30,7 +30,7 @@ public class ProductController {
 	
 	
 	
-	@PostMapping(value = "/product/add", produces = "application/json", consumes  = "application/json")
+	@PostMapping(value = "/add", produces = "application/json", consumes  = "application/json")
 	public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
 		if (ProductServiceImpl.validateProduct(product)) {
@@ -50,12 +50,12 @@ public class ProductController {
 	}
 	
 	
-	@PutMapping(value = "/product/update", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
+	@PutMapping(value = "/update/{productid}", produces = "application/json",consumes  = "application/json")
+	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product ,@PathVariable("productid") int productid) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
-		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(product)) {
+		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(productid)) {
 			
-			ProductDTO result=service.updateProduct(product);
+			ProductDTO result=service.updateProduct(productid,product);
 			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
 			System.out.println("Product Updated");
 
@@ -66,18 +66,22 @@ public class ProductController {
 		return productResponse;
 	}
 	
-	@DeleteMapping(value = "/product/cancel/{productid}", produces = "application/json")
+	@DeleteMapping(value = "/cancel/{productid}", produces = "application/json")
 	public void cancelProduct(@PathVariable("productid") int productid) throws ProductNotFoundException{
-		service.cancelProduct(productid);
+		ResponseEntity<ProductDTO> productResponse;
+		 service.cancelProduct(productid);
+		productResponse = new ResponseEntity(HttpStatus.ACCEPTED);
+		System.out.println("Product Deleted");
 		
 	}
 	
-	@GetMapping(value = "/product/show-all", produces = "application/json")
+	@GetMapping(value = "/show-all", produces = "application/json")
 	public List<ProductDTO> showAllProducts(){
 		return service.showAllProducts();
+		
 	} 
 	
-	@GetMapping(value = "/product/show-by-id/{productid}", produces = "application/json")
+	@GetMapping(value = "/show-by-id/{productid}", produces = "application/json")
 	public ProductDTO showAllProductDTO(@PathVariable("productid") int productid) throws ProductNotFoundException{
 		return service.showAllProducts(productid);
 	
