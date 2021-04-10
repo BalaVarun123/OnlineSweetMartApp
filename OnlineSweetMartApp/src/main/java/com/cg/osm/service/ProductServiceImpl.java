@@ -1,6 +1,9 @@
 package com.cg.osm.service;
 
-import java.io.File;
+
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import com.cg.osm.error.ProductNotFoundException;
 import com.cg.osm.model.ProductDTO;
 import com.cg.osm.repository.IProductRepository;
 import com.cg.osm.util.ProductUtils;
+
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -25,14 +29,19 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public ProductDTO updateProduct(Product product) throws ProductNotFoundException {
+	public ProductDTO updateProduct(int productid,Product product) throws ProductNotFoundException {
 		
-		Product productCheck = repo.findById(product.getProductid()).orElse(null);
+		Product productCheck = repo.findById(productid).orElse(null);
 		if ( productCheck== null) {
 			throw new ProductNotFoundException("Cannot find the product with the given id.");
 		}
 		else {
-			return ProductUtils.convertToProductDto(repo.save(product));
+			productCheck.setName(product.getName());
+			productCheck.setDescription(product.getDescription());
+			productCheck.setPrice(product.getPrice());
+			productCheck.setAvailable(product.isAvailable());
+			productCheck.setPhotopath(product.getPhotopath());
+			return ProductUtils.convertToProductDto(repo.save(productCheck));
 		}
 	}
 
@@ -67,7 +76,7 @@ public class ProductServiceImpl implements IProductService {
 	public static boolean validateProduct(Product product) throws ProductNotFoundException {
 		boolean flag = false;
 		if (product == null)
-			throw new ProductNotFoundException("Product details cannot be null");
+			throw new ProductNotFoundException("Product details cannot be blank");
 		else if (!(validateName(product.getName()) && validateProductPrice(product.getPrice())
 				&& validatePhotoPath(product.getPhotopath())&& validateAvailable(product.isAvailable())))
 
@@ -76,10 +85,10 @@ public class ProductServiceImpl implements IProductService {
 			flag = true;
 		return flag;
 	}
-	public static boolean validateProductId(Product product) {
+	public static boolean validateProductId(int productid) {
 		boolean flag = true;
-		Integer pid = product.getProductid();
-		if (pid == null  )
+		Integer pid = productid;
+		if (pid == null )
 			flag = false;
 		return flag;
 	}
@@ -87,7 +96,7 @@ public class ProductServiceImpl implements IProductService {
 	public static boolean validateName(String name) throws ProductNotFoundException
 	{
 		boolean flag=false;
-		if(name.matches("^[a-zA-Z]+$") && name.length()>3)
+		if(name.matches("^[a-zA-Z]+$") && name.length()>3 &&name.length()<30)
 			flag=true;
 		else 
 			throw new ProductNotFoundException("Enter a valid product name");
@@ -113,8 +122,8 @@ public class ProductServiceImpl implements IProductService {
 	
 	public static boolean validatePhotoPath(String photopath) throws ProductNotFoundException{
 		boolean flag=false;
-		File path=new File(photopath);
-		if(path.isFile() && path!=null)
+		Path path=Paths.get(photopath);
+		if( path!=null)
 			flag=true;
 		else
 			throw new ProductNotFoundException("Cannot find the photo");

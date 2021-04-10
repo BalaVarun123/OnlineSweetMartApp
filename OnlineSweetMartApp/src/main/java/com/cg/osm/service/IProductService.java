@@ -9,7 +9,7 @@ import com.cg.osm.model.ProductDTO;
 public interface IProductService{
 
 	public ProductDTO addProduct(Product product);
-	public ProductDTO updateProduct(Product product) throws ProductNotFoundException;
+	public ProductDTO updateProduct(int productid,Product product) throws ProductNotFoundException;
 	public void cancelProduct(int productid) throws ProductNotFoundException;
 	public ProductDTO showAllProducts(int productid) throws ProductNotFoundException;
 	public List<ProductDTO> showAllProducts();

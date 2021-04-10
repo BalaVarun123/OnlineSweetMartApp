@@ -50,12 +50,12 @@ public class ProductController {
 	}
 	
 	
-	@PutMapping(value = "/product/update", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
+	@PutMapping(value = "/product/update/{productid}", produces = "application/json",consumes  = "application/json")
+	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product ,@PathVariable("productid") int productid) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
-		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(product)) {
+		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(productid)) {
 			
-			ProductDTO result=service.updateProduct(product);
+			ProductDTO result=service.updateProduct(productid,product);
 			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
 			System.out.println("Product Updated");
 
@@ -68,13 +68,17 @@ public class ProductController {
 	
 	@DeleteMapping(value = "/product/cancel/{productid}", produces = "application/json")
 	public void cancelProduct(@PathVariable("productid") int productid) throws ProductNotFoundException{
-		service.cancelProduct(productid);
+		ResponseEntity<ProductDTO> productResponse;
+		 service.cancelProduct(productid);
+		productResponse = new ResponseEntity(HttpStatus.ACCEPTED);
+		System.out.println("Product Deleted");
 		
 	}
 	
 	@GetMapping(value = "/product/show-all", produces = "application/json")
 	public List<ProductDTO> showAllProducts(){
 		return service.showAllProducts();
+		
 	} 
 	
 	@GetMapping(value = "/product/show-by-id/{productid}", produces = "application/json")
