@@ -1,6 +1,6 @@
 package com.cg.osm.error;
 
-public class CartNotFoundException extends Exception {
+public class CartNotFoundException extends CommonException {
 
 	public CartNotFoundException(String message) {
 

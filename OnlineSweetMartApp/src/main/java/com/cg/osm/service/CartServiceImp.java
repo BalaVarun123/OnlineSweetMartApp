@@ -16,74 +16,92 @@ import com.cg.osm.util.CartUtils;
 import org.springframework.stereotype.Service;
 
 /*
- * Author : UJJWAL SINGH A
- * Version : 1.0
- * Date : 05-04-2021
+ * Author      : UJJWAL SINGH A
+ * Version     : 1.0
+ * Date        : 05-04-2021
  * Description : This is Cart Service Layer
 */
+
+
 
 @Service
 public class CartServiceImp implements ICartService {
 
-	final static Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
+	final static Logger logger = LoggerFactory.getLogger(CartServiceImp.class);
 
 	@Autowired
 	private ICartRepository cartRepo;
 
 	static String cartNotFound = "No Cart found with given ID";
 	
+	
+	
+	
 	/*
-	 * Description : This method Adds new Cart
-	 * Input Param : Cart Object 
-	 * Return Value : CartDTO Object 
+	 * Description     : This method Adds new Cart
+	 * Input Parameter : Cart Object 
+	 * Return Value    : CartDTO Object 
+	 * Exception       : CartNotFoundException
 	*/
 
 	@Override
-	public CartDTO addCart(Cart cart) {
-		LOGGER.info("addCart() service is initiated");
+	public CartDTO addCart(Cart cart) throws CartNotFoundException {
+		logger.info("addCart() service is initiated");
 		Cart cartEntity;
-		cartEntity = cartRepo.save(cart);
-		LOGGER.info("addCart() service has executed");
-		return CartUtils.convertToCartDto(cartEntity);
+		if (cart == null)
+			cartEntity = null;
+		else if (!validateCart(cart))
+			throw new CartNotFoundException(cartNotFound);
+		else
+			cartEntity = cartRepo.save(cart);
+		 logger.info("addCart() service has executed");
+		 return CartUtils.convertToCartDto(cartEntity);
 	}
+	
+	
+	
 
 	/*
-	 * Description : This method Updates existing Cart
-	 * Input Param : Cart Object 
-	 * Return Value : CartDTO Object 
-	 * Exception : CartNotFoundException
+	 * Description     : This method Updates existing Cart
+	 * Input Parameter : Cart Object 
+	 * Return Value    : CartDTO Object 
+	 * Exception       : CartNotFoundException
 	 */
 
 	@Override
 	public CartDTO updateCart(Cart cart) throws CartNotFoundException {
-		LOGGER.info("updateCart() service is initiated");
-		Cart updatecart;
-
-		Cart existCart = cartRepo.findById(cart.getCartId()).orElse(null);
+		logger.info("updateCart() service is initiated");
+		Cart cartEntity;
+        Cart existCart = cartRepo.findById(cart.getCartId()).orElse(null);
 
 		if (existCart == null) {
 
 			throw new CartNotFoundException(cartNotFound);
 		} else
+		{
+			validateCart(cart);
+			cartEntity = cartRepo.save(cart);
+		}
 
-			updatecart = cartRepo.save(cart);
+		logger.info("updateCart() service has executed");
 
-		LOGGER.info("updateCart() service has executed");
-
-		return CartUtils.convertToCartDto(updatecart);
+		return CartUtils.convertToCartDto(cartEntity);
 
 	}
+	
+	
+	
 
 	/*
-	 * Description : This method Deletes existing Cart
-	 * Input Param : int 
-	 * Return Value : CartDTO Object 
-	 * Exception : CartNotFoundException
+	 * Description     : This method Deletes existing Cart
+	 * Input Parameter : integer 
+	 * Return Value    : CartDTO Object 
+	 * Exception       : CartNotFoundException
 	 */
 	
 	@Override
 	public CartDTO cancelCart(int cartId) throws CartNotFoundException {
-		LOGGER.info("cancelCart() service is initiated");
+		logger.info("cancelCart() service is initiated");
 
 		Cart existCart = cartRepo.findById(cartId).orElse(null);
 
@@ -93,72 +111,78 @@ public class CartServiceImp implements ICartService {
 
 			cartRepo.delete(existCart);
 
-		LOGGER.info("cancelCart() service has executed");
+		logger.info("cancelCart() service has executed");
 
 		return CartUtils.convertToCartDto(existCart);
 	}
 
+	
+	
+	
 	/*
-	 * Description : This method Shows existing Cart
-	 *  Input Param : int
-	 *  Return Value: CartDTO Object 
-	 * Exception : CartNotFoundException
+	 * Description      : This method Shows existing Cart
+	 * Input Parameter  : integer
+	 * Return Value     : CartDTO Object 
+	 * Exception        : CartNotFoundException
 	 */
 
 	@Override
-	public CartDTO showCart(int cartId) throws CartNotFoundException {
-		LOGGER.info("showCart() service is initiated");
-		Cart showCart = cartRepo.findById(cartId).orElse(null);
-		if (showCart == null)
+	public CartDTO showCartById(int cartId) throws CartNotFoundException {
+		logger.info("showCartById() service is initiated");
+		Cart existCart = cartRepo.findById(cartId).orElse(null);
+		if (existCart == null)
 			throw new CartNotFoundException(cartNotFound);
 
-		LOGGER.info("showCart() service has executed");
+		logger.info("showCartById() service has executed");
 
-		return CartUtils.convertToCartDto(showCart);
+		return CartUtils.convertToCartDto(existCart);
 	}
 	
+	
+	
+	
+	
 	/*
-	 * Description : This method Shows existing Cart
-	 * Input Param : int
-	 * Return Value : CartDTO Object 
-	 * Exception : CartNotFoundException
+	 * Description     : This method Shows existing Cart
+	 * Input Parameter : integer
+	 * Return Value    : CartDTO Object 
+	 * Exception       : CartNotFoundException
 	 */
 
 	@Override
 	public List<CartDTO> showAllCarts() {
-		LOGGER.info("showAllCarts() service is initiated");
-		List<Cart> list = cartRepo.findAll();
-		LOGGER.info("showAllCarts() service has executed");
-		return CartUtils.convertToCartDtoList(list);
+		logger.info("showAllCarts() service is initiated");
+		List<Cart> cartList = cartRepo.findAll();
+		logger.info("showAllCarts() service has executed");
+		return CartUtils.convertToCartDtoList(cartList);
 	}
+	
+	
+	
+	
 
 	// VALIDATIONS
 	public static boolean validateCart(Cart cart) throws CartNotFoundException {
+		logger.info("validateCart() is initiated");
 		boolean flag = false;
-		if (cart == null)
-			throw new CartNotFoundException("Cart details cannot be blank");
+		if (cart == null) {
+			logger.error("Cart details cannot be blank");
+			throw new CartNotFoundException("Cart details cannot be blank"); 
+			}
 		else if (!(validateTotalCost(cart.getTotal()) && validateTotalCost(cart.getGrandTotal())
 				&& validateProductCount(cart.getProductCount())))
 
 			throw new CartNotFoundException("Invalid Data");
 		else
+			logger.info("Validation Successful");
 			flag = true;
+		logger.info("validateCart() has executed");
 		return flag;
 	}
 
-	// integer cartId validation
-
-	public static boolean validateCartId(Cart cart) throws CartNotFoundException {
-		boolean flag = false;
-		if (cart.getCartId() > 0)
-			flag = true;
-		else
-			throw new CartNotFoundException("Not a valid cart id");
-		return flag;
-	}
-
-	// double total validation
-	public static boolean validateTotalCost(double total) throws CartNotFoundException {
+	
+	  //double total validation
+	    public static boolean validateTotalCost(double total) throws CartNotFoundException {
 		boolean flag = false;
 		if (total <= 0)
 			throw new CartNotFoundException("Please add some Product to cart");

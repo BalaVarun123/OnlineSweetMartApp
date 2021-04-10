@@ -29,6 +29,7 @@ import com.cg.osm.entity.SweetItemInput;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.entity.User;
 import com.cg.osm.error.AdminNotFoundException;
+import com.cg.osm.error.CartNotFoundException;
 import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.model.AdminDTO;
 import com.cg.osm.repository.ICategoryRepository;
@@ -77,7 +78,7 @@ class AdminServiceImplTest {
 	Admin admin1;
 	Admin admin2;
 	@BeforeAll
-	void beforeAll() {
+	void beforeAll() throws CartNotFoundException {
 		user1 = new User();
 		user2 = new User();
 		customer = new Customer();

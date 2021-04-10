@@ -3,13 +3,16 @@ package com.cg.osm.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.cg.osm.error.AdminNotFoundException;
 import com.cg.osm.error.CategoryNotFoundException;
+import com.cg.osm.error.CommonException;
 import com.cg.osm.error.OrderBillNotFoundException;
 import com.cg.osm.error.ProductNotFoundException;
 import com.cg.osm.error.SweetItemNotFoundException;
@@ -18,48 +21,21 @@ import com.cg.osm.error.UserNotFoundException;
 @ControllerAdvice
 public class GlobalExceptionController {
 
-	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
 	
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid id, Admin Not Found.")
-	@ResponseBody
-	@ExceptionHandler({AdminNotFoundException.class})
-	public void handleAdminNotFoundException(){
-		LOGGER.error("Invalid id , Admin Not Found.");
-	}
 	
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid orderBillId, OrderBill Not Found.")
-	@ResponseBody
-	@ExceptionHandler({OrderBillNotFoundException.class})
-	public void  handleOrderBillNotFoundException(){
-		LOGGER.error("Invalid orderBillId , OrderBill Not Found.");
-	}
 	
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid categoryId, Category Not Found")
-	@ResponseBody
-	@ExceptionHandler({CategoryNotFoundException.class})
-	public void handleCategoryNotFoundException()
+
+	@ExceptionHandler(CommonException.class)
+	public ResponseEntity<String> exceptionHandler(Exception exception)
 	{
-		LOGGER.error("Invalid categoryId, Category Not Found");
+		String errorMessage = exception.getMessage();
+		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 	}
 	
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid Productid, Product Not Found.")
-	@ResponseBody
-	@ExceptionHandler({ProductNotFoundException.class})
-	public void handleProductNotFoundException(){
-		LOGGER.error("Invalid productid , Product Not Found.");
+	@ExceptionHandler(HttpClientErrorException.class)
+	public ResponseEntity<String> httpClientExceptionHandler(Exception exception)
+	{
+		String errorMessage = exception.getMessage();
+		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 	}
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid userid, Product Not Found.")
-	@ResponseBody
-	@ExceptionHandler({UserNotFoundException.class})
-	public void handleUserNotFoundException(){
-		LOGGER.error("Invalid userId , User Not Found.");
-	}
-	
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Invalid orderItemId, SweetItem Not Found.")
-	@ResponseBody
-	@ExceptionHandler({SweetItemNotFoundException.class})
-	public void handleSweetItemNotFoundException(){
-		LOGGER.error("Invalid orderItemId, SweetItem Not Found.");
-	}
-	
 }

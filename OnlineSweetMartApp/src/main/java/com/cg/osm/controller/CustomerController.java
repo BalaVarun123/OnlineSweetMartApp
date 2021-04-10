@@ -72,7 +72,7 @@ public class CustomerController {
 		
 		customer1.setSweetItems(sweetItems);
 		customer1.setSweetOrders(sweetOrders);
-		customer1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart/"+customer.getCartId(), CartDTO.class)));
+		customer1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart-by-id/"+customer.getCartId(), CartDTO.class)));
 		if (!CustomerServiceImp.validateCustomerUserId(customer1)) {
 			result = "Invalid userid";
 			status = HttpStatus.BAD_REQUEST;
@@ -122,7 +122,7 @@ public class CustomerController {
 		
 		customer1.setSweetItems(sweetItems);
 		customer1.setSweetOrders(sweetOrders);
-		customer1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart/"+customer.getCartId(), CartDTO.class)));
+		customer1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart-by-id/"+customer.getCartId(), CartDTO.class)));
 		
 		
 		

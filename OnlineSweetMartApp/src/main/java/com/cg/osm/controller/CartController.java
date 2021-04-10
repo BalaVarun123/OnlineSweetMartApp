@@ -24,9 +24,9 @@ import com.cg.osm.service.CartServiceImp;
 import com.cg.osm.service.ICartService;
 
 /*
- * Author : UJJWAL SINGH A
- * Version : 1.0
- * Date : 04-04-2021
+ * Author      : UJJWAL SINGH A
+ * Version     : 1.0
+ * Date        : 04-04-2021
  * Description : This is Cart Controller
 */
 
@@ -34,91 +34,140 @@ import com.cg.osm.service.ICartService;
 @RequestMapping("/api/osm")
 public class CartController {
 
+	final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private ICartService cartService;
+	
+	
+	
+	
+	
+	/************************************************************************************
+	 * Method       : addCart 
+	 * Description  : It is used to add Cart into cart Table
+	 * @param cart  : Cart Object
+	 * @returns     : It returns CartDTO Object with details
+	 * @PostMapping : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception   : CartNotFoundException
+	 * Created By   : UJJWAL SINGH A
+     * Created Date : 04-04-2021 
+     *
+	 ************************************************************************************/
 
-	final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
-	// 1. ADD-CART
 	@PostMapping(value = "/add-cart", consumes = "application/json")
-	public ResponseEntity<CartDTO> addCart(@RequestBody Cart cart) throws CartNotFoundException {
-		LOGGER.info("add-cart URL is opened");
-		LOGGER.info("addCart() is initiated");
-		CartDTO cartdto = null;
-		ResponseEntity<CartDTO> cartResponse = null;
-
-		if (CartServiceImp.validateCart(cart)) {
-
-			cartdto = cartService.addCart(cart);
-			LOGGER.info("addCart() has executed");
-			cartResponse = new ResponseEntity<CartDTO>(cartdto, HttpStatus.ACCEPTED);
-
-		} else
-
-			throw new CartNotFoundException("Invalid Cart Details");
-
-		return cartResponse;
-
+	public ResponseEntity<Object> addCart(@RequestBody Cart cart) throws CartNotFoundException {
+		logger.info("add-cart URL is opened");
+		logger.info("addCart() is initiated");
+		CartDTO cartDTO = cartService.addCart(cart);
+		logger.info("addCart() has executed");
+		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
+		
 	}
-
-	// 2. UPDATE-CART
+	
+	
+	
+	
+	
+	
+	/************************************************************************************
+	 * Method         : updateCart 
+	 * Description    : It is used to update cart into cart table
+	 * @param cart    : Cart Object
+	 * @returns cart  : It returns CartDTO Object with details
+	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CartNotFoundException
+	 * Created By     : UJJWAL SINGH A
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
+		
+	
 	@PutMapping("/update-cart")
 	public ResponseEntity<Object> updateCart(@RequestBody Cart cart) throws CartNotFoundException {
-		LOGGER.info("update-cart URL is opened");
-		LOGGER.info("updateCart() is initiated");
-
-		CartDTO cartdto = null;
-		ResponseEntity<Object> cartResponse = null;
-
-		if (CartServiceImp.validateCart(cart) && CartServiceImp.validateCartId(cart)) {
-
-			cartdto = cartService.updateCart(cart);
-			LOGGER.info("updateCart() has executed");
-
-			cartResponse = new ResponseEntity<Object>(cartdto, HttpStatus.ACCEPTED);
-
-		} else {
-
-			throw new CartNotFoundException("No Cart available in given ID");
-
-		}
-		return cartResponse;
-
+		logger.info("update-cart URL is opened");
+		logger.info("updateCart() is initiated");
+		CartDTO cartDTO = cartService.updateCart(cart);
+		logger.info("updateCart() has executed");
+		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
 	}
+	
+	
+	
+	
 
-	// 3. DELETE - CART
-	@DeleteMapping("delete-cart/{id}")
+	/************************************************************************************
+	 * Method          : cancelCart
+	 * Description     : It is used to remove cart from cart table
+	 * @param id       : integer cartId
+	 * @returns cart   : It returns CartDTO Object with details
+	 * @DeleteMapping  : It is used to handle the HTTP DELETE requests matched with given URI expression.
+	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception      : CartNotFoundException
+	 * Created By      : UJJWAL SINGH A
+     * Created Date    : 04-04-2021 
+	 * 
+	 ************************************************************************************/
+
+    @DeleteMapping("delete-cart/{id}")
 	public ResponseEntity<Object> cancelCart(int cartId) throws CartNotFoundException {
-		LOGGER.info("cancel-Cart URL is opened");
-		LOGGER.info("cancelCart() is initiated");
+		logger.info("cancel-Cart URL is opened");
+		logger.info("cancelCart() is initiated");
 		CartDTO cartDTO = cartService.cancelCart(cartId);
-		LOGGER.info("cancelCart() has executed");
+		logger.info("cancelCart() has executed");
 		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
 
 	}
+	
+	
+	
+	
 
-	// 4. SHOW-CART BY ID
-	@GetMapping("/show-cart/{id}")
-	public CartDTO showCart(@PathVariable("id") int cartId) throws CartNotFoundException {
-		LOGGER.info("show-cart URL is opened");
-		LOGGER.info("showCart() is initiated");
+	
+	/************************************************************************************
+	 * Method         : showCartById
+	 * Description    : It is used to view tenant from cart table
+	 * @param cart    : integer cartId
+	 * @returns cart  : It returns CartDTO Object with details
+	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CartNotFoundException
+	 * Created By     : UJJWAL SINGH A
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
 
-		CartDTO cartdto = null;
-
-		if (!(cartId <= 0)) {
-			cartdto = cartService.showCart(cartId);
-			LOGGER.info("showCart() has executed");
-		}
-
-		return cartdto;
-
+	@GetMapping("/show-cart-by-id/{cartId}")
+	public CartDTO showCartById(@PathVariable("cartId") int cartId) throws CartNotFoundException {
+		logger.info("view-cart URL is opened");
+		logger.info("showCartById() is initiated");
+		CartDTO cartDTO = cartService.showCartById(cartId);
+		logger.info("showCartById() has executed");
+		return cartDTO;
 	}
-
-	// 5. SHOW ALL CARTS
+	
+	
+	
+	
+	
+	
+	/************************************************************************************
+	 * Method         : showAllCarts
+	 * Description    : It is used to view all cart details present in cart table
+	 * @returns cart  : It returns all List<CartDTO> Object with details
+	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By     : UJJWAL SINGH A
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
+	
 	@GetMapping("/show-all-carts")
 	public List<CartDTO> showAllCarts() {
-		LOGGER.info("show-all-carts URL is opened");
-		LOGGER.info("getAllTenant() is initiated");
+		logger.info("showAllCarts URL is opened");
+		logger.info("showAllCarts() is initiated");
 		return cartService.showAllCarts();
 
 	}

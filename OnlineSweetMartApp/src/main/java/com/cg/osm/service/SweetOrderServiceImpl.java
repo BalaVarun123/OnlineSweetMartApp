@@ -38,7 +38,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 			if (repository.existsById(sweetOrder.getSweetOrderId())) {
 				sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(repository.save(sweetOrder));
 			} else {
-				throw new SweetOrderNotFoundException();
+				throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
 			}
 		}
 		return sweetOrderDTO;
@@ -52,7 +52,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 			repository.delete(sweetOrder);
 			sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(sweetOrder);
 		} else {
-			throw new SweetOrderNotFoundException();
+			throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
 		}
 
 		return sweetOrderDTO;
@@ -68,7 +68,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		if (sweetOrder != null) {
 			sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(sweetOrder);
 		} else {
-			throw new SweetOrderNotFoundException();
+			throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
 		}
 
 		return sweetOrderDTO;
@@ -91,7 +91,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 				total += item.getProduct().getPrice();
 			}
 		} else {
-			throw new SweetOrderNotFoundException();
+			throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
 		}
 
 		return total;

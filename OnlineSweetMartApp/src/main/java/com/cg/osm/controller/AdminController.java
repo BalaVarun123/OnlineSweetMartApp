@@ -62,7 +62,7 @@ public class AdminController {
 		admin1.setUser(UserUtils.convertToUser(restTemplate.getForObject("http://localhost:9191/api/osm/user/show/"+admin.getUserId(), UserDTO.class)));
 		admin1.setItem(SweetItemUtils.convertToSweetItem(restTemplate.getForObject("http://localhost:9191/api/osm/showSweetItem/"+admin.getItemId(), SweetItemDTO.class)));
 		admin1.setCategory(CategoryUtils.convertToCategory(restTemplate.getForObject("http://localhost:9191/api/osm/category/show/"+admin.getCategory(), CategoryDTO.class)));
-		admin1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart/"+admin.getCart(), CartDTO.class)));
+		admin1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart-by-id/"+admin.getCart(), CartDTO.class)));
 		admin1.setProduct(ProductUtils.convertToProduct(restTemplate.getForObject("http://localhost:9191/api/osm/product/show-by-id/"+admin.getProduct(), ProductDTO.class)));
 		
 		if (!AdminServiceImpl.validateId(admin1)) {
@@ -112,7 +112,7 @@ public class AdminController {
 		admin1.setUser(UserUtils.convertToUser(restTemplate.getForObject("http://localhost:9191/api/osm/user/show/"+admin.getUserId(), UserDTO.class)));
 		admin1.setItem(SweetItemUtils.convertToSweetItem(restTemplate.getForObject("http://localhost:9191/api/osm/showSweetItem/"+admin.getItemId(), SweetItemDTO.class)));
 		admin1.setCategory(CategoryUtils.convertToCategory(restTemplate.getForObject("http://localhost:9191/api/osm/category/show/"+admin.getCategory(), CategoryDTO.class)));
-		admin1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart/"+admin.getCart(), CartDTO.class)));
+		admin1.setCart(CartUtils.convertToCart(restTemplate.getForObject("http://localhost:9191/api/osm/show-cart-by-id/"+admin.getCart(), CartDTO.class)));
 		admin1.setProduct(ProductUtils.convertToProduct(restTemplate.getForObject("http://localhost:9191/api/osm/product/show-by-id/"+admin.getProduct(), ProductDTO.class)));
 		admin1.setId(admin.getId());
 		
