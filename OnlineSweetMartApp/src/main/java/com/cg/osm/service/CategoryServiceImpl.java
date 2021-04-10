@@ -2,6 +2,8 @@ package com.cg.osm.service;
 
 import java.util.List;
 
+import org.jboss.logging.Logger;
+import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +62,14 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public double calculateTotalCost(int categoryId) 
 	{
-		return repo.calculateTotalCost(categoryId);
+		double total;
+		try {
+			total = repo.calculateTotalCost(categoryId);
+		}
+		catch(AopInvocationException e) {
+			total = 0;
+		}
+		return total;
 	}
 	
 	
