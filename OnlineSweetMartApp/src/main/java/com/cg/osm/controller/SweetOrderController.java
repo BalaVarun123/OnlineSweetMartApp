@@ -154,12 +154,12 @@ public class SweetOrderController {
 		return new ResponseEntity<List<SweetOrderDTO>>(showAllSweetOrders, HttpStatus.ACCEPTED);
 	}
 	 @GetMapping(value="/calculateTotalCost/{sweetOrderId}")
-	  public double calculateTotalCost(@PathVariable("sweetOrderId") int sweetOrderId) 
+	  public double calculateTotalCost(@PathVariable("sweetOrderId") int sweetOrderId) throws SweetOrderNotFoundException 
 		{
 			if (!(sweetOrderId==0))
 			 return sweetOrderService.calculateTotalCost(sweetOrderId);
 			else 
-				return 0;			
+				return 0;
 		}
 	 @GetMapping(value="/showAllSweetOrder/{id}", produces = "application/json")
 		public SweetOrderDTO showSweetOrder(@PathVariable("id") int sweetOrderId) throws SweetOrderNotFoundException {

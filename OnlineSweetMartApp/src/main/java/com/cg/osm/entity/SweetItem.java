@@ -4,6 +4,9 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -13,6 +16,7 @@ public class SweetItem {
     private int orderItemId;
 	@OneToOne
     private Product product;
+	@JsonIgnore
     @ManyToOne
     private SweetOrder sweetOrder;
     public SweetItem(Integer orderItemId,Product product,SweetOrder sweetOrder) {

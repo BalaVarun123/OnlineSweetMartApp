@@ -11,7 +11,7 @@ public interface ISweetOrderService  {
 	public SweetOrderDTO updateSweetOrder(SweetOrder sweetOrder) throws SweetOrderNotFoundException;
 	public SweetOrderDTO cancelSweetOrder(int sweetOrderId) throws SweetOrderNotFoundException;
 	public List<SweetOrderDTO> showAllSweetOrders();
-	public double calculateTotalCost(int sweetOrderId);
+	public double calculateTotalCost(int sweetOrderId) throws SweetOrderNotFoundException;
 	public SweetOrderDTO showSweetOrder(int sweetOrderId) throws SweetOrderNotFoundException;
 	
 }

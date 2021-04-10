@@ -79,6 +79,24 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 
 		return SweetOrderUtils.convertToSweetOrderDtoList(repository.findAll());
 	}
+	
+	
+	@Override
+	public double calculateTotalCost(int sweetOrderId) throws SweetOrderNotFoundException {
+		double total = 0;
+		SweetOrder sweetOrder = repository.findById(sweetOrderId).orElse(null);
+		if (sweetOrder != null) {
+			List<SweetItem> sweetItems = sweetOrder.getListItems();
+			for (SweetItem item : sweetItems) {
+				total += item.getProduct().getPrice();
+			}
+		} else {
+			throw new SweetOrderNotFoundException();
+		}
+
+		return total;
+	}
+
 
 	/*
 	 * @Override public double calculateTotalCost(int sweetOrderId) { double sum =
@@ -145,10 +163,5 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		return result;
 	}
 
-	@Override
-	public double calculateTotalCost(int sweetOrderId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }
