@@ -13,7 +13,7 @@ public interface ICategoryService  {
 	public CategoryDTO addCategory(Category category);
 	public CategoryDTO updateCategory(Category category) throws CategoryNotFoundException;
 	public CategoryDTO cancelCategory(int categoryId) throws CategoryNotFoundException;
-	public List<CategoryDTO> showAllCategorys();
+	public List<CategoryDTO> showAllCategories();
 	public double calculateTotalCost(int categoryId);
 	public CategoryDTO showCategory(int categoryId) throws CategoryNotFoundException;
 

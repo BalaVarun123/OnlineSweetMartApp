@@ -20,8 +20,8 @@ public class CategoryServiceImpl implements ICategoryService {
 	
 	@Override
 	public CategoryDTO addCategory(Category category) {
-		Category ctgy = repo.save(category);
-		return CategoryUtils.convertToCategoryDto(ctgy);
+		Category category1 = repo.save(category);
+		return CategoryUtils.convertToCategoryDto(category1);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public List<CategoryDTO> showAllCategorys() {
+	public List<CategoryDTO> showAllCategories() {
 		List<Category> list= repo.findAll();
 		
 		return CategoryUtils.convertToCategoryDtoList(list);
@@ -68,6 +68,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		}
 		catch(AopInvocationException e) {
 			total = 0;
+			Logger.getLogger(this.getClass()).error("AopInvocationException occured.No suitable records found");
 		}
 		return total;
 	}
@@ -86,22 +87,35 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 	
 	
-	public static boolean validateCategoryId(Category category) throws CategoryNotFoundException
+	public static boolean validateCategoryId(Category category) 
 	{
-		boolean flag=false;
-		if(category.getCategoryId()>=0)
-			flag=true;
-		else
-			throw new CategoryNotFoundException("Not a valid category id");
+		boolean flag = true;
+		if (category == null) {
+			flag = false;
+		}
+		else {
+			Integer id = category.getCategoryId();
+			if (id == null|| id < 0 )
+				flag = false;
+		}
+		
 		return flag;
 	}
-	public static boolean validateName(Category category) throws CategoryNotFoundException
+	public static boolean validateName(Category category) 
 	{
-		boolean flag=false;
-		if(category.getName().matches("^[a-zA-Z]+$") && category.getName().length()>2)
+		boolean flag=true;
+		if (category==null)
+		{
+			flag=false;
+		}
+		String name= category.getName();
+	    if (name==null)
+		{
+			flag=false;
+		}
+		if(category.getName().matches("^[a-zA-Z0-9]+$") && category.getName().length()>2)
 			flag=true;
-		else 
-			throw new CategoryNotFoundException("Not a valid name");
+	
 		return flag; 
 			
 			

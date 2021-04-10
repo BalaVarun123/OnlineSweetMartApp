@@ -32,7 +32,7 @@ public class CategoryController
   final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
  
   @PostMapping(value="/category/add")
-  public ResponseEntity<Object> addCategory(@RequestBody Category category) throws CategoryNotFoundException
+  public ResponseEntity<Object> addCategory(@RequestBody Category category) 
   {
 	  CategoryDTO category_add = null;
 	  ResponseEntity<Object> response = null;
@@ -87,9 +87,9 @@ public class CategoryController
   }
  
   @GetMapping(value="/category/get-all")
-  public List<CategoryDTO> showAllCategorys()
+  public List<CategoryDTO> showAllCategories()
   {
-	return service.showAllCategorys();  
+	return service.showAllCategories();  
   }
  
   @GetMapping(value="/category/total-cost/{id}")
