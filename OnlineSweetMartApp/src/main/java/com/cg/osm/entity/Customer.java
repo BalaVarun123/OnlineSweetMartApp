@@ -30,7 +30,7 @@ public class Customer {
 
 	}
 
-	public Customer(Long userId, String username, Set<SweetOrder> sweetOrders, List<SweetItem> sweetItems, Cart cart) {
+	public Customer(long userId, String username, Set<SweetOrder> sweetOrders, List<SweetItem> sweetItems, Cart cart) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -39,11 +39,11 @@ public class Customer {
 		this.cart = cart;
 	}
 
-	public Long getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
