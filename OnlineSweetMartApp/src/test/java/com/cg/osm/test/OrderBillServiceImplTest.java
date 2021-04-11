@@ -49,6 +49,7 @@ class OrderBillServiceImplTest {
 		LOGGER.info("testAddOrderBill is terminated.");
 	}
 
+
 	@Test
 	void testUpdateOrderBill() throws OrderBillNotFoundException {
 		LOGGER.info("testUpdateOrderBill is initiated.");
