@@ -22,7 +22,7 @@ public class Product {
 	private String photopath;
 	
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="categoryId")
 	private Category category;
 

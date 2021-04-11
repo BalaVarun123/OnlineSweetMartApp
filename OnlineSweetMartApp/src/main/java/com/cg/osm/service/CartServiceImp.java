@@ -144,9 +144,7 @@ public class CartServiceImp implements ICartService {
 	
 	/*
 	 * Description     : This method Shows existing Cart
-	 * Input Parameter : integer
 	 * Return Value    : CartDTO Object 
-	 * Exception       : CartNotFoundException
 	 */
 
 	@Override
