@@ -50,11 +50,16 @@ public class CartServiceImp implements ICartService {
 		Cart cartEntity;
 		if (cart == null)
 			cartEntity = null;
-		else if (!validateCart(cart))
-			throw new CartNotFoundException(cartNotFound);
+		
 		else
+		{   
+			
+			validateCart(cart);
 			cartEntity = cartRepo.save(cart);
-		 logger.info("addCart() service has executed");
+			
+		}
+		
+		logger.info("addCart() service has executed");
 		 return CartUtils.convertToCartDto(cartEntity);
 	}
 	
@@ -84,8 +89,7 @@ public class CartServiceImp implements ICartService {
 		}
 
 		logger.info("updateCart() service has executed");
-
-		return CartUtils.convertToCartDto(cartEntity);
+        return CartUtils.convertToCartDto(cartEntity);
 
 	}
 	
@@ -112,8 +116,7 @@ public class CartServiceImp implements ICartService {
 			cartRepo.delete(existCart);
 
 		logger.info("cancelCart() service has executed");
-
-		return CartUtils.convertToCartDto(existCart);
+        return CartUtils.convertToCartDto(existCart);
 	}
 
 	
@@ -134,8 +137,7 @@ public class CartServiceImp implements ICartService {
 			throw new CartNotFoundException(cartNotFound);
 
 		logger.info("showCartById() service has executed");
-
-		return CartUtils.convertToCartDto(existCart);
+        return CartUtils.convertToCartDto(existCart);
 	}
 	
 	
@@ -144,9 +146,7 @@ public class CartServiceImp implements ICartService {
 	
 	/*
 	 * Description     : This method Shows existing Cart
-	 * Input Parameter : integer
 	 * Return Value    : CartDTO Object 
-	 * Exception       : CartNotFoundException
 	 */
 
 	@Override
@@ -169,13 +169,14 @@ public class CartServiceImp implements ICartService {
 			logger.error("Cart details cannot be blank");
 			throw new CartNotFoundException("Cart details cannot be blank"); 
 			}
-		else if (!(validateTotalCost(cart.getTotal()) && validateTotalCost(cart.getGrandTotal())
-				&& validateProductCount(cart.getProductCount())))
+		else { 
+			validateTotalCost(cart.getTotal());
+			validateTotalCost(cart.getGrandTotal());
+		    validateProductCount(cart.getProductCount());
 
-			throw new CartNotFoundException("Invalid Data");
-		else
-			logger.info("Validation Successful");
+		    logger.info("Validation Successful");
 			flag = true;
+		}
 		logger.info("validateCart() has executed");
 		return flag;
 	}

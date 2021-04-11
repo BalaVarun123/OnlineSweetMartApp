@@ -13,7 +13,7 @@ public class LoginServiceImpl implements ILoginService {
 	IUserRepository repository;
 
 	@Override
-	public boolean login(Long userId, String password) throws UserNotFoundException {
+	public boolean login(long userId, String password) throws UserNotFoundException {
 		boolean result;
 		User user = repository.findById(userId).orElse(null);
 		if (user == null) {
@@ -41,7 +41,7 @@ public class LoginServiceImpl implements ILoginService {
 	}
 
 	@Override
-	public boolean logout(Long userId) throws UserNotFoundException {
+	public boolean logout(long userId) throws UserNotFoundException {
 		boolean result;
 		User user = repository.findById(userId).orElse(null);
 		if (user == null) {
@@ -56,7 +56,7 @@ public class LoginServiceImpl implements ILoginService {
 	}
 
 	@Override
-	public boolean isLoggedIn(Long userId) throws UserNotFoundException {
+	public boolean isLoggedIn(long userId) throws UserNotFoundException {
 		boolean result;
 		User user = repository.findById(userId).orElse(null);
 		if (user == null) {
@@ -69,7 +69,7 @@ public class LoginServiceImpl implements ILoginService {
 	}
 	
 	
-	public static boolean validateUserId(Long userId) {
+	public static boolean validateUserId(long userId) {
 		if (userId > 0 ) {
 			return true;
 		}
