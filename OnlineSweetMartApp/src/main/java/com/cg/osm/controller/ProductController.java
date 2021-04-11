@@ -2,6 +2,8 @@ package com.cg.osm.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class ProductController {
 	@Autowired
 	IProductService service;
 	
-	
+	 final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@PostMapping(value = "/product/add", produces = "application/json", consumes  = "application/json")
@@ -39,7 +41,7 @@ public class ProductController {
 			
 			ProductDTO result=service.addProduct(product);
 			productResponse = new ResponseEntity<ProductDTO>(result,HttpStatus.ACCEPTED);
-			System.out.println("Product Added");
+			LOGGER.info("Product Added");
 
 		} else
 
@@ -57,7 +59,7 @@ public class ProductController {
 			
 			ProductDTO result=service.updateProduct(productid,product);
 			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
-			System.out.println("Product Updated");
+			LOGGER.info("Product Updated");
 
 		} else
 
@@ -71,7 +73,7 @@ public class ProductController {
 		ResponseEntity<ProductDTO> productResponse;
 		 service.cancelProduct(productid);
 		productResponse = new ResponseEntity(HttpStatus.ACCEPTED);
-		System.out.println("Product Deleted");
+		LOGGER.info("Product Deleted");
 		
 	}
 	
