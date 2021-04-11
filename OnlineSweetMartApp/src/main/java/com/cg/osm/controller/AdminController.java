@@ -50,10 +50,14 @@ public class AdminController {
 	IAdminService service;
 	@Autowired
 	RestTemplate restTemplate;
-	
+	static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 	
 	@PostMapping(value = "/admin/add", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object>  addAdmin(@RequestBody AdminInput admin) {
+		LOGGER.info("/admin/add URL is opened.");
+		LOGGER.info("addAdmin is initiated.");
+		
+		
 		HttpStatus status;
 		Object result;
 		Admin admin1 = new Admin();
@@ -96,7 +100,7 @@ public class AdminController {
 			result = service.addAdmin(admin1);
 			status = HttpStatus.OK;
 		}
-		
+		LOGGER.info("addAdmin is terminated with http status :"+status);
 		return new ResponseEntity<Object>(result,status);
 		
 	}
@@ -104,6 +108,10 @@ public class AdminController {
 	
 	@PutMapping(value = "/admin/update", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object>  updateAdmin(@RequestBody AdminInput admin) throws AdminNotFoundException {
+		
+		LOGGER.info("/admin/update URL is opened.");
+		LOGGER.info("updateAdmin is initiated.");
+		
 		HttpStatus status;
 		Object result;
 		Admin admin1 = new Admin();
@@ -147,13 +155,16 @@ public class AdminController {
 			result = service.updateAdmin(admin1);
 			status = HttpStatus.OK;
 		}
-		
+		LOGGER.info("updateAdmin is terminated with http status :"+status);
 		return new ResponseEntity<Object>(result,status);
 		
 	}
 	
 	@DeleteMapping(value = "/admin/cancel/{adminId}", produces = "application/json")
 	public ResponseEntity<Object> cancelAdmin(@PathVariable("adminId") int adminId) throws AdminNotFoundException{
+		LOGGER.info("/admin/cancel/ URL is opened.");
+		LOGGER.info("cancelAdmin is initiated.");
+		
 		Object result;
 		HttpStatus status;
 		if (adminId < 0) {
@@ -164,16 +175,25 @@ public class AdminController {
 			result = service.cancelAdmin(adminId);
 			status = HttpStatus.OK;
 		}
+		
+		LOGGER.info("cancelAdmin is terminated with http status :"+status);
+		
 		return new ResponseEntity<Object> (result,status);
 	}
 	
 	@GetMapping(value = "/admin/show-all", produces = "application/json")
 	public List<AdminDTO> showAllAdmins(){
-		return service.showAllAdmins();
+		LOGGER.info("/admin/show-all URL is opened.");
+		LOGGER.info("showAllAdmins is initiated.");
+		List<AdminDTO> listDTO = service.showAllAdmins();
+		LOGGER.info("showAllAdmins is terminated.");
+		return listDTO;
 	}
 	
 	@GetMapping(value = "/admin/show/{adminId}", produces = "application/json")
-	public ResponseEntity<Object> showAllAdmins(@PathVariable("adminId") int adminId){
+	public ResponseEntity<Object> showAdmin(@PathVariable("adminId") int adminId){
+		LOGGER.info("/admin/show/ URL is opened.");
+		LOGGER.info("showAdmin is initiated.");
 		Object result;
 		HttpStatus status;
 		if (adminId < 0) {
@@ -184,6 +204,7 @@ public class AdminController {
 			result = service.showAllAdmins(adminId);
 			status = HttpStatus.OK;
 		}
+		LOGGER.info("showAdmin is terminated with http status :"+status);
 		return new ResponseEntity<Object> (result,status);
 	}
 	

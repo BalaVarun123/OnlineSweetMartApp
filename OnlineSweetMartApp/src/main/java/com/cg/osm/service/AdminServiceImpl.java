@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.osm.controller.AdminController;
 import com.cg.osm.entity.Admin;
 import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Category;
@@ -20,64 +23,100 @@ import com.cg.osm.model.AdminDTO;
 import com.cg.osm.repository.IAdminRepository;
 import com.cg.osm.util.AdminUtils;
 
+/*
+ * Author      : BALASUBRAMANIAN S
+ * Version     : 1.0
+ * Date        : 05-04-2021
+ * Description : This is Cart Service Layer
+*/
+
+
+
+
 @Service
 public class AdminServiceImpl implements IAdminService{
 
+	
 	@Autowired
 	public IAdminRepository repository;
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
+	
+	
 	@Override
 	public AdminDTO addAdmin(Admin admin) {
+		LOGGER.info("addAdmin service method is initiated.");
 		AdminDTO adminDTO;
-		if (admin == null)
+		if (admin == null) {
+			LOGGER.error("admin is null.");
 			adminDTO =  null;
+		}
 		else 
 			adminDTO = AdminUtils.convertToAdminDto(repository.save(admin));
+		LOGGER.info("addAdmin service method is terminated.");
 		return adminDTO;
 	}
 
 	@Override
 	public AdminDTO updateAdmin(Admin admin) throws AdminNotFoundException {
+		LOGGER.info("updateAdmin service method is initiated.");
 		AdminDTO adminDTO;
-		if (admin == null)
+		if (admin == null) {
+			LOGGER.error("admin is null.");
 			adminDTO = null;
+		}
 		else {
 			Admin existingAdmin = repository.findById(admin.getId()).orElse(null);
 			if (existingAdmin == null) {
+				LOGGER.error("Invalid id.");
 				throw new AdminNotFoundException("Invalid id.");
 			}
 			else {
 				adminDTO =  AdminUtils.convertToAdminDto(repository.save(admin));
 			}
 		}
-
+		LOGGER.info("updateAdmin service method is terminated.");
 		return adminDTO;
 	}
 
 	@Override
 	public AdminDTO cancelAdmin(int adminId) throws AdminNotFoundException {
+		LOGGER.info("cancelAdmin service method is initiated.");
+		AdminDTO adminDTO;
 		Admin existingAdmin = repository.findById(adminId).orElse(null);
 		if (existingAdmin == null) {
+			LOGGER.error("Invalid id.");
 			throw new AdminNotFoundException("Invalid id.");
 		}
 		else {
 			repository.delete(existingAdmin);
-			return AdminUtils.convertToAdminDto(existingAdmin);
+			adminDTO = AdminUtils.convertToAdminDto(existingAdmin);
 		}
+		LOGGER.info("cancelAdmin service method is terminated.");
+		return adminDTO;
 	}
 
 	@Override
 	public List<AdminDTO> showAllAdmins() {
+		LOGGER.info("showAllAdmins service method is initiated.");
+		List<AdminDTO> listAdminDTO;
 		List<Admin> listAdmins = repository.findAll();
-		return AdminUtils.convertToAdminDtoList(listAdmins);
+		listAdminDTO =  AdminUtils.convertToAdminDtoList(listAdmins);
+		LOGGER.info("showAllAdmins service method is terminated.");
+		return listAdminDTO;
 	}
 
 	@Override
 	public List<AdminDTO> showAllAdmins(int adminId) {
+		LOGGER.info("showAllAdmins(int adminId) service method is initiated.");
+		List<AdminDTO> listAdminDTO;
 		List<Admin> listAdmins = new ArrayList<Admin>();
 		Optional<Admin> adminOptional = repository.findById(adminId);
 		if (adminOptional.isPresent())
 			listAdmins.add(adminOptional.get());
-		return AdminUtils.convertToAdminDtoList(listAdmins);
+		listAdminDTO = AdminUtils.convertToAdminDtoList(listAdmins);
+		LOGGER.info("showAllAdmins(int adminId) service method is terminated.");
+		return listAdminDTO;
 	}
 	
 	
@@ -100,6 +139,7 @@ public class AdminServiceImpl implements IAdminService{
 				flag = true;
 			}
 		}
+		LOGGER.info("validateId is executed.");
 		return flag;
 	}
 	
@@ -117,6 +157,7 @@ public class AdminServiceImpl implements IAdminService{
 			else
 				flag = true;
 		}
+		LOGGER.info("validateCustomer is executed.");
 		return flag;
 	}
 	
@@ -132,6 +173,7 @@ public class AdminServiceImpl implements IAdminService{
 			else
 				flag = true;
 		}
+		LOGGER.info("validateUser is executed.");
 		return flag;
 	}
 	public static boolean validateSweetItem(Admin admin) {
@@ -146,6 +188,7 @@ public class AdminServiceImpl implements IAdminService{
 			else
 				flag = true;
 		}
+		LOGGER.info("validateSweetItem is executed.");
 		return flag;
 	}
 	
@@ -161,6 +204,7 @@ public class AdminServiceImpl implements IAdminService{
 			else
 				flag = true;
 		}
+		LOGGER.info("validateCategory is executed.");
 		return flag;
 	}
 	
@@ -176,6 +220,7 @@ public class AdminServiceImpl implements IAdminService{
 			else
 				flag = true;
 		}
+		LOGGER.info("validateCart is executed.");
 		return flag;
 	}
 	
@@ -191,6 +236,7 @@ public class AdminServiceImpl implements IAdminService{
 			else
 				flag = true;
 		}
+		LOGGER.info("validateProduct is executed.");
 		return flag;
 	}
 	

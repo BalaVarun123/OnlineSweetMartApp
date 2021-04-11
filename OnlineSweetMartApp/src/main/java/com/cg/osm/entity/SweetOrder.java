@@ -25,7 +25,7 @@ public class SweetOrder {
     //@ManyToOne(cascade = CascadeType.ALL)
     @OneToOne
 	private User user;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
 	//@ElementCollection
@@ -53,7 +53,7 @@ public class SweetOrder {
 		return sweetOrderId;
 	}
 
-	public void setSweetOrderId(Integer sweetOrderId) {
+	public void setSweetOrderId(int sweetOrderId) {
 		this.sweetOrderId = sweetOrderId;
 	}
 

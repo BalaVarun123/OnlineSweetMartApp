@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,69 +17,155 @@ import com.cg.osm.model.OrderBillDTO;
 import com.cg.osm.repository.IOrderBillRepository;
 import com.cg.osm.util.OrderBillUtils;
 
+
+/*
+ * Author      : BALASUBRAMANIAN S
+ * Version     : 1.0
+ * Date        : 05-04-2021
+ * Description : Implementation for IOrderBillService
+*/
+
 @Service
 public class OrderBillServiceImpl implements IOrderBillService{
 
 	@Autowired
 	public IOrderBillRepository repository;
+	
+	final static Logger LOGGER = LoggerFactory.getLogger(OrderBillServiceImpl.class);
+	
+	
+	/*
+	 * Description     : Service method for adding a new OrderBill record.
+	 * Input Parameter : OrderBill Object 
+	 * Return Value    : OrderBillDTO Object 
+	*/
+	
 	@Override
 	public OrderBillDTO addOrderBill(OrderBill orderBill) {
-		if (orderBill == null)
-			return  null;
-		return OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+		LOGGER.info("addOrderBill service method is initiated.");
+		OrderBillDTO orderBillDTO;
+		
+		if (orderBill == null) {
+			LOGGER.error("orderBill is null.");
+			orderBillDTO = null;
+		}
+		else
+			orderBillDTO = OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+		
+		LOGGER.info("addOrderBill service method is terminated.");
+		return orderBillDTO;
 	}
 
+	
+	/*
+	 * Description     : Service method for updating an existing OrderBill record.
+	 * Input Parameter : OrderBill Object 
+	 * Return Value    : OrderBillDTO Object 
+	 * Exception       : OrderBillNotFoundException
+	 */
+	
+	
 	@Override
 	public OrderBillDTO updateOrderBill(OrderBill orderBill) throws OrderBillNotFoundException {
-		if (orderBill == null)
-			return  null;
-		OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
-		if (existingOrderBill == null) {
-			throw new OrderBillNotFoundException("Invalid id.");
+		LOGGER.info("updateOrderBill service method is initiated.");
+		OrderBillDTO orderBillDTO;
+		if (orderBill == null) {
+			LOGGER.error("orderBill is null.");
+			orderBillDTO =  null;
 		}
 		else {
-			return OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+			OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
+			if (existingOrderBill == null) {
+				LOGGER.error("Invalid orderBillId.");
+				throw new OrderBillNotFoundException("Invalid orderBillId.");
+			}
+			else {
+				orderBillDTO = OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
+			}
 		}
+		LOGGER.info("updateOrderBill service method is terminated.");
+		return orderBillDTO;
+
 	}
 
+	
+	/*
+	 * Description     : This method deletes existing OrderBill record.
+	 * Input Parameter : int orderBillId
+	 * Return Value    : OrderBillDTO Object 
+	 * Exception       : OrderBillNotFoundException
+	 */
+	
 	@Override
 	public OrderBillDTO cancelOrderBill(int orderBillId) throws OrderBillNotFoundException {
+		LOGGER.info("cancelOrderBill service method is initiated.");
+		OrderBillDTO orderBillDTO;
 		OrderBill existingOrderBill = repository.findById(orderBillId).orElse(null);
 		if (existingOrderBill == null) {
-			throw new OrderBillNotFoundException("Invalid id.");
+			LOGGER.error("Invalid orderBillId.");
+			throw new OrderBillNotFoundException("Invalid orderBillId.");
 		}
 		else {
 			repository.delete(existingOrderBill);
-			return OrderBillUtils.convertToOrderBillDto(existingOrderBill);
+			orderBillDTO = OrderBillUtils.convertToOrderBillDto(existingOrderBill);
 		}
+		LOGGER.info("cancelOrderBill service method is terminated.");
+		return orderBillDTO;
 	}
 
+	/*
+	 * Description      : This method is used to get all OrderBill records.
+	 * Return Value     : List<OrderBillDTO> Object 
+	 */
+	
 	@Override
 	public List<OrderBillDTO> showAllOrderBills() {
 		List<OrderBill> listOrderBills = repository.findAll();
+		LOGGER.info("showAllOrderBills service method is executed.");
 		return OrderBillUtils.convertToOrderBillDtoList(listOrderBills);
 	}
 
+	
+	/*
+	 * Description     : This method is used to get OrderBill details by orderBillId.
+	 * Input Parameter : int orderBillId
+	 * Return Value    : List<OrderBillDTO> Object
+	 */
 	@Override
 	public List<OrderBillDTO> showAllOrderBills(int orderBillId) {
+		LOGGER.info("showAllOrderBills(int orderBillId) service method is initiated.");
 		List<OrderBill> listOrderBills = new ArrayList<OrderBill>();
 		Optional<OrderBill> orderBIllOptional = repository.findById(orderBillId);
+		List<OrderBillDTO> listDTO;
 		if (orderBIllOptional.isPresent())
 			listOrderBills.add(orderBIllOptional.get());
-		return OrderBillUtils.convertToOrderBillDtoList(listOrderBills);
+		listDTO = OrderBillUtils.convertToOrderBillDtoList(listOrderBills);
+		LOGGER.info("showAllOrderBills(int orderBillId) service method is terminated.");
+		return listDTO;
 	}
 	
 	
 
 	
-
+	
+	/*
+	 * Description     : Validation method for createdDate field of an OrderBill instance.
+	 * Input Parameter : OrderBill instance
+	 * Return Value    : boolean
+	 */
 	public static boolean validateOrderBillCreatedDate(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill == null || orderBill.getCreatedDate() == null || orderBill.getCreatedDate().isAfter(LocalDate.now()))
 			flag = false;
+		LOGGER.info("validateOrderBillCreatedDate is executed.");
 		return flag;
 	}
 	
+	/*
+	 * Description     : Validation method for listSweetOrder field of an OrderBill instance.
+	 * Input Parameter : OrderBill instance
+	 * Return Value    : boolean
+	 */
 	public static boolean validateOrderBillListSweetOrder(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill== null) {
@@ -88,9 +176,16 @@ public class OrderBillServiceImpl implements IOrderBillService{
 			if (listSweetOrder == null || listSweetOrder.size() == 0)
 				flag = false;
 		}
-		
+		LOGGER.info("validateOrderBillListSweetOrder is executed.");
 		return flag;
 	}
+	
+	
+	/*
+	 * Description     : Validation method for orderBillId field of an OrderBill instance.
+	 * Input Parameter : OrderBill instance
+	 * Return Value    : boolean
+	 */
 	public static boolean validateOrderBillId(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill == null) {
@@ -101,10 +196,16 @@ public class OrderBillServiceImpl implements IOrderBillService{
 			if (id == null|| id < 0 )
 				flag = false;
 		}
-		
+		LOGGER.info("validateOrderBillId is executed.");
 		return flag;
 	}
 	
+	
+	/*
+	 * Description     : Validation method for totalCost field of an OrderBill instance.
+	 * Input Parameter : OrderBill instance
+	 * Return Value    : boolean
+	 */
 	public static boolean validateOrderBillTotalCost(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill == null) {
@@ -115,6 +216,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 			if ( totalCost < 0 || Float.isNaN(totalCost))
 				flag = false;
 		}
+		LOGGER.info("validateOrderBillTotalCost is executed.");
 		return flag;
 	}
 

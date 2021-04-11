@@ -21,12 +21,18 @@ import com.cg.osm.util.SweetOrderUtils;
 
 public class SweetOrderServiceImpl implements ISweetOrderService {
 	@Autowired
-
 	ISweetOrderRepository repository;
 
 	@Override
 	public SweetOrderDTO addSweetOrder(SweetOrder sweetOrder) {
-		return SweetOrderUtils.convertToSweetOrderDto(repository.save(sweetOrder));
+		SweetOrderDTO sweetOrderDTO;
+		if (sweetOrder ==null) {
+			sweetOrderDTO = null;
+		}
+		else {
+			sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(repository.save(sweetOrder));
+		}
+		return sweetOrderDTO;
 	}
 
 	@Override
@@ -144,7 +150,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		boolean result = false;
 		if (sweetOrder != null) {
 			List items = sweetOrder.getListItems();
-			if (items != null && items.size() >= 0) {
+			if (items != null ) {
 				result = true;
 			}
 		}
