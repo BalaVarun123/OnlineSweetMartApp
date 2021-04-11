@@ -38,8 +38,8 @@ public class AdminServiceImpl implements IAdminService{
 	@Autowired
 	public IAdminRepository repository;
 	
-	static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
+	private static final String MESSAGE_INVALID_ID ="Invalid id.";
 	
 	
 	/*
@@ -80,8 +80,8 @@ public class AdminServiceImpl implements IAdminService{
 		else {
 			Admin existingAdmin = repository.findById(admin.getId()).orElse(null);
 			if (existingAdmin == null) {
-				LOGGER.error("Invalid id.");
-				throw new AdminNotFoundException("Invalid id.");
+				LOGGER.error(MESSAGE_INVALID_ID);
+				throw new AdminNotFoundException(MESSAGE_INVALID_ID);
 			}
 			else {
 				adminDTO =  AdminUtils.convertToAdminDto(repository.save(admin));
@@ -105,8 +105,8 @@ public class AdminServiceImpl implements IAdminService{
 		AdminDTO adminDTO;
 		Admin existingAdmin = repository.findById(adminId).orElse(null);
 		if (existingAdmin == null) {
-			LOGGER.error("Invalid id.");
-			throw new AdminNotFoundException("Invalid id.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new AdminNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
 			repository.delete(existingAdmin);

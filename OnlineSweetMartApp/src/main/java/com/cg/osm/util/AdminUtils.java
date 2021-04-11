@@ -13,10 +13,14 @@ import com.cg.osm.model.AdminDTO;
 public class AdminUtils {
 	
 	
-	final static Logger LOGGER = LoggerFactory.getLogger(AdminUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminUtils.class);
+	
+	private AdminUtils() {
+		
+	}
 	
 	public static List<AdminDTO> convertToAdminDtoList(List<Admin> list){
-		List<AdminDTO> dtolist = new ArrayList<AdminDTO>();
+		List<AdminDTO> dtolist = new ArrayList<>();
 		for(Admin admin : list) 
 			dtolist.add(convertToAdminDto(admin));
 		LOGGER.info("List<Admin>  is converted into List<AdminDTO>.");
@@ -39,7 +43,7 @@ public class AdminUtils {
 	
 	
 	public static List<Admin> convertToAdminList(List<AdminDTO> dtoList){
-		List<Admin> list = new ArrayList<Admin>();
+		List<Admin> list = new ArrayList<>();
 		for(AdminDTO adminDTO : dtoList) 
 			list.add(convertToAdmin(adminDTO));
 		LOGGER.info("List<AdminDTO>  is converted into List<Admin>.");

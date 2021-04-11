@@ -118,7 +118,7 @@ public class AdminController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("addAdmin is terminated with http status :"+status);
-		return new ResponseEntity<Object>(result,status);
+		return new ResponseEntity<>(result,status);
 		
 	}
 	
@@ -188,7 +188,7 @@ public class AdminController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("updateAdmin is terminated with http status :"+status);
-		return new ResponseEntity<Object>(result,status);
+		return new ResponseEntity<>(result,status);
 		
 	}
 	
@@ -277,7 +277,7 @@ public class AdminController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("showAdmin is terminated with http status :"+status);
-		return new ResponseEntity<Object> (result,status);
+		return new ResponseEntity<> (result,status);
 	}
 	
 
