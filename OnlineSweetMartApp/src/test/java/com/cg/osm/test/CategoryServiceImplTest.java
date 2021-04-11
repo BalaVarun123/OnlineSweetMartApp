@@ -88,7 +88,7 @@ class CategoryServiceImplTest {
 		}
 	 }
 	
-	// TEST CASES FOR ADD CATEGORY
+	// TEST CASE FOR ADD CATEGORY
 	@Test
 	void testAddCategory1() throws CategoryNotFoundException
 	{ 
@@ -98,13 +98,6 @@ class CategoryServiceImplTest {
 		
 	}
 	
-	@Test
-	void testAddCategory2() 
-	{ 
-		LOGGER.info("Testing testAddCategory2()");
-		 category = new Category(10,null);
-	     assertNotNull(categoryService.addCategory(category));
-	}
 	
 	//TEST CASES FOR UPDATE CATEGORY
 	 @Test
