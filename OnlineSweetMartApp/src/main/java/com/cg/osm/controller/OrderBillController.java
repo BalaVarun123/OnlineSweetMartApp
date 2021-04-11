@@ -165,10 +165,10 @@ public class OrderBillController {
 	/************************************************************************************
 	 * Method         : cancelOrderBill 
 	 * Description    : It is used to remove OrderBill  details from order_bill table.
-	 * @param cart    : int orderBillId
-	 * @returns cart  : It returns ResponseEntity<Object>.
+	 * @param         : int orderBillId
+	 * @returns       : It returns ResponseEntity<Object>.
 	 * @DeleteMapping : It is used to handle the HTTP DELETE requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @PathVariable  : It is used to get an integer value from the URL.
 	 * @exception     : OrderBillNotFoundException
 	 * Created By     : BALASUBRAMANIAN S
      * Created Date   : 04-04-2021 
@@ -197,9 +197,8 @@ public class OrderBillController {
 	/************************************************************************************
 	 * Method         : showAllOrderBills 
 	 * Description    : It is used to get all OrderBill  details from the order_bill table.
-	 * @returns cart  : It returns ResponseEntity<Object>.
+	 * @returns       : It returns List<OrderBillDTO> object.
 	 * @GetMapping	  : It is used to handle the HTTP GET requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
 	 * Created By     : BALASUBRAMANIAN S
      * Created Date   : 04-04-2021 
 	 * 
@@ -219,10 +218,10 @@ public class OrderBillController {
 	/************************************************************************************
 	 * Method         : showOrderBill 
 	 * Description    : It is used to get OrderBill  details by orderBillId from order_bill table.
-	 * @param cart    : int orderBillId
-	 * @returns cart  : It returns ResponseEntity<Object>.
+	 * @param         : int orderBillId
+	 * @returns       : It returns ResponseEntity<Object>.
 	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @PathVariable  : It is used to get an integer value from the URL.
 	 * Created By     : BALASUBRAMANIAN S
      * Created Date   : 04-04-2021 
 	 * 

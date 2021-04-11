@@ -27,7 +27,7 @@ import com.cg.osm.util.AdminUtils;
  * Author      : BALASUBRAMANIAN S
  * Version     : 1.0
  * Date        : 05-04-2021
- * Description : This is Cart Service Layer
+ * Description : Implementation for IAdminService
 */
 
 
@@ -43,6 +43,12 @@ public class AdminServiceImpl implements IAdminService{
 	static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	
+	
+	/*
+	 * Description     : This method adds a  new Admin record.
+	 * Input Parameter : Admin Object 
+	 * Return Value    : AdminDTO Object 
+	*/
 	@Override
 	public AdminDTO addAdmin(Admin admin) {
 		LOGGER.info("addAdmin service method is initiated.");
@@ -57,6 +63,14 @@ public class AdminServiceImpl implements IAdminService{
 		return adminDTO;
 	}
 
+	
+	
+	/*
+	 * Description     : This method updates an existing Admin record.
+	 * Input Parameter : Admin Object 
+	 * Return Value    : AdminDTO Object 
+	 * Exception       : AdminNotFoundException
+	*/
 	@Override
 	public AdminDTO updateAdmin(Admin admin) throws AdminNotFoundException {
 		LOGGER.info("updateAdmin service method is initiated.");
@@ -79,6 +93,14 @@ public class AdminServiceImpl implements IAdminService{
 		return adminDTO;
 	}
 
+	
+	
+	/*
+	 * Description     : This method removes an Admin record.
+	 * Input Parameter : int adminId
+	 * Return Value    : AdminDTO  Object 
+	 * Exception       : AdminNotFoundException
+	*/
 	@Override
 	public AdminDTO cancelAdmin(int adminId) throws AdminNotFoundException {
 		LOGGER.info("cancelAdmin service method is initiated.");
@@ -96,6 +118,12 @@ public class AdminServiceImpl implements IAdminService{
 		return adminDTO;
 	}
 
+	
+	
+	/*
+	 * Description     : This method retrieves all Admin records. 
+	 * Return Value    : List<AdminDTO> Object 
+	*/
 	@Override
 	public List<AdminDTO> showAllAdmins() {
 		LOGGER.info("showAllAdmins service method is initiated.");
@@ -106,6 +134,12 @@ public class AdminServiceImpl implements IAdminService{
 		return listAdminDTO;
 	}
 
+	
+	/*
+	 * Description     : This method retrieves Admin record by adminId.
+	 * Input Parameter : int adminId
+	 * Return Value    : List<AdminDTO> Object 
+	*/
 	@Override
 	public List<AdminDTO> showAllAdmins(int adminId) {
 		LOGGER.info("showAllAdmins(int adminId) service method is initiated.");
@@ -122,7 +156,7 @@ public class AdminServiceImpl implements IAdminService{
 	
 
 	
-	
+	//Validation for id field of Admin.
 	public static boolean validateId(Admin admin) {
 		boolean flag;
 		int id;
@@ -145,6 +179,7 @@ public class AdminServiceImpl implements IAdminService{
 	
 
 	
+	//Validation for customer field of Admin.
 	public static boolean validateCustomer(Admin admin) {
 		boolean flag;
 		if (admin == null ) {
@@ -161,6 +196,7 @@ public class AdminServiceImpl implements IAdminService{
 		return flag;
 	}
 	
+	//Validation for user field of Admin.
 	public static boolean validateUser(Admin admin) {
 		boolean flag;
 		if (admin == null ) {
@@ -176,6 +212,8 @@ public class AdminServiceImpl implements IAdminService{
 		LOGGER.info("validateUser is executed.");
 		return flag;
 	}
+	
+	//Validation for sweetItem field of Admin.
 	public static boolean validateSweetItem(Admin admin) {
 		boolean flag;
 		if (admin == null ) {
@@ -192,6 +230,7 @@ public class AdminServiceImpl implements IAdminService{
 		return flag;
 	}
 	
+	//Validation for category field of Admin.
 	public static boolean validateCategory(Admin admin) {
 		boolean flag;
 		if (admin == null ) {
@@ -208,6 +247,7 @@ public class AdminServiceImpl implements IAdminService{
 		return flag;
 	}
 	
+	//Validation for cart field of Admin.
 	public static boolean validateCart(Admin admin) {
 		boolean flag;
 		if (admin == null ) {
@@ -224,6 +264,7 @@ public class AdminServiceImpl implements IAdminService{
 		return flag;
 	}
 	
+	//Validation for product field of Admin.
 	public static boolean validateProduct(Admin admin) {
 		boolean flag;
 		if (admin == null ) {
