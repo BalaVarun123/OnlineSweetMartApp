@@ -1,8 +1,8 @@
 package com.cg.osm.model;
 
 import org.springframework.stereotype.Component;
-
-import com.cg.osm.entity.*;
+import com.cg.osm.entity.Product;
+import com.cg.osm.entity.SweetOrder;
 @Component
 public class SweetItemDTO  {
 	    private Integer orderItemId;

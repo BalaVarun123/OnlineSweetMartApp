@@ -13,23 +13,23 @@ import com.cg.osm.error.SweetItemNotFoundException;
 import com.cg.osm.model.SweetItemDTO;
 import com.cg.osm.repository.ISweetItemRepository;
 import com.cg.osm.util.SweetItemUtils;
-/*
- * Author : ANNIE HEPZHIBHA K
+
+/* Author : ANNIE HEPZHIBHA K
  * Version : 1.0
- * Date : 05-04-2021
+ * Date : 04-04-2021
  * Description : This is SweetItem Service Layer
 */
 @Service
 public class SweetItemServiceImp implements ISweetItemService  {
 
-		 final static Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
+	 final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 		 @Autowired 
 		 ISweetItemRepository repo;
 		 /*
-		 * Description : This method Adds new SweetItem
+		 * Description     : This method Adds new SweetItem
 		 * Input Parameter : SweetItem Object 
-		 * Return Value : SweetItem Object 
+		 * Return Value    : SweetItem Object 
 		*/
 
 			
@@ -42,10 +42,10 @@ public class SweetItemServiceImp implements ISweetItemService  {
 			return  SweetItemUtils. convertToSweetItemDto( repo.save(sweetItem));
 		}
 		/*
-		 * Description : This method Updates existing SweetItem
+		 * Description     : This method Updates existing SweetItem
 		 * Input Parameter : SweetItem Object 
-		 * Return Value : SweetItem Object 
-		 * Exception : SweetItemNotFound Exception id raised when OrderItemId is invalid
+		 * Return Value    : SweetItem Object 
+		 * Exception       : SweetItemNotFound Exception is raised when OrderItemId is invalid
 		 */
 
 		
@@ -65,10 +65,10 @@ public class SweetItemServiceImp implements ISweetItemService  {
 		}
 		
 		/*
-		 * Description : This method Deletes existing SweetItem
-		 * Input Parameter : integer 
-		 * Return Value : SweetItemDTO Object 
-		 * Exception : SweetItemNotFound Exception id raised when OrderItemId is invalid
+		 * Description    : This method Deletes existing SweetItem
+		 * Input Parameter: integer orderItemId
+		 * Return Value   : SweetItemDTO Object 
+		 * Exception      : SweetItemNotFound Exception is raised when OrderItemId is invalid
 		 */
 		
 		@Override
@@ -85,10 +85,10 @@ public class SweetItemServiceImp implements ISweetItemService  {
 			}
 		}
 		/*
-		 * Description : This method Shows existing Cart
-		 *  Input Parameter : integer
-		 *  Return Value : SweetItemDTO Object 
-		 * Exception : SweetItemNotFound Exception id raised when OrderItemId is invalid
+		 * Description    : This method Shows existing SweetItems
+		 * Input Parameter: integer OrderItemId
+		 * Return Value   : SweetItemDTO Object 
+		 * Exception      : SweetItemNotFound Exception is raised when OrderItemId is invalid
 		 */
 
 		@Override
@@ -97,10 +97,10 @@ public class SweetItemServiceImp implements ISweetItemService  {
 			return SweetItemUtils.convertToSweetItemDtoList(listSweetItems);
 		}
 		/*
-		 * Description : This method Shows existing Cart
-		 *  Input Parameter : integer
-		 *  Return Value : SweetItemDTO Object 
-		 * Exception : SweetItemNotFound Exception id raised when OrderItemId is invalid
+		 * Description     : This method Shows existing SweetItems
+		 * Input Parameter : integer orderItemId
+		 * Return Value    : SweetItemDTO Object 
+		 * Exception       : SweetItemNotFound Exception is raised when OrderItemId is invalid
 		 */
 		
 		
@@ -133,7 +133,7 @@ public class SweetItemServiceImp implements ISweetItemService  {
 	public static boolean validateSweetItemProduct(SweetItem sweetItem) {
 		boolean flag = true;
 		Product product = sweetItem.getProduct();
-		if (product == null)
+		if (product == null )
 			flag = false;
 		return flag;
 	}
@@ -149,7 +149,6 @@ public class SweetItemServiceImp implements ISweetItemService  {
 	public static boolean validateSweetItemOrderItemId(SweetItem sweetItem) {
 		boolean flag = true;
 		Integer orderItemId = sweetItem.getOrderItemId();
-		//SweetItemServiceImp service = new SweetItemServiceImp();
 		if (orderItemId == null)
 			flag = false;
 		return flag;

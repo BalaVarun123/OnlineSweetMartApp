@@ -29,9 +29,8 @@ import com.cg.osm.util.ProductUtils;
 import com.cg.osm.util.SweetOrderUtils;
 
 
-/*
- * Author :ANNIE HEPZHIBHA K
- * Date : 04-04-2021
+/* Author :ANNIE HEPZHIBHA K
+ * Date : 05-04-2021
  * Description : This is SweetItem Controller
 */
 
@@ -41,17 +40,17 @@ import com.cg.osm.util.SweetOrderUtils;
 public class SweetItemController{
 	@Autowired
 	ISweetItemService sweetItemService;
-	 final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	 @Autowired
-	 RestTemplate restTemplate;
-	 /*
-		 * Method       : addSweetItem
-		 * Description  : It is used to addSweetItem into SweetItem Table
-		 * @param cart  : SweetItem Object
-		 * @returns     : It returns SweetItemDTO Object with details
-		 * @PostMapping : It is used to handle the HTTP POST requests matched with given URI expression.
-		 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-		 * @exception   : SweetItemNotFoundException
+    final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    RestTemplate restTemplate;
+	 
+	    /* Method         : addSweetItem
+		 * Description    : It is used to addSweetItem into SweetItem Table
+		 * Input Parameter: SweetItem Object
+		 * Return value   : It returns SweetItemDTO Object with details
+		 * PostMapping    : It is used to handle the HTTP POST requests matched with given URI expression.
+		 * RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+		 * Exception      : SweetItemNotFoundException
 		*/
 	@PostMapping(value = "/addSweetItem",consumes  = "application/json")
 	public ResponseEntity<Object> addSweetItem(@RequestBody SweetItemInput sweetItem) {
@@ -88,11 +87,11 @@ public class SweetItemController{
 	/*
 	 * Method         : updateSweetItem 
 	 * Description    : It is used to update SweetItem into SweetItem table
-	 * @param cart    : SweetItem Object
-	 * @returns cart  : It returns SweetItemDTO Object with details
+	 * Input Parameter: SweetItem Object
+	 * Return value   : It returns SweetItemDTO Object with details
 	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
 	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : SweetItemNotFoundException
+	 * @Exception     : SweetItemNotFoundException
 	 */
 	@PutMapping(value = "/updateSweetItem", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object> updateSweetItem(@RequestBody SweetItemInput sweetItem) throws SweetItemNotFoundException {
@@ -130,11 +129,11 @@ public class SweetItemController{
 	}
 	 /* Method         : cancelSweetItem
 	 * Description     : It is used to remove SweetItem from SweetItem table
-	 * @param id       : integer orderItemId
-	 * @returns cart   : It returns SweetItemDTO Object with details
+	 * Input Parameter : integer orderItemId
+	 * Return value    : It returns SweetItemDTO Object with details
 	 * @DeleteMapping  : It is used to handle the HTTP DELETE requests matched with given URI expression.
 	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception      : SweetItemNotFoundException
+	 * @Exception      : SweetItemNotFoundException
 	 */
 	@DeleteMapping(value="/cancelSweetItem/{orderItemId}", produces = "application/json")
 	
@@ -157,12 +156,12 @@ public class SweetItemController{
 			  }
 
 	/*
-	 * Method         : showAllSweetItems
-	 * Description    : It is used to view allSweetItem details present in cart table
-	 * @returns cart  : It returns all List<SweetItemDTO> Object with details
-	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : SweetItemNotFoundException
+	 * Method        : showAllSweetItems()
+	 * Description   : It is used to view allSweetItem details present in sweetItem table
+	 * Return value  : It returns all List<SweetItemDTO> Object with details
+	 * GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Exception     : SweetItemNotFoundException
 	 */
 
   @GetMapping(value="/showAllSweetItems", produces = "application/json")
@@ -173,18 +172,19 @@ public class SweetItemController{
 		return new ResponseEntity<List<SweetItemDTO>>(showAllSweetItems, HttpStatus.ACCEPTED);
 		
 	}
-     /* Method         :showSweetItemByOrderItemId()
-	 * Description    : It is used to view tenant from cart table
-	 * @param cart    : integer orderItemId()
-	 * @returns cart  : It returns SweetItemDTO Object with details
-	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : SweetItemNotFoundException
+     /* Method        :showSweetItemByOrderItemId()
+	 * Description    : It is used to view SweetItem from sweetItem table
+	 * Input Parameter: integer orderItemId()
+	 * Return Value   : It returns SweetItemDTO Object with details
+	 * GetMapping     : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Exception      : SweetItemNotFoundException
 	 */
 	
 	@GetMapping(value="/showSweetItem/{orderItemId}", produces = "application/json")
 	public SweetItemDTO showSweetItem(@PathVariable("orderItemId") int orderItemItemId) throws SweetItemNotFoundException{
 		LOGGER.info("showSweetItemByOrderItemId() is initiated");
+		LOGGER.info("showSweetItemByOrderItemId() has executed");
 		return sweetItemService.showSweetItem(orderItemItemId);
 	
 	}
