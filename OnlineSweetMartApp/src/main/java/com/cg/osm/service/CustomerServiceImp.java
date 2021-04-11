@@ -18,16 +18,40 @@ import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
 
+/*
+ * Author      : Jeevetha S
+ * Version     : 1.0
+ * Date        : 05-04-2021
+ * Description : This is Customer Service Layer
+*/
+
+
 @Service
 public class CustomerServiceImp implements ICustomerService{
     @Autowired
     public ICustomerRepository repository;
+    
+    /*
+	 * Description     : This method Adds new Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
+
+    
 	@Override
 	public CustomerDTO addCustomer(Customer customer) {
 		if(customer==null)
 			return null;
 		return CustomerUtils.convertToCustomerDto(repository.save(customer));
 	}
+	
+	/*
+	 * Description     : This method updates Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
 	
 	@Override
 	public CustomerDTO updateCustomer(Customer customer)throws CustomerNotFoundException {
@@ -41,6 +65,13 @@ public class CustomerServiceImp implements ICustomerService{
 		
 	}
 
+	/*
+	 * Description     : This method cancels Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
+	
 	@Override
 	public CustomerDTO cancelCustomer(long customerId) throws CustomerNotFoundException 
 	{
@@ -54,12 +85,27 @@ public class CustomerServiceImp implements ICustomerService{
 		}
 	}
 	
+	/*
+	 * Description     : This method displays the Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
+	
 	@Override
 	public List<CustomerDTO> showAllCustomers() {
 		List<Customer> listCustomers = repository.findAll();
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
-
+	
+	/*
+	 * Description     : This method displays the Customer using customer id
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
+	
+    @Override
 	public List<CustomerDTO> showAllCustomers(long customerId) {
 		List <Customer> listCustomers = new ArrayList<Customer>();
 		Optional<Customer> customerOptional = repository.findById(customerId);
@@ -68,7 +114,8 @@ public class CustomerServiceImp implements ICustomerService{
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
 	
-	
+    //Validations
+    //UserId validations
 	public static boolean validateCust(Customer customer) throws CustomerNotFoundException {
 		boolean flag;
 		if (customer == null  ) {
@@ -83,7 +130,7 @@ public class CustomerServiceImp implements ICustomerService{
 		return flag;
 	}
 	
-
+//Username
 	public static boolean validateCustomerUsername(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
 		if(customer.getUsername().matches("^[a-zA-Z0-9 ]+$") && customer.getUsername().length()>2)
@@ -93,7 +140,8 @@ public class CustomerServiceImp implements ICustomerService{
 		return flag; 
 			
 	}
-
+	
+//validateCustomerId
 	public static boolean validateCustomerUserId(Customer customer) throws CustomerNotFoundException {
 		boolean flag = true;
 		if(customer.getUserId()>0)
@@ -103,7 +151,7 @@ public class CustomerServiceImp implements ICustomerService{
 		return flag;
 	}
 	
-
+//validating sweet Order
 	public static boolean validateCustomerSetSweetOrders(Customer customer) {
 		boolean flag = true;
 		Set<SweetOrder> setSweetOrder = customer.getSweetOrders();
@@ -111,6 +159,8 @@ public class CustomerServiceImp implements ICustomerService{
 			flag = false;
 		return flag;
 	}
+	
+//Validating Sweet Item
 		public static boolean validateCustomerSweetItem(Customer customer) {
 		boolean flag = true;
 		List<SweetItem> listSweetItem = customer.getSweetItems();
@@ -118,6 +168,8 @@ public class CustomerServiceImp implements ICustomerService{
 			flag = false;
 		return flag;
 	}
+		
+//Validating Cart
 		
 		public static boolean validateCartId(Cart cart) throws CartNotFoundException
 		{

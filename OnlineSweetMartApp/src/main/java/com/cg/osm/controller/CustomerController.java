@@ -40,6 +40,13 @@ import com.cg.osm.util.SweetItemUtils;
 import com.cg.osm.util.SweetOrderUtils;
 import com.cg.osm.service.CustomerServiceImp;
 
+/*
+ * Author      : Jeevetha S
+ * Version     : 1.0
+ * Date        : 04-04-2021
+ * Description : This is Customer Controller
+*/
+
 @RestController
 @RequestMapping("/api/osm")
 public class CustomerController {
@@ -49,6 +56,19 @@ public class CustomerController {
 	@Autowired
 	RestTemplate restTemplate;
 	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
+
+	/************************************************************************************
+	 * Method       : addCustomer 
+	 * Description  : Adding a new customer in the table
+	 * @param cart  : Customer Object
+	 * @returns     : It returns ResponseEntity Object with details
+	 * @PostMapping : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception   : CustomerNotFoundException
+	 * Created By   : Jeevetha S
+     * Created Date : 04-04-2021 
+     *
+	 ************************************************************************************/
 	
 	@PostMapping(value = "/customer/add", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object> addCustomer(@RequestBody CustomerInput customer) throws CustomerNotFoundException {
@@ -58,7 +78,6 @@ public class CustomerController {
 		Customer customer1 = new Customer();
 		customer1.setUsername(customer.getUsername());
 		customer1.setUserId(customer.getUserId());
-		//SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
 		List<Integer> itemIds = customer.getSweetItems();
 		List<SweetItem> sweetItems = new ArrayList<SweetItem>();
 		for (Integer itemId : itemIds) {
@@ -97,6 +116,21 @@ public class CustomerController {
 			
 		return new ResponseEntity<Object>(result,status);
 	}
+	
+
+	
+	/************************************************************************************
+	 * Method         : updateCustomer
+	 * Description    : It updates the customer
+	 * @param cart    : Customer Object
+	 * @returns cart  : It returns ResponseEntity Object with details
+	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CustomerNotFoundException
+	 * Created By     : Jeevetha S
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
 	
 	
 	@PutMapping(value = "/customer/update", produces = "application/json",consumes  = "application/json")
@@ -151,6 +185,20 @@ public class CustomerController {
 		return new ResponseEntity<Object>(result,status);
 	}
 	
+	
+	/************************************************************************************
+	 * Method         : CancelCustomer
+	 * Description    : Deletes the customer
+	 * @param cart    : Customer Object
+	 * @returns cart  : It returns ResponseEntity Object with details
+	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CustomerNotFoundException
+	 * Created By     : Jeevetha S
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
+	
 	@DeleteMapping(value="/customer/cancel/{id}")
 	  public ResponseEntity<Object> cancelCustomer(@PathVariable("id") int customerId) throws CustomerNotFoundException
 	  {
@@ -170,10 +218,40 @@ public class CustomerController {
 		  return response;   
 	  }
 	
+	
+	/************************************************************************************
+	 * Method         : showAllCustomers
+	 * Description    : Displays the customer
+	 * @param cart    : Customer Object
+	 * @returns cart  : It returns ResponseEntity Object with details
+	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CustomerNotFoundException
+	 * Created By     : Jeevetha S
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
+	
+	
 	@GetMapping(value = "/customer/show-all", produces = "application/json")
 	public List<CustomerDTO> showAllCustomers(){
 		return service.showAllCustomers();
 	}
+	
+	/************************************************************************************
+	 * Method         : showAllCustomers
+	 * Description    : Displays the customer using customer id
+	 * @param cart    : Customer Object
+	 * @returns cart  : It returns ResponseEntity Object with details
+	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CustomerNotFoundException
+	 * Created By     : Jeevetha S
+     * Created Date   : 04-04-2021 
+	 * 
+	 ************************************************************************************/
+	
+	
 	
 	@GetMapping(value = "/customer/show/{id}", produces = "application/json")
 	public CustomerDTO  showAllCustomers(@PathVariable("id") int customerId) throws CustomerNotFoundException
