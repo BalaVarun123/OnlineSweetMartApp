@@ -19,7 +19,7 @@ import com.cg.osm.model.SweetItemDTO;
 
 
 @SpringBootTest
-class SweetItemServiceImpTests {
+class SweetItemServiceImpTest {
 
 	@Autowired
 	ISweetItemService sweetItemService;
