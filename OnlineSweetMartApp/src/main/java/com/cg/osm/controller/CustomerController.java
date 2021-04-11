@@ -60,7 +60,7 @@ public class CustomerController {
 	/************************************************************************************
 	 * Method       : addCustomer 
 	 * Description  : Adding a new customer in the table
-	 * @param cart  : Customer Object
+	 * @param customer  : Customer Object
 	 * @returns     : It returns ResponseEntity Object with details
 	 * @PostMapping : It is used to handle the HTTP POST requests matched with given URI expression.
 	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
@@ -120,15 +120,15 @@ public class CustomerController {
 
 	
 	/************************************************************************************
-	 * Method         : updateCustomer
-	 * Description    : It updates the customer
-	 * @param cart    : Customer Object
-	 * @returns cart  : It returns ResponseEntity Object with details
-	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : CustomerNotFoundException
-	 * Created By     : Jeevetha S
-     * Created Date   : 04-04-2021 
+	 * Method            : updateCustomer
+	 * Description       : It updates the customer
+	 * @param customer   : Customer Object
+	 * @returns customer : It returns ResponseEntity Object with details
+	 * @PutMapping       : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody      : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception        : CustomerNotFoundException
+	 * Created By        : Jeevetha S
+     * Created Date      : 04-04-2021 
 	 * 
 	 ************************************************************************************/
 	
@@ -187,15 +187,15 @@ public class CustomerController {
 	
 	
 	/************************************************************************************
-	 * Method         : CancelCustomer
-	 * Description    : Deletes the customer
-	 * @param cart    : Customer Object
-	 * @returns cart  : It returns ResponseEntity Object with details
-	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : CustomerNotFoundException
-	 * Created By     : Jeevetha S
-     * Created Date   : 04-04-2021 
+	 * Method            : CancelCustomer
+	 * Description       : Deletes the customer
+	 * @param customer   : Customer id
+	 * @returns customer : It returns ResponseEntity Object with details
+	 * @PutMapping   	 : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody      : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception        : CustomerNotFoundException
+	 * Created By        : Jeevetha S
+     * Created Date      : 04-04-2021 
 	 * 
 	 ************************************************************************************/
 	
@@ -220,15 +220,15 @@ public class CustomerController {
 	
 	
 	/************************************************************************************
-	 * Method         : showAllCustomers
-	 * Description    : Displays the customer
-	 * @param cart    : Customer Object
-	 * @returns cart  : It returns ResponseEntity Object with details
-	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : CustomerNotFoundException
-	 * Created By     : Jeevetha S
-     * Created Date   : 04-04-2021 
+	 * Method               : showAllCustomers
+	 * Description 	        : Displays the customer
+	 * @param customer      : Customer Object
+	 * @returns customer    : It returns ResponseEntity Object with details
+	 * @PutMapping          : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody         : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception           : CustomerNotFoundException
+	 * Created By           : Jeevetha S
+     * Created Date         : 04-04-2021 
 	 * 
 	 ************************************************************************************/
 	
@@ -239,15 +239,15 @@ public class CustomerController {
 	}
 	
 	/************************************************************************************
-	 * Method         : showAllCustomers
-	 * Description    : Displays the customer using customer id
-	 * @param cart    : Customer Object
-	 * @returns cart  : It returns ResponseEntity Object with details
-	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
-	 * @exception     : CustomerNotFoundException
-	 * Created By     : Jeevetha S
-     * Created Date   : 04-04-2021 
+	 * Method             : showAllCustomers
+	 * Description        : Displays the customer using customer id
+	 * @param customer    : Customer Object
+	 * @returns customer  : It returns ResponseEntity Object with details
+	 * @PutMapping        : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody       : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception         : CustomerNotFoundException
+	 * Created By         : Jeevetha S
+     * Created Date       : 04-04-2021 
 	 * 
 	 ************************************************************************************/
 	

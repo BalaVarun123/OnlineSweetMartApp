@@ -87,7 +87,7 @@ public class CustomerServiceImp implements ICustomerService{
 	
 	/*
 	 * Description     : This method displays the Customer
-	 * Input Parameter : Customer Object 
+	 * Input Parameter : Customer id
 	 * Return Value    : CustomerDTO Object 
 	 * Exception       : CustomerNotFoundException
 	*/
