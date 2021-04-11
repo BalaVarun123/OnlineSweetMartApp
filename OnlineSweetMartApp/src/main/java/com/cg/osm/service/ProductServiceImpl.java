@@ -130,7 +130,7 @@ public class ProductServiceImpl implements IProductService {
 	// Method to validate the product price
 	public static boolean validateProductPrice(double price) {
 		boolean flag = true;
-		if (price <= 0 || Double.isNaN(price) == true)
+		if (price <= 0 || Double.isNaN(price))
 			flag = false;
 		return flag;
 	}
