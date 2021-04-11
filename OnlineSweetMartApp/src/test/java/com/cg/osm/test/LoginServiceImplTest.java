@@ -142,17 +142,7 @@ class LoginServiceImplTest {
 		}
 	    
 	  }
-	  
-	  @Test
-	  void testIsLoggedIn2() throws UserNotFoundException
-	  {
-		  LOGGER.info("Test case for IsLoggedIn 2");
-	  }
-	  @Test
-	  void testIsLoggedIn3() throws UserNotFoundException
-	  {
-		  LOGGER.info("Test case for IsLoggedIn 3");
-	  }
+	
 	  
 	 //TEST CASE FOR VALIDATE USER ID	
 	  @Test 
@@ -163,9 +153,7 @@ class LoginServiceImplTest {
 		  userService.addUser(user);
 		  assertNotNull(loginService.login(30L, "Password2@"));
 		  assertTrue(LoginServiceImpl.validateUserId(30L));
-		 // user.setUserId(-5L);
-		  //assertFalse(LoginServiceImpl.validateUserId(-5L));
-		  
+		 
 		  
 	 }
 	      
