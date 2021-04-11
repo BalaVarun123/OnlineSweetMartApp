@@ -2,6 +2,8 @@ package com.cg.osm.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +12,35 @@ import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.model.UserDTO;
 import com.cg.osm.repository.IUserRepository;
 import com.cg.osm.util.UserUtils;
+
+
+/*
+ * Author      : BALASUBRAMANIAN S
+ * Version     : 1.0
+ * Date        : 05-04-2021
+ * Description : This is User Service Layer
+*/
+
+
 @Service
 public class UserServiceImpl implements IUserService{
+	
+	final static Logger logger = LoggerFactory.getLogger(CartServiceImp.class);
 
 	@Autowired
 	IUserRepository repository;
 	
+
+	
+	/*
+	 * Description     : This method Adds new User
+	 * Input Parameter : User Object 
+	 * Return Value    : UserDTO Object 
+	 */
+	
 	@Override
 	public UserDTO addUser(User user) {
+		logger.info("addUser() service is initiated");
 		UserDTO userDTO;
 		if (user == null) {
 			userDTO = null;
@@ -25,11 +48,20 @@ public class UserServiceImpl implements IUserService{
 		else {
 			userDTO = UserUtils.convertToUserDto(repository.save(user));
 		}
+		logger.info("addUser() service has executed");
 		return userDTO;
 	}
+	
+	/*
+	 * Description     : This method Updates existing User
+	 * Input Parameter : User Object 
+	 * Return Value    : UserDTO Object 
+	 * Exception       : UserNotFoundException
+	 */
 
 	@Override
 	public UserDTO updateUser(User user) throws UserNotFoundException {
+		logger.info("updateUser() service is initiated");
 		UserDTO userDTO;
 		if (user == null  ) {
 			userDTO = null;
@@ -40,11 +72,20 @@ public class UserServiceImpl implements IUserService{
 		else {
 			userDTO = UserUtils.convertToUserDto(repository.save(user));
 		}
+		logger.info("updateUser() service has executed");
 		return userDTO;
 	}
 
+	/*
+	 * Description     : This method Deletes existing User
+	 * Input Parameter : long 
+	 * Return Value    : UserDTO Object 
+	 * Exception       : UserNotFoundException
+	 */
+	
 	@Override
 	public UserDTO cancelUser(long userId) throws UserNotFoundException {
+		logger.info("cancelUser() service is initiated");
 		 User user = repository.findById( userId).orElse(null);
 		 UserDTO userDTO = null;
 		 if (user == null)
@@ -53,16 +94,22 @@ public class UserServiceImpl implements IUserService{
 			 repository.delete(user);
 			 userDTO = UserUtils.convertToUserDto(user);
 		 }
+		   
+		 logger.info("cancelUser() service has executed");
 			 
 		return userDTO;
 	}
+	
+	/*
+	 * Description      : This method Shows existing User
+	 * Input Parameter  : long
+	 * Return Value     : UserDTO Object 
+	 * Exception        : UserNotFoundException
+	 */
 
-	@Override
-	public List<UserDTO> showAllUsers() {
-		return UserUtils.convertToUserDtoList(repository.findAll());
-	}
 	
 	public UserDTO showUser(long  userId) throws UserNotFoundException{
+		logger.info("showUser() service is initiated");
 		User user = repository.findById( userId).orElse(null);
 		 UserDTO userDTO = null;
 		 if (user == null)
@@ -70,8 +117,26 @@ public class UserServiceImpl implements IUserService{
 		 else {
 			 userDTO = UserUtils.convertToUserDto(user);
 		 }
-		return userDTO;
+		 
+		 logger.info("showUser() service is initiated");
+		 return userDTO;
 	}
+	
+
+	/*
+	 * Description     : This method Shows existing User
+	 * Return Value    : UserDTO Object 
+	 */
+	
+
+	@Override
+	public List<UserDTO> showAllUsers() {
+		logger.info("showAllUsers() service is initiated");
+		logger.info("showAllUsers() service has executed");
+		return UserUtils.convertToUserDtoList(repository.findAll());
+	
+	}
+	
 	
 	
 	public static boolean validateUser(User user) {

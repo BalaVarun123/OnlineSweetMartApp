@@ -29,7 +29,7 @@ class CartServiceImpTest {
 	final static Logger logger = LoggerFactory.getLogger(CartServiceImpTest.class);
 
 	@Autowired
-	ICartService service;
+	private ICartService service;
 
 	Cart cart = null;
 
@@ -42,15 +42,15 @@ class CartServiceImpTest {
 
 	// TEST CASES FOR ADD CART
 	
-	//@Disabled
+	@Disabled
 	@Test
 	void testAddCart01() throws CartNotFoundException {
 		logger.info("Testing testAddCart01()");
 
-		category = new Category(3, "MilkDryFruitsSweets");
+		category = new Category(2, "dryFruits");
 		List<Product> product = new ArrayList<Product>();
-		product.add(new Product(2, "GulabJamun", 800, "SugarFree", true, "Ddrive", category));
-		cart = new Cart(1, product, 1, 800, 875);
+		product.add(new Product(3, "jalebi", 900, "deepOilFried", true, "DDrive", category));
+		cart = new Cart(4, product, 3, 900, 950);
 
 		try {
 
@@ -62,7 +62,7 @@ class CartServiceImpTest {
 
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testAddCart02() throws CartNotFoundException {
 		logger.info("Testing testAddCart02()");
@@ -82,7 +82,7 @@ class CartServiceImpTest {
 
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testAddCart03() throws CartNotFoundException {
 		logger.info("Testing testAddCart03()");
@@ -101,13 +101,30 @@ class CartServiceImpTest {
 		}
 
 	}
+	
+
+	//@Disabled
+	@Test
+	void testAddCart04() throws CartNotFoundException {
+		logger.info("Testing testAddCart04()");
+
+		category = new Category(3, "MilkDryFruitsSweets");
+		List<Product> product = new ArrayList<Product>();
+		product.add(new Product(2, "GulabJamun", 800, "SugarFree", true, "Ddrive", category));
+		cart = new Cart(1, product, 1, 800, 875);
+
+	
+            assertEquals(800 , service.addCart(cart).getTotal());
+		}
+
+	
 
 	
 	
 	
 	// TEST CASES FOR UPDATE CART
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testUpdateCart01() throws CartNotFoundException {
 		logger.info("Testing testUpdateCart01()");
@@ -120,7 +137,7 @@ class CartServiceImpTest {
 		assertNotNull(service.updateCart(cart));
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testUpdateCart02() throws CartNotFoundException {
 		logger.info("Testing testUpdateCart02()");
@@ -139,7 +156,7 @@ class CartServiceImpTest {
 		}
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testUpdateCart03() throws CartNotFoundException {
 		logger.info("Testing testUpdateCart03()");
@@ -158,7 +175,7 @@ class CartServiceImpTest {
 		}
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testUpdateCart04() throws CartNotFoundException {
 		logger.info("Testing testUpdateCart04()");
@@ -182,7 +199,7 @@ class CartServiceImpTest {
 
 	// TEST CASES FOR CANCEL CART
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testCancelCart01() throws CartNotFoundException {
 		logger.info("Testing testUpdateCart01()");
@@ -191,7 +208,7 @@ class CartServiceImpTest {
 
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testCancelCart02() throws CartNotFoundException {
 		logger.info("Testing testUpdateCart02()");
@@ -213,7 +230,7 @@ class CartServiceImpTest {
 	
 	//TEST CASES FOR SHOW BY ID
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testshowCartById01() throws CartNotFoundException {
 		logger.info("Testing testshowCartById01()");
@@ -222,7 +239,7 @@ class CartServiceImpTest {
 
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testshowCartById02() throws CartNotFoundException {
 		logger.info("Testing testshowCartById02()");
@@ -231,7 +248,7 @@ class CartServiceImpTest {
 
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testshowCartById03() throws CartNotFoundException {
 		logger.info("Testing testshowCartById03()");
@@ -240,7 +257,7 @@ class CartServiceImpTest {
 
 	}
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testshowCartById04() throws CartNotFoundException {
 		logger.info("Testing testshowCartById04()");
@@ -261,7 +278,7 @@ class CartServiceImpTest {
 	// TEST CASE FOR SHOW ALL CARTS
 	
 	
-	//@Disabled
+	@Disabled
 	@Test
 	void testShowAllCarts01() {
 		logger.info("Testing testshowCartById01()");
@@ -270,7 +287,7 @@ class CartServiceImpTest {
 
 	}
 
-	// @Disabled
+	@Disabled
 	@Test
 	void testShowAllCarts02() {
 		logger.info("Testing testshowCartById02()");
