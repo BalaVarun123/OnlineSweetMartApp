@@ -120,8 +120,8 @@ public class ProductController {
 	 * @exception: ProductNotFoundException
 	 */
 	@GetMapping(value = "/product/show-by-id/{productId}", produces = "application/json")
-	public ProductDTO showAllProductDTO(@PathVariable("productId") int productid) throws ProductNotFoundException {
-		return service.showAllProducts(productid);
+	public ProductDTO showAllProductDTO(@PathVariable("productId") int productId) throws ProductNotFoundException {
+		return service.showAllProducts(productId);
 
 	}
 

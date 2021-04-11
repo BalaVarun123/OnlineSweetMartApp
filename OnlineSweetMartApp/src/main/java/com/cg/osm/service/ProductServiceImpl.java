@@ -149,10 +149,10 @@ public class ProductServiceImpl implements IProductService {
 	 * Return Values : boolean 
 	 * Exception : ProductNotFoundException -it is raised when product price is incorrect
 	 */
-	public static boolean validateProductPrice(double price) {
+	public static boolean validateProductPrice(double price) throws ProductNotFoundException {
 		boolean flag = true;
 		if (price <= 0 || Double.isNaN(price))
-			flag = false;
+			throw new ProductNotFoundException("Enter a valid product price");
 		return flag;
 	}
 
@@ -173,15 +173,14 @@ public class ProductServiceImpl implements IProductService {
 	/*
 	 * Description : To validate product photopath
 	 * Return Values : boolean 
-	 * Exception : ProductNotFoundException -it is raised when product photopath is incorrect
+	 * Exception : ProductNotFoundException -it is raised when product photopath is null
 	 */
 	public static boolean validatePhotoPath(String photopath) throws ProductNotFoundException {
-		boolean flag = false;
+		boolean flag = true;
 		Path path = Paths.get(photopath);
-		if (path != null)
-			flag = true;
-		else
+		if (path == null)
 			throw new ProductNotFoundException("Cannot find the photo");
+		
 		return flag;
 	}
 
