@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.cg.osm.entity.OrderBill;
 import com.cg.osm.model.OrderBillDTO;
-import com.cg.osm.service.CartServiceImp;
 @Component
 public class OrderBillUtils {
 	final static Logger LOGGER = LoggerFactory.getLogger(OrderBillUtils.class);
