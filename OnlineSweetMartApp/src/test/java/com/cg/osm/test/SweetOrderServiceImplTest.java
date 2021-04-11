@@ -158,8 +158,8 @@ class SweetOrderServiceImplTest {
 		Product product2 = new Product();
 		product1.setPrice(300);
 		product2.setPrice(400);
-		product1.setProductid(productService.addProduct(product1).getProductid());
-		product2.setProductid(productService.addProduct(product2).getProductid());
+		product1.setProductId(productService.addProduct(product1).getProductId());
+		product2.setProductId(productService.addProduct(product2).getProductId());
 		SweetItem item1 = new SweetItem();
 		SweetItem item2 = new SweetItem();
 		SweetItem item3 = new SweetItem();
@@ -190,8 +190,8 @@ class SweetOrderServiceImplTest {
 		sweetItemService.cancelSweetItem(item2.getOrderItemId());
 		sweetItemService.cancelSweetItem(item3.getOrderItemId());
 		sweetItemService.cancelSweetItem(item4.getOrderItemId());
-		productService.cancelProduct(product1.getProductid());
-		productService.cancelProduct(product2.getProductid());
+		productService.cancelProduct(product1.getProductId());
+		productService.cancelProduct(product2.getProductId());
 	}
 
 	@Test

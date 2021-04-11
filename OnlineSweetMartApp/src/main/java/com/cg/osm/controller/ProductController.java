@@ -25,22 +25,19 @@ import com.cg.osm.service.ProductServiceImpl;
 @RestController
 @RequestMapping("/api/osm")
 public class ProductController {
-	
+
 	@Autowired
 	IProductService service;
-	
-	 final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	
-	
-	@PostMapping(value = "/product/add", produces = "application/json", consumes  = "application/json")
+
+	final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+	@PostMapping(value = "/product/add", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
 		if (ProductServiceImpl.validateProduct(product)) {
-			
-			
-			
-			ProductDTO result=service.addProduct(product);
-			productResponse = new ResponseEntity<ProductDTO>(result,HttpStatus.ACCEPTED);
+
+			ProductDTO result = service.addProduct(product);
+			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
 			LOGGER.info("Product Added");
 
 		} else
@@ -48,48 +45,43 @@ public class ProductController {
 			throw new ProductNotFoundException("Please enter valid product details");
 
 		return productResponse;
-		
+
 	}
-	
-	
-	@PutMapping(value = "/product/update/{productid}", produces = "application/json",consumes  = "application/json")
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product ,@PathVariable("productid") int productid) throws ProductNotFoundException {
+
+	@PutMapping(value = "/product/update/{productId}", produces = "application/json", consumes = "application/json")
+	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product,
+			@PathVariable("productId") int productId) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
-		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(productid)) {
-			
-			ProductDTO result=service.updateProduct(productid,product);
+		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(productId)) {
+
+			ProductDTO result = service.updateProduct(productId, product);
 			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
 			LOGGER.info("Product Updated");
 
-		} else
+		} else {
 
 			throw new ProductNotFoundException("Please enter valid product details");
-
+		}
 		return productResponse;
 	}
-	
-	@DeleteMapping(value = "/product/cancel/{productid}", produces = "application/json")
-	public void cancelProduct(@PathVariable("productid") int productid) throws ProductNotFoundException{
-		ResponseEntity<ProductDTO> productResponse;
-		 service.cancelProduct(productid);
-		productResponse = new ResponseEntity(HttpStatus.ACCEPTED);
-		LOGGER.info("Product Deleted");
-		
-	}
-	
-	@GetMapping(value = "/product/show-all", produces = "application/json")
-	public List<ProductDTO> showAllProducts(){
-		return service.showAllProducts();
-		
-	} 
-	
-	@GetMapping(value = "/product/show-by-id/{productid}", produces = "application/json")
-	public ProductDTO showAllProductDTO(@PathVariable("productid") int productid) throws ProductNotFoundException{
-		return service.showAllProducts(productid);
-	
-	}
-	
 
-	
-	
+	@DeleteMapping(value = "/product/cancel/{productId}", produces = "application/json")
+	public void cancelProduct(@PathVariable("productId") int productId) throws ProductNotFoundException {
+		service.cancelProduct(productId);
+		LOGGER.info("Product Deleted");
+
+	}
+
+	@GetMapping(value = "/product/show-all", produces = "application/json")
+	public List<ProductDTO> showAllProducts() {
+		return service.showAllProducts();
+
+	}
+
+	@GetMapping(value = "/product/show-by-id/{productId}", produces = "application/json")
+	public ProductDTO showAllProductDTO(@PathVariable("productId") int productid) throws ProductNotFoundException {
+		return service.showAllProducts(productid);
+
+	}
+
 }

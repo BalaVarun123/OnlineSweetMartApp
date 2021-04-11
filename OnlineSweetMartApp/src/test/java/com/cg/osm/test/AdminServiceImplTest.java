@@ -103,7 +103,7 @@ class AdminServiceImplTest {
 		cart.setTotal(300);
 		CartDTO cartDTO = cartService.addCart(cart);
 		cart.setCartId(cartDTO.getCartId());
-		product.setProductid(cartDTO.getListProduct().get(0).getProductid());
+		product.setProductId(cartDTO.getListProduct().get(0).getProductId());
 		LOGGER.info("beforeAll is terminated.");
 	}
 	
@@ -117,7 +117,7 @@ class AdminServiceImplTest {
 		}
 		custService.cancelCustomer(customer.getUserId());
 		sweetItemService.cancelSweetItem(sweetItem.getOrderItemId());
-		productService.cancelProduct(product.getProductid());
+		productService.cancelProduct(product.getProductId());
 		cartService.cancelCart(cart.getCartId());
 		userService.cancelUser(user1.getUserId());
 		userService.cancelUser(user2.getUserId());

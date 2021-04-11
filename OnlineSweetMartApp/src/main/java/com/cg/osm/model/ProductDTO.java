@@ -6,24 +6,24 @@ import com.cg.osm.entity.Category;
 
 @Component
 public class ProductDTO {
-	
-	private int productid;
+
+	private int productId;
 	private String name;
 	private double price;
 	private String description;
 	private boolean available;
 	private String photopath;
 	private Category category;
-	
+
 	public ProductDTO() {
 		super();
-		
+
 	}
 
-	public ProductDTO(int productid, String name, double price, String description, boolean available, String photopath,
+	public ProductDTO(int productId, String name, double price, String description, boolean available, String photopath,
 			Category category) {
 		super();
-		this.productid = productid;
+		this.productId = productId;
 		this.name = name;
 		this.price = price;
 		this.description = description;
@@ -32,12 +32,12 @@ public class ProductDTO {
 		this.category = category;
 	}
 
-	public int getProductid() {
-		return productid;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProductid(int productid) {
-		this.productid = productid;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {
@@ -90,12 +90,9 @@ public class ProductDTO {
 
 	@Override
 	public String toString() {
-		return "ProductDTO [productid=" + productid + ", name=" + name + ", price=" + price + ", description="
+		return "ProductDTO [productId=" + productId + ", name=" + name + ", price=" + price + ", description="
 				+ description + ", available=" + available + ", photopath=" + photopath + ", category=" + category
 				+ "]";
 	}
-	
-	
-
 
 }

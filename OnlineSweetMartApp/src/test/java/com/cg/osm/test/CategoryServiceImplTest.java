@@ -63,7 +63,7 @@ class CategoryServiceImplTest {
 		  sweetItem1 = new SweetItem();
 		  sweetItem2 = new SweetItem();
 	     sweetItem.setOrderItemId(sweetItemService.addSweetItem(sweetItem).getOrderItemId());
-	     product.setProductid(productService.addProduct(product).getProductid());
+	     product.setProductId(productService.addProduct(product).getProductId());
 	   }
 	 @AfterAll
 	 void afterAll() 
@@ -73,9 +73,9 @@ class CategoryServiceImplTest {
 			sweetItemService.cancelSweetItem(sweetItem1.getOrderItemId());
 			sweetItemService.cancelSweetItem(sweetItem2.getOrderItemId());
 			
-			productService.cancelProduct(product.getProductid());
-			productService.cancelProduct(product1.getProductid());
-			productService.cancelProduct(product2.getProductid());
+			productService.cancelProduct(product.getProductId());
+			productService.cancelProduct(product1.getProductId());
+			productService.cancelProduct(product2.getProductId());
 			
 			categoryService.cancelCategory(category.getCategoryId());
 			categoryService.cancelCategory(category1.getCategoryId());
@@ -177,9 +177,9 @@ class CategoryServiceImplTest {
 
 	 category.setCategoryId(categoryService.addCategory(category).getCategoryId());
 	 category1.setCategoryId(categoryService.addCategory(category1).getCategoryId());
-	 product.setProductid(productService.addProduct(product).getProductid());
-	 product1.setProductid(productService.addProduct(product1).getProductid());
-	 product2.setProductid(productService.addProduct(product2).getProductid());
+	 product.setProductId(productService.addProduct(product).getProductId());
+	 product1.setProductId(productService.addProduct(product1).getProductId());
+	 product2.setProductId(productService.addProduct(product2).getProductId());
 	 sweetItem.setOrderItemId(sweetItemService.addSweetItem(sweetItem).getOrderItemId());
 	 sweetItem1.setOrderItemId(sweetItemService.addSweetItem(sweetItem1).getOrderItemId());
 	 sweetItem2.setOrderItemId(sweetItemService.addSweetItem(sweetItem2).getOrderItemId());
