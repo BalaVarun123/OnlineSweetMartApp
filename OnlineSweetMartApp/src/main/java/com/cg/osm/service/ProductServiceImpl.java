@@ -12,7 +12,12 @@ import com.cg.osm.error.ProductNotFoundException;
 import com.cg.osm.model.ProductDTO;
 import com.cg.osm.repository.IProductRepository;
 import com.cg.osm.util.ProductUtils;
-
+/*
+ * Author      : KANAKASAI T
+ * Version     : 1.0
+ * Date        : 04-04-2021
+ * Description : Implementation for IProductService
+*/
 @Service
 public class ProductServiceImpl implements IProductService {
 
@@ -20,7 +25,8 @@ public class ProductServiceImpl implements IProductService {
 	IProductRepository repo;
 
 	/*
-	 * Description : To add product to the database Input Params : Product details
+	 * Description : To add product to the database 
+	 * Input Params : Product details
 	 * Return Values : ProductDTO object of the product been added
 	 */
 	@Override
@@ -30,10 +36,10 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	/*
-	 * Description : To update product on the database Input Params : Product
-	 * details to be updated Return Values : ProductDTO object of the product been
-	 * updated Exception : ProductNotFoundException -it is raised when productid
-	 * doesn't exist
+	 * Description : To update product on the database 
+	 * Input Params : Product details to be updated 
+	 * Return Values : ProductDTO object of the product been updated 
+	 * Exception : ProductNotFoundException -it is raised when productid doesn't exist
 	 */
 	@Override
 	public ProductDTO updateProduct(int productId, Product product) throws ProductNotFoundException {
@@ -52,9 +58,9 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	/*
-	 * Description : To cancel product on the database Input Params : Productid to
-	 * be deleted Exception : ProductNotFoundException -it is raised when productid
-	 * doesn't exist
+	 * Description : To cancel product on the database 
+	 * Input Params : Productid to be deleted 
+	 * Exception : ProductNotFoundException -it is raised when productid doesn't exist
 	 */
 	@Override
 	public void cancelProduct(int productId) throws ProductNotFoundException {
@@ -67,10 +73,10 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	/*
-	 * Description : To show product in the database for the given id Input Params :
-	 * productid of the product to be displayed Return Values : ProductDTO object of
-	 * the product Exception : ProductNotFoundException -it is raised when productid
-	 * doesn't exist
+	 * Description : To show product in the database for the given id 
+	 * Input Params : productid of the product to be displayed
+	 *  Return Values : ProductDTO object of the product 
+	 * Exception : ProductNotFoundException -it is raised when productid doesn't exist
 	 */
 	@Override
 	public ProductDTO showAllProducts(int productId) throws ProductNotFoundException {
@@ -84,17 +90,21 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	/*
-	 * Description : To show products in the database Return Values : ProductDTO
-	 * object of all the products Exception : ProductNotFoundException -it is raised
-	 * when productid doesn't exist
+	 * Description : To show products in the database
+	 *  Return Values : ProductDTO object of all the products 
+	 *  Exception : ProductNotFoundException -it is raised when productid doesn't exist
 	 */
 	@Override
 	public List<ProductDTO> showAllProducts() {
 
 		return ProductUtils.convertToProductDtoList(repo.findAll());
 	}
-
-	// method to validate all the product details
+	/*
+	 * Description : To validate product details 
+	 * Return Values : boolean 
+	 * Exception : ProductNotFoundException -it is raised when product details are incorrect
+	 */
+	
 	public static boolean validateProduct(Product product) throws ProductNotFoundException {
 		boolean flag = false;
 		if (product == null)
@@ -108,7 +118,10 @@ public class ProductServiceImpl implements IProductService {
 		return flag;
 	}
 
-	// method to validate productid
+	/*
+	 * Description : To validate product id 
+	 * Return Values : boolean 
+	 */
 	public static boolean validateProductId(int productId) {
 		boolean flag = true;
 		Integer pid = productId;
@@ -117,7 +130,11 @@ public class ProductServiceImpl implements IProductService {
 		return flag;
 	}
 
-	// Method to validate the product name
+	/*
+	 * Description : To validate product name
+	 * Return Values : boolean 
+	 * Exception : ProductNotFoundException -it is raised when product name is incorrect
+	 */
 	public static boolean validateName(String name) throws ProductNotFoundException {
 		boolean flag = false;
 		if (name.matches("^[a-zA-Z ]+$") && name.length() > 3 && name.length() < 30)
@@ -127,7 +144,11 @@ public class ProductServiceImpl implements IProductService {
 		return flag;
 	}
 
-	// Method to validate the product price
+	/*
+	 * Description : To validate product price 
+	 * Return Values : boolean 
+	 * Exception : ProductNotFoundException -it is raised when product price is incorrect
+	 */
 	public static boolean validateProductPrice(double price) {
 		boolean flag = true;
 		if (price <= 0 || Double.isNaN(price))
@@ -135,7 +156,11 @@ public class ProductServiceImpl implements IProductService {
 		return flag;
 	}
 
-	// Method to validate the product availability
+	/*
+	 * Description : To validate product availability 
+	 * Return Values : boolean 
+	 * Exception : ProductNotFoundException -it is raised when product availability is wrong
+	 */
 	public static boolean validateAvailable(boolean available) throws ProductNotFoundException {
 		boolean flag = false;
 		if (available)
@@ -145,7 +170,11 @@ public class ProductServiceImpl implements IProductService {
 		return flag;
 	}
 
-	// Method to validate the product photopath
+	/*
+	 * Description : To validate product photopath
+	 * Return Values : boolean 
+	 * Exception : ProductNotFoundException -it is raised when product photopath is incorrect
+	 */
 	public static boolean validatePhotoPath(String photopath) throws ProductNotFoundException {
 		boolean flag = false;
 		Path path = Paths.get(photopath);

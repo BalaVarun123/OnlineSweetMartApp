@@ -3,7 +3,12 @@ package com.cg.osm.model;
 import org.springframework.stereotype.Component;
 
 import com.cg.osm.entity.Category;
-
+/*
+ * Author      : KANAKASAI T
+ * Version     : 1.0
+ * Date        : 04-04-2021
+ * Description : This is productDTO class
+*/
 @Component
 public class ProductDTO {
 

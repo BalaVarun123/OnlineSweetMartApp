@@ -22,7 +22,12 @@ import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.model.UserDTO;
 import com.cg.osm.repository.IUserRepository;
 import com.cg.osm.service.UserServiceImpl;
-
+/*
+ * Author      : KANAKASAI T
+ * Version     : 1.0
+ * Date        : 07-04-2021
+ * Description : This is a testing class for User.
+*/
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
@@ -51,8 +56,6 @@ public class UserServiceImplTest {
 		assertEquals("Rahul@123", user_values.getPassword());
 		assertEquals("Rahul@123", user_values.getPasswordConfirm());
 		assertEquals("CUSTOMER", user_values.getType());
-	
-		
 
 	}
 
@@ -99,7 +102,7 @@ public class UserServiceImplTest {
 		assertEquals("Rahul@123", user_values.getPassword());
 		assertEquals("Rahul@123", user_values.getPasswordConfirm());
 		assertEquals("CUSTOMER", user_values.getType());
-		
+
 	}
 
 	@Test
@@ -127,7 +130,7 @@ public class UserServiceImplTest {
 		assertEquals("Rohit@123", user_values.getPassword());
 		assertEquals("Rohit@123", user_values.getPasswordConfirm());
 		assertEquals("CUSTOMER", user_values.getType());
-		
+
 	}
 
 }

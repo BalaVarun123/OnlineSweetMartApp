@@ -5,7 +5,12 @@ import java.util.List;
 
 import com.cg.osm.entity.Product;
 import com.cg.osm.model.ProductDTO;
-
+/*
+ * Author      : KANAKASAI T
+ * Version     : 1.0
+ * Date        : 04-04-2021
+ * Description : Implementation for IProductService
+*/
 public class ProductUtils {
 	public static List<ProductDTO> convertToProductDtoList(List<Product> list) {
 		List<ProductDTO> dtolist = new ArrayList<ProductDTO>();

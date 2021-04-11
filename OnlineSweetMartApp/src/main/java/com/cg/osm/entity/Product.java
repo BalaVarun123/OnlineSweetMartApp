@@ -6,7 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
+/*
+ * Author      : KANAKASAI T
+ * Version     : 1.0
+ * Date        : 03-04-2021
+ * Description : This is entity class
+*/
 @Entity
 public class Product {
 	@Id
@@ -17,7 +22,6 @@ public class Product {
 	private String description;
 	private boolean available;
 	private String photopath;
-	
 
 	@OneToOne
 	@JoinColumn(name = "categoryId")
