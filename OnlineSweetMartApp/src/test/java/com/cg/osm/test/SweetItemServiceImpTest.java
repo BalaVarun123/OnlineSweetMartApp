@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.cg.osm.entity.User;
 import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CommonException;
 import com.cg.osm.error.SweetItemNotFoundException;
+import com.cg.osm.service.IOrderBillService;
 import com.cg.osm.service.IProductService;
 import com.cg.osm.service.ISweetItemService;
 import com.cg.osm.service.ISweetOrderService;
@@ -32,52 +34,30 @@ import com.cg.osm.model.SweetItemDTO;
 @SpringBootTest
 class SweetItemServiceImpTest {
 	
-	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	ISweetItemService sweetItemervice;
 
-	@Autowired
-	ISweetItemService sweetItemService;
-	@Autowired
-	IProductService productService;
-	@Autowired
-	ISweetOrderService sweetOrderService;
-	SweetItem sweetItem;
-	SweetItem sweetItem1;
-	Product product;
-	Product product1;
-	Product product2;
-	SweetOrder sweetOrder;
-	SweetOrder sweetOrder1;
-	SweetOrder sweetOrder2;
-	Category category;
-	User user;
-	
-	  @BeforeAll
-	  void beforeAll()
-	  { 
-		  sweetItem = new SweetItem();
+		  @BeforeAll
+		  public static void init() {
+			}
+		  {
+		  
+	      sweetItem = new SweetItem();
 		  category = new Category(); 
-		  product= new Product(); 
-		  product1 = new Product();
-		  product2 = new Product();
-		  sweetOrder= new SweetOrder();
-		  sweetOrder1= new SweetOrder();
-		  sweetOrder2= new SweetOrder();
+		  product= new Product(84, "GulabJamun", 800, "SugarFree", true, "Ddrive", category); 
+		  sweetOrder= new SweetOrder(5,user,new ArrayList<SweetItem>(),LocalDate.now());
 	     product.setProductid(productService.addProduct(product).getProductid());
 	     sweetOrder.setSweetOrderId(sweetOrderService.addSweetOrder(sweetOrder).getSweetOrderId());
-	   }
-	 @AfterAll
-	 void afterAll() 
+}
+		  @AfterAll
+		  public static void init1() {
+			}
+		 
 	 {
 		try {
 			
 			productService.cancelProduct(product.getProductid());
-			productService.cancelProduct(product1.getProductid());
-			productService.cancelProduct(product2.getProductid());
-			
 			sweetOrderService.cancelSweetOrder(sweetOrder.getSweetOrderId());
-			sweetOrderService.cancelSweetOrder(sweetOrder1.getSweetOrderId());
-			sweetOrderService.cancelSweetOrder(sweetOrder2.getSweetOrderId());
-			
 			sweetItemService.cancelSweetItem(sweetItem.getOrderItemId());
 			sweetItemService.cancelSweetItem(sweetItem1.getOrderItemId());
 		}
@@ -91,17 +71,18 @@ class SweetItemServiceImpTest {
 	
 	@Test
 	void testAddSweetItem() {
-		LOGGER.info("Testing testAddSweetItem()");
+		logger.info("Testing AddSweetItem()");
+
 		
-		Product product=new Product(2, "GulabJamun", 800, "SugarFree", true, "Ddrive", category);
-		SweetOrder sweetOrder = new SweetOrder(5,user,new ArrayList<SweetItem>(),LocalDate.now());
+		product=new Product(84, "GulabJamun", 800, "SugarFree", true, "Ddrive", category);
+		sweetOrder = new SweetOrder(5,user,new ArrayList<SweetItem>(),LocalDate.now());
 		SweetItem sweetItem= new SweetItem(1,product,sweetOrder);
 		assertNotNull(sweetItemService.addSweetItem(sweetItem));
 	}
 	@Test
 	void testAddSweetItem2() 
 	{ 
-		LOGGER.info("Testing testAddSweetItem2()");
+		logger.info("Testing AddSweetItem2()");
 		 sweetItem = new SweetItem(10,null,null);
 	     assertNotNull(sweetItemService.addSweetItem(sweetItem));
 	}
@@ -109,7 +90,7 @@ class SweetItemServiceImpTest {
 
 	@Test
 	void testUpdateSweetItem() throws SweetItemNotFoundException {
-		LOGGER.info("Testing testUpdateSweetItem()");
+		logger.info("Testing UpdateSweetItem()");
 		SweetOrder sweetOrder = new SweetOrder(4,user,new ArrayList<SweetItem>(),LocalDate.now());
 		SweetItem sweetItem = new SweetItem(5,product,sweetOrder);
 		SweetItemDTO sweetItemDTO = sweetItemService.addSweetItem(sweetItem);
@@ -121,7 +102,7 @@ class SweetItemServiceImpTest {
 	 @Test
      void testUpdateSweetItem2() throws SweetItemNotFoundException 
       {
-		 LOGGER.info("Testing testUpdateSweetItem2()");
+		 logger.info("Testing testUpdateSweetItem2()");
 	  SweetItem sweetItem = new SweetItem(5,product,sweetOrder);
 	  assertThrows(CategoryNotFoundException.class, () -> sweetItemService.updateSweetItem(sweetItem)); 
 	 
@@ -131,7 +112,7 @@ class SweetItemServiceImpTest {
 	 @Test
      void testUpdateSweetItem3() throws SweetItemNotFoundException
      {
-		 LOGGER.info("Testing testUpdateSweetItem3()");
+		logger.info("Testing testUpdateSweetItem3()");
    	  assertNull(sweetItemService.updateSweetItem(null)); 
      }
      
@@ -140,27 +121,28 @@ class SweetItemServiceImpTest {
 
 	@Test
 	void testCancelSweetItem() throws SweetItemNotFoundException {
-		 LOGGER.info("Testing testCancelSweetItem()");
+		 logger.info("Testing testCancelSweetItem()");
 		Product product=new Product(5, "Gajar Halva", 700, "PureGheeSweets", true, "Ddrive", category);
+		SweetOrder sweetOrder = new SweetOrder(5,user,new ArrayList<SweetItem>(),LocalDate.now());
 		SweetItem sweetItem = new SweetItem(64,product,sweetOrder);
 		SweetItemDTO sweetItemDTO = sweetItemService.addSweetItem(sweetItem);
 		assertNotNull(sweetItemDTO);
 		int orderItemId = sweetItemDTO.getOrderItemId();
-		LOGGER.info("OrderItemId = " +orderItemId);
+		logger.info("OrderItemId = " +orderItemId);
 		assertNotNull(sweetItemService.cancelSweetItem(orderItemId));
 	}
 	 @Test
      void testCancelSweetItem2() throws SweetItemNotFoundException
      {
-		 LOGGER.info("Testing testCancelSweetItem2()");
-		 SweetItem sweetItem = new SweetItem (4,product,sweetOrder);
+		 logger.info("Testing testCancelSweetItem2()");
+		 sweetItem = new SweetItem (4,product,sweetOrder);
  		assertThrows(SweetItemNotFoundException.class, () -> sweetItemService.cancelSweetItem(65));
      }
 
 
 	@Test
 	void testShowAllSweetItems() {
-		LOGGER.info("Testing testShowAllSweetItems()");
+		logger.info("Testing testShowAllSweetItems()");
 		SweetItem sweetItem = new SweetItem(3,product,sweetOrder);
 		assertNotNull(sweetItemService.addSweetItem(sweetItem));
 		List<SweetItemDTO> sweetItemDTOList = sweetItemService.showAllSweetItems();
@@ -170,7 +152,7 @@ class SweetItemServiceImpTest {
 
 	@Test
 	void testValidateSweetItemSweetOrder() {
-		LOGGER.info("Testing testValidateSweetItemSweetOrder()");
+		logger.info("Testing testValidateSweetItemSweetOrder()");
 		SweetItem sweetItem = new SweetItem(3,product,sweetOrder);
 		assertFalse(SweetItemServiceImp.validateSweetItemSweetOrder(sweetItem));
 		SweetOrder sweetOrder = new SweetOrder();
@@ -182,7 +164,7 @@ class SweetItemServiceImpTest {
 
 	@Test
 	void testValidateOrderItemId() {
-		LOGGER.info("Testing testValidateOrderItemId()");
+		logger.info("Testing testValidateOrderItemId()");
 		SweetItem sweetItem = new SweetItem(3,product,sweetOrder);
 		assertNotNull(sweetItemService.addSweetItem(sweetItem));
 		assertTrue(SweetItemServiceImp.validateSweetItemOrderItemId(sweetItem));
@@ -193,7 +175,7 @@ class SweetItemServiceImpTest {
 	}
 	@Test
 	void testValidateSweetItemProduct() {
-		LOGGER.info("Testing testValidateSweetItemProduct()");
+		logger.info("Testing testValidateSweetItemProduct()");
 		SweetItem sweetItem = new SweetItem(3,product,sweetOrder);
 		assertFalse(SweetItemServiceImp.validateSweetItemProduct(sweetItem));
 		Product product=new Product();

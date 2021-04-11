@@ -13,7 +13,6 @@ import com.cg.osm.error.SweetItemNotFoundException;
 import com.cg.osm.model.SweetItemDTO;
 import com.cg.osm.repository.ISweetItemRepository;
 import com.cg.osm.util.SweetItemUtils;
-import com.cg.osm.service.ISweetItemService;
 /*
  * Author : ANNIE HEPZHIBHA K
  * Version : 1.0
@@ -99,7 +98,7 @@ public class SweetItemServiceImp implements ISweetItemService  {
 		}	
 		
 		
-		public SweetItemDTO showAllSweetItems(int orderItemItemId) throws SweetItemNotFoundException{
+		public SweetItemDTO showSweetItem(int orderItemItemId) throws SweetItemNotFoundException{
 			LOGGER.info("showSweetItem() service is initiated");
 			SweetItem existingSweetItem = repo.findById(orderItemItemId).orElse(null);
 			if (existingSweetItem == null) {
@@ -153,4 +152,4 @@ public class SweetItemServiceImp implements ISweetItemService  {
 		
 
 
-}
+
