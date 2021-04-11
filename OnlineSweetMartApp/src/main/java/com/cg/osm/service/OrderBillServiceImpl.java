@@ -148,11 +148,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 
 	
 	
-	/*
-	 * Description     : Validation method for createdDate field of an OrderBill instance.
-	 * Input Parameter : OrderBill instance
-	 * Return Value    : boolean
-	 */
+	//Validation for createdDate field of OrderBill.
 	public static boolean validateOrderBillCreatedDate(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill == null || orderBill.getCreatedDate() == null || orderBill.getCreatedDate().isAfter(LocalDate.now()))
@@ -161,11 +157,8 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		return flag;
 	}
 	
-	/*
-	 * Description     : Validation method for listSweetOrder field of an OrderBill instance.
-	 * Input Parameter : OrderBill instance
-	 * Return Value    : boolean
-	 */
+
+	//Validation for listSweetOrder field of OrderBill.
 	public static boolean validateOrderBillListSweetOrder(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill== null) {
@@ -181,11 +174,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	}
 	
 	
-	/*
-	 * Description     : Validation method for orderBillId field of an OrderBill instance.
-	 * Input Parameter : OrderBill instance
-	 * Return Value    : boolean
-	 */
+	//Validation for orderBillId field of OrderBill.
 	public static boolean validateOrderBillId(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill == null) {
@@ -201,11 +190,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	}
 	
 	
-	/*
-	 * Description     : Validation method for totalCost field of an OrderBill instance.
-	 * Input Parameter : OrderBill instance
-	 * Return Value    : boolean
-	 */
+	//Validation for totalCost field of OrderBill.
 	public static boolean validateOrderBillTotalCost(OrderBill orderBill) {
 		boolean flag = true;
 		if (orderBill == null) {

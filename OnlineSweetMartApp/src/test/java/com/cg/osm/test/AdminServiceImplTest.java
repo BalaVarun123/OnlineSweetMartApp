@@ -103,7 +103,7 @@ class AdminServiceImplTest {
 		cart.setTotal(300);
 		CartDTO cartDTO = cartService.addCart(cart);
 		cart.setCartId(cartDTO.getCartId());
-		product.setProductid(cartDTO.getListProduct().get(0).getProductid());
+		product.setProductId(cartDTO.getListProduct().get(0).getProductid());
 		LOGGER.info("beforeAll is terminated.");
 	}
 	

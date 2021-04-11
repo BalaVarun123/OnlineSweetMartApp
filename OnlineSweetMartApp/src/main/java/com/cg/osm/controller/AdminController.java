@@ -45,12 +45,34 @@ import com.cg.osm.util.UserUtils;
 @RequestMapping("/api/osm")
 public class AdminController {
 
+	/*
+	 * Author      : BALASUBRAMANIAN S
+	 * Version     : 1.0
+	 * Date        : 04-04-2021
+	 * Description : RestController class for AdminService.
+	*/
 	
 	@Autowired
 	IAdminService service;
 	@Autowired
 	RestTemplate restTemplate;
 	static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+	
+	
+	
+
+	/************************************************************************************
+	 * Method       : addAdmin 
+	 * Description  : It is used to add Admin instance.
+	 * @param       : AdminInput Object
+	 * @returns     : It returns ResponseEntity<Object> Object.
+	 * @PostMapping : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By   : BALASUBRAMANIAN S
+     * Created Date : 04-04-2021 
+     *
+	 ************************************************************************************/
+	
 	
 	@PostMapping(value = "/admin/add", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object>  addAdmin(@RequestBody AdminInput admin) {
@@ -106,6 +128,21 @@ public class AdminController {
 	}
 	
 	
+	
+
+	/************************************************************************************
+	 * Method       : updateAdmin 
+	 * Description  : It is used to update Admin details.
+	 * @param       : AdminInput Object
+	 * @returns     : It returns ResponseEntity<Object>.
+	 * @PutMapping  : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception   : AdminNotFoundException
+	 * Created By   : BALASUBRAMANIAN S
+     * Created Date : 04-04-2021 
+     *
+	 ************************************************************************************/
+	
 	@PutMapping(value = "/admin/update", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object>  updateAdmin(@RequestBody AdminInput admin) throws AdminNotFoundException {
 		
@@ -160,6 +197,20 @@ public class AdminController {
 		
 	}
 	
+	
+
+	/************************************************************************************
+	 * Method         : cancelAdmin 
+	 * Description    : It is used to remove Admin details from the database.
+	 * @param         : int adminId
+	 * @returns       : It returns ResponseEntity<Object> Object.
+	 * @DeleteMapping : It is used to handle the HTTP DELETE requests matched with given URI expression.
+	 * @PathVariable  : It is used to get an integer value from the URL.
+	 * @exception     : AdminNotFoundException
+	 * Created By     : BALASUBRAMANIAN S
+     * Created Date   : 04-04-2021 
+     *
+	 ************************************************************************************/
 	@DeleteMapping(value = "/admin/cancel/{adminId}", produces = "application/json")
 	public ResponseEntity<Object> cancelAdmin(@PathVariable("adminId") int adminId) throws AdminNotFoundException{
 		LOGGER.info("/admin/cancel/ URL is opened.");
@@ -181,6 +232,18 @@ public class AdminController {
 		return new ResponseEntity<Object> (result,status);
 	}
 	
+	
+
+	/************************************************************************************
+	 * Method       : showAllAdmins 
+	 * Description  : It is used to get all Admin records.
+	 * @returns     : It returns List<AdminDTO> Object.
+	 * @GetMapping  : It is used to handle the HTTP GET requests matched with given URI expression..
+	 * Created By   : BALASUBRAMANIAN S
+     * Created Date : 04-04-2021 
+     *
+	 ************************************************************************************/
+	
 	@GetMapping(value = "/admin/show-all", produces = "application/json")
 	public List<AdminDTO> showAllAdmins(){
 		LOGGER.info("/admin/show-all URL is opened.");
@@ -190,6 +253,20 @@ public class AdminController {
 		return listDTO;
 	}
 	
+	
+	
+
+	/************************************************************************************
+	 * Method       : showAdmin 
+	 * Description  : It is used to get Admin by adminId.
+	 * @param       : int adminId.
+	 * @returns     : It returns ResponseEntity<Object> Object.
+	 * @GetMapping  : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @PathVariable: It is used to get an integer value from the URL.
+	 * Created By   : BALASUBRAMANIAN S
+     * Created Date : 04-04-2021 
+     *
+	 ************************************************************************************/
 	@GetMapping(value = "/admin/show/{adminId}", produces = "application/json")
 	public ResponseEntity<Object> showAdmin(@PathVariable("adminId") int adminId){
 		LOGGER.info("/admin/show/ URL is opened.");
