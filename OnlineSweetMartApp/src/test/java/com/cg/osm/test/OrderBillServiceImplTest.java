@@ -38,6 +38,7 @@ class OrderBillServiceImplTest {
 		assertNull(service.addOrderBill(null));
 	}
 
+
 	@Test
 	void testUpdateOrderBill() throws OrderBillNotFoundException {
 		OrderBill orderBill = new OrderBill(2,LocalDate.now(),0,new ArrayList<SweetOrder>());
