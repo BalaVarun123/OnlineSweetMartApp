@@ -29,10 +29,6 @@ public class AdminInput {
 		
 	}
 	
-	
-	
-
-
 	public AdminInput(int id, long customerId, long userId, int itemId, int category, int cart, int product) {
 		super();
 		this.id = id;

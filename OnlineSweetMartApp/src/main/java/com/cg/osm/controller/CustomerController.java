@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.CustomerInput;
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
-import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.model.CartDTO;
-import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
-import com.cg.osm.model.OrderBillDTO;
 import com.cg.osm.model.SweetItemDTO;
 import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.ICustomerService;

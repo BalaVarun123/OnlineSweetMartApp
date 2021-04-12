@@ -5,11 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,8 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.osm.entity.Cart;
@@ -31,9 +25,7 @@ import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.entity.User;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.error.SweetItemNotFoundException;
-import com.cg.osm.error.SweetOrderNotFoundException;
 import com.cg.osm.model.CustomerDTO;
-import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.service.ICustomerService;
 import com.cg.osm.service.CustomerServiceImp;
 

@@ -1,8 +1,6 @@
 package com.cg.osm.entity;
-
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
