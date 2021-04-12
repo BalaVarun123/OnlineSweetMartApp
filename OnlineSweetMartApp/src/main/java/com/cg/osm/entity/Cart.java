@@ -10,6 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+
+/*
+ * Author      : UJJWAL SINGH A
+ * Version     : 1.0
+ * Date        : 03-04-2021
+ * Description : This is entity class
+*/
 @Entity
 public class Cart {
 
