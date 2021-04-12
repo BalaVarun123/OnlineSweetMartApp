@@ -21,7 +21,6 @@ public class SweetOrderUtils {
 		sweetOrderDto.setCreatedDate(sweetOrder.getCreatedDate());
 		sweetOrderDto.setUser(sweetOrder.getUser());
 		sweetOrderDto.setListItems(sweetOrder.getListItems());
-		//sweetOrderDto.setGroupedProducts(sweetOrder.getGroupedProducts());
 		sweetOrderDto.setSweetOrderId(sweetOrder.getSweetOrderId());
 		return sweetOrderDto;
 	}
@@ -41,7 +40,6 @@ public class SweetOrderUtils {
 		sweetOrder.setCreatedDate(sweetOrderDto.getCreatedDate());
 		sweetOrder.setUser(sweetOrderDto.getUser());
 		sweetOrder.setListItems(sweetOrderDto.getListItems());
-		//sweetOrder.setGroupedProducts(sweetOrderDto.getGroupedProducts());
 		sweetOrder.setSweetOrderId(sweetOrderDto.getSweetOrderId());
 		return sweetOrder;
 	}

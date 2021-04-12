@@ -6,14 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,14 +18,11 @@ public class SweetOrder {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int sweetOrderId;
-    //@ManyToOne(cascade = CascadeType.ALL)
     @OneToOne
 	private User user;
 	@OneToMany
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
-	//@ElementCollection
-	//private Map<Product, Long> groupedProducts;
 	
 	public SweetOrder() {
 		
@@ -81,13 +74,7 @@ public class SweetOrder {
 		this.createdDate = createdDate;
 	}
 
-	/*
-	 * public Map<Product, Long> getGroupedProducts() { return groupedProducts; }
-	 * 
-	 * public void setGroupedProducts(Map<Product, Long> groupedProducts) {
-	 * this.groupedProducts = groupedProducts; }
-	 */
-	
+
 	@Override
 	public String toString() {
 		   return "SweetOrder[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts=" +"]";

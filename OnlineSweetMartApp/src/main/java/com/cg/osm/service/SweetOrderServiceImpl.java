@@ -1,17 +1,12 @@
 package com.cg.osm.service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.SweetOrderNotFoundException;
@@ -189,7 +184,7 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 	public static boolean validateListItems(SweetOrder sweetOrder) {
 		boolean result = false;
 		if (sweetOrder != null) {
-			List items = sweetOrder.getListItems();
+			List<SweetItem> items = sweetOrder.getListItems();
 			if (items != null ) {
 				result = true;
 			}
