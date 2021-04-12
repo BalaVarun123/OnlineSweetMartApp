@@ -151,7 +151,7 @@ public class ProductServiceImpl implements IProductService {
 	 */
 	public static boolean validateProductPrice(double price) throws ProductNotFoundException {
 		boolean flag = true;
-		if (price <= 0 || Double.isNaN(price))
+		if (price <= 0)
 			throw new ProductNotFoundException("Enter a valid product price");
 		return flag;
 	}
