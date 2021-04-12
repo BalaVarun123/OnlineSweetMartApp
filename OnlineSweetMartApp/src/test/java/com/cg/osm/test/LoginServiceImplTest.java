@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.osm.entity.User;
 import com.cg.osm.error.UserNotFoundException;
+import com.cg.osm.model.UserDTO;
 import com.cg.osm.service.ILoginService;
 import com.cg.osm.service.IUserService;
 import com.cg.osm.service.LoginServiceImpl;
@@ -150,8 +151,8 @@ class LoginServiceImplTest {
 	 {
 		  LOGGER.info("Testing testValidateUserId()");
 		  user = new User(30L,"userNameFive","Password2@","Password2@","typeFour",true);
-		  userService.addUser(user);
-		  assertNotNull(loginService.login(30L, "Password2@"));
+		  UserDTO userDTO = userService.addUser(user);
+		  assertNotNull(loginService.login(userDTO.getUserId(), "Password2@"));
 		  assertTrue(LoginServiceImpl.validateUserId(30L));
 		 
 		  
