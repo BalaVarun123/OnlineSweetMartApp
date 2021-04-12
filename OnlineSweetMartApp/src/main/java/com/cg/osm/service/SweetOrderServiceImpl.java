@@ -18,15 +18,15 @@ import com.cg.osm.util.SweetOrderUtils;
 /*
  * Author      : BALASUBRAMANIAN S
  * Version     : 1.0
- * Date        : 05-04-2021
+ * Date        : 06-04-2021
  * Description : Implementation for ISweetOrderService
 */
 public class SweetOrderServiceImpl implements ISweetOrderService {
 	@Autowired
 	ISweetOrderRepository repository;
 
-	static final Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
+	private static final String MESSAGE_INVALID_ID = "Invalid sweetOrderId.";
 	/*
 	 * Description     : This method adds a new SweetOrder record.
 	 * Input Parameter : SweetOrder Object 
@@ -66,8 +66,8 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 			if (repository.existsById(sweetOrder.getSweetOrderId())) {
 				sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(repository.save(sweetOrder));
 			} else {
-				LOGGER.error("Invalid sweetOrderId.");
-				throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
+				LOGGER.error(MESSAGE_INVALID_ID);
+				throw new SweetOrderNotFoundException(MESSAGE_INVALID_ID);
 			}
 		}
 		LOGGER.info("updateSweetOrder service method is terminated.");
@@ -90,8 +90,8 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 			repository.delete(sweetOrder);
 			sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(sweetOrder);
 		} else {
-			LOGGER.error("Invalid sweetOrderId.");
-			throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new SweetOrderNotFoundException(MESSAGE_INVALID_ID);
 		}
 		LOGGER.info("cancelSweetOrder service method is terminated.");
 		return sweetOrderDTO;
@@ -113,8 +113,8 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		if (sweetOrder != null) {
 			sweetOrderDTO = SweetOrderUtils.convertToSweetOrderDto(sweetOrder);
 		} else {
-			LOGGER.error("Invalid sweetOrderId.");
-			throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new SweetOrderNotFoundException(MESSAGE_INVALID_ID);
 		}
 		LOGGER.info("showSweetOrder service method is terminated.");
 		return sweetOrderDTO;
@@ -149,8 +149,8 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 				total += item.getProduct().getPrice();
 			}
 		} else {
-			LOGGER.error("Invalid sweetOrderId.");
-			throw new SweetOrderNotFoundException("Invalid sweetOrderId.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new SweetOrderNotFoundException(MESSAGE_INVALID_ID);
 		}
 		LOGGER.info("calculateTotalCost service method is terminated.");
 		return total;

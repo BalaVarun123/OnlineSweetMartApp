@@ -22,6 +22,13 @@ import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.service.CategoryServiceImpl;
 import com.cg.osm.service.ICategoryService;
 
+/*
+ * Author : RAKSHA R
+ * Version : 1.0
+ * Date : 05-04-2021
+ * Description : This is Category Controller
+*/
+
 @RestController
 @RequestMapping(value="/api/osm")
 public class CategoryController 
@@ -29,7 +36,19 @@ public class CategoryController
   @Autowired
   private ICategoryService service;
   
-  final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
+ static final Logger LOGGER =	LoggerFactory.getLogger(CategoryController.class);
+  
+  /************************************************************************************
+	 * Method       : addCategory
+	 * Description  : It is used to add Category into category Table
+	 * @param       : Category Object
+	 * @returns     : It returns CategoryDTO Object with details
+	 * @PostMapping : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By   : RAKSHA R
+     * Created Date : 05-04-2021 
+   *
+	 ************************************************************************************/
  
   @PostMapping(value="/category/add")
   public ResponseEntity<Object> addCategory(@RequestBody Category category) 
@@ -50,6 +69,18 @@ public class CategoryController
 	  return response;  
   }
  
+  /************************************************************************************
+	 * Method         : updateCategory
+	 * Description    : It is used to update category into category table
+	 * @param         : Category Object
+	 * @returns       : It returns CategoryDTO Object with details
+	 * @PutMapping    : It is used to handle the HTTP PUT requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CategoryNotFoundException
+	 * Created By     : RAKSHA R
+     * Created Date   : 05-04-2021 
+	 * 
+	 ************************************************************************************/
   @PutMapping(value="/category/update")
   public ResponseEntity<Object> updateCategory( @RequestBody Category category) throws CategoryNotFoundException
   {
@@ -68,6 +99,19 @@ public class CategoryController
 	  return response;  
   }
   
+
+	/************************************************************************************
+	 * Method          : cancelCategory
+	 * Description     : It is used to remove category from category table
+	 * @param id       : integer categoryId
+	 * @returns        : It returns CategoryDTO Object with details
+	 * @DeleteMapping  : It is used to handle the HTTP DELETE requests matched with given URI expression.
+	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception      : CategoryNotFoundException
+	 * Created By      : RAKSHA R
+     * Created Date    : 05-04-2021 
+	 * 
+	 ************************************************************************************/
   @DeleteMapping(value="/category/delete/{id}")
   public ResponseEntity<Object> cancelCategory(@PathVariable("id") int categoryId) throws CategoryNotFoundException
   {
@@ -85,25 +129,64 @@ public class CategoryController
 	  }
 	  return response;   
   }
- 
+  
+  /************************************************************************************
+	 * Method         : showAllCategories
+	 * Description    : It is used to view all category details present in category table
+	 * @returns       : It returns all List<CategoryDTO> Object with details
+	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By     : RAKSHA R
+     * Created Date   : 05-04-2021 
+	 * 
+	 ************************************************************************************/
+	
   @GetMapping(value="/category/get-all")
   public List<CategoryDTO> showAllCategories()
   {
+	LOGGER.info("All categories shown");
 	return service.showAllCategories();  
   }
  
+  /************************************************************************************
+	 * Method         : calculateTotalCost
+	 * Description    : It is used to view the total cost
+	 * @param         : integer categoryId
+	 * @returns       : It returns a double price
+	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By     : RAKSHA R 
+     * Created Date   : 05-04-2021 
+	 * 
+	 ************************************************************************************/
   @GetMapping(value="/category/total-cost/{id}")
   public double calculateTotalCost(@PathVariable("id") int categoryId) 
 	{
-		if (!(categoryId<0))
-		 return service.calculateTotalCost(categoryId);
-		else 
+	   LOGGER.info("Calculating total cost");
+		if (categoryId < 0)
 			return 0;
+		else 
+		    return service.calculateTotalCost(categoryId);
 		
 	}
   
+ 
+  /************************************************************************************
+	 * Method         : showCategoryById
+	 * Description    : It is used to view category from category table
+	 * @param         : integer categoryId
+	 * @returns       : It returns CategoryDTO Object with details
+	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception     : CategoryNotFoundException
+	 * Created By     : RAKSHA R
+     * Created Date   : 05-04-2021 
+	 * 
+	 ************************************************************************************/
   @GetMapping(value="/category/show/{id}")
-  public CategoryDTO showCategory(@PathVariable("id") int categoryId) throws CategoryNotFoundException{
+  public CategoryDTO showCategory(@PathVariable("id") int categoryId) throws CategoryNotFoundException
+  {
+	  LOGGER.info("Category shown by id");
 	  return service.showCategory(categoryId);
   }
 }

@@ -21,7 +21,7 @@ import com.cg.osm.util.OrderBillUtils;
 /*
  * Author      : BALASUBRAMANIAN S
  * Version     : 1.0
- * Date        : 05-04-2021
+ * Date        : 04-04-2021
  * Description : Implementation for IOrderBillService
 */
 
@@ -31,8 +31,8 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	@Autowired
 	public IOrderBillRepository repository;
 	
-	final static Logger LOGGER = LoggerFactory.getLogger(OrderBillServiceImpl.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderBillServiceImpl.class);
+	private static final String MESSAGE_INVALID_ID = "Invalid orderBillId.";
 	
 	/*
 	 * Description     : Service method for adding a new OrderBill record.
@@ -76,8 +76,8 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		else {
 			OrderBill existingOrderBill = repository.findById(orderBill.getOrderBillId()).orElse(null);
 			if (existingOrderBill == null) {
-				LOGGER.error("Invalid orderBillId.");
-				throw new OrderBillNotFoundException("Invalid orderBillId.");
+				LOGGER.error(MESSAGE_INVALID_ID);
+				throw new OrderBillNotFoundException(MESSAGE_INVALID_ID);
 			}
 			else {
 				orderBillDTO = OrderBillUtils.convertToOrderBillDto(repository.save(orderBill));
@@ -102,8 +102,8 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		OrderBillDTO orderBillDTO;
 		OrderBill existingOrderBill = repository.findById(orderBillId).orElse(null);
 		if (existingOrderBill == null) {
-			LOGGER.error("Invalid orderBillId.");
-			throw new OrderBillNotFoundException("Invalid orderBillId.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new OrderBillNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
 			repository.delete(existingOrderBill);
