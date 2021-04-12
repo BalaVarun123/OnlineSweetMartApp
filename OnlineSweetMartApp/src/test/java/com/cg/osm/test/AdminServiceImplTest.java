@@ -162,6 +162,7 @@ class AdminServiceImplTest {
 		LOGGER.info("testUpdateAdmin is initiated.");
 		admin2.setUser(user2);
 		assertNotNull(adminService.updateAdmin(admin2));
+		assertThrows(AdminNotFoundException.class, () ->adminService.updateAdmin(admin2));
 		assertNull(adminService.updateAdmin(null));
 		LOGGER.info("testUpdateAdmin is terminated.");
 	}
