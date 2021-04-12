@@ -12,8 +12,13 @@ import com.cg.osm.model.OrderBillDTO;
 @Component
 public class OrderBillUtils {
 	final static Logger LOGGER = LoggerFactory.getLogger(OrderBillUtils.class);
+	
+	private OrderBillUtils() {
+		
+	}
+	
 	public static List<OrderBillDTO> convertToOrderBillDtoList(List<OrderBill> list){
-		List<OrderBillDTO> dtolist = new ArrayList<OrderBillDTO>();
+		List<OrderBillDTO> dtolist = new ArrayList<>();
 		for(OrderBill orderBill : list) 
 			dtolist.add(convertToOrderBillDto(orderBill));
 		LOGGER.info("List<OrderBill>  is converted into List<OrderBillDTO>.");
@@ -33,7 +38,7 @@ public class OrderBillUtils {
 	
 	
 	public static List<OrderBill> convertToOrderBillList(List<OrderBillDTO> dtoList){
-		List<OrderBill> list = new ArrayList<OrderBill>();
+		List<OrderBill> list = new ArrayList<>();
 		for(OrderBillDTO orderBillDTO : dtoList) 
 			list.add(convertToOrderBill(orderBillDTO));
 		LOGGER.info("List<OrderBillDTO>  is converted into List<OrderBill>.");
