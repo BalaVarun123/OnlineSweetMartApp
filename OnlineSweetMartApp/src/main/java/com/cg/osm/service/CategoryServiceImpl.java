@@ -170,6 +170,8 @@ final static Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
 		{
 			flag=false;
 		}
+		else
+		{
 		String name= category.getName();
 	    if (name==null)
 		{
@@ -180,6 +182,7 @@ final static Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
 		if(category.getName().matches("^[a-zA-Z0-9]+$") && category.getName().length()>2)
 			flag=true;
 	    }
+		}
 		return flag; 
 			
 			
