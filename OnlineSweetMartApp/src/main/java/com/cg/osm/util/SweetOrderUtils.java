@@ -9,8 +9,13 @@ import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.model.SweetOrderDTO;
 @Component
 public class SweetOrderUtils {
+	
+	private SweetOrderUtils() {
+		
+	}
+	
 	public static List<SweetOrderDTO> convertToSweetOrderDtoList(List<SweetOrder> list){
-		List<SweetOrderDTO> dtolist = new ArrayList<SweetOrderDTO>();
+		List<SweetOrderDTO> dtolist = new ArrayList<>();
 		for(SweetOrder sweetOrder : list) 
 			dtolist.add(convertToSweetOrderDto(sweetOrder));
 		return dtolist;
@@ -28,7 +33,7 @@ public class SweetOrderUtils {
 	
 	
 	public static List<SweetOrder> convertToSweetOrderList(List<SweetOrderDTO> dtoList){
-		List<SweetOrder> list = new ArrayList<SweetOrder>();
+		List<SweetOrder> list = new ArrayList<>();
 		for(SweetOrderDTO sweetOrderDTO : dtoList) 
 			list.add(convertToSweetOrder(sweetOrderDTO));
 		return list;

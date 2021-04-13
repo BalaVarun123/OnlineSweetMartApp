@@ -2,15 +2,9 @@ package com.cg.osm.model;
 
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-
-
 import org.springframework.stereotype.Component;
 
-import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.User;
 
@@ -23,7 +17,6 @@ public class SweetOrderDTO {
 
 	private List<SweetItem> listItems;
 	private LocalDate createdDate;
-	//private Map<Product, Long> groupedProducts;
 	
 	public SweetOrderDTO() {
 		
@@ -73,35 +66,7 @@ public class SweetOrderDTO {
 		this.createdDate = createdDate;
 	}
 
-	/*
-	 * public Map<Product, Long> getGroupedProducts() { return groupedProducts; }
-	 */
 
-	/*
-	 * public void setGroupedProducts(Map<Product, Long> groupedProducts) {
-	 * this.groupedProducts = groupedProducts; }
-	 */
-	
-	@Override
-	public String toString() {
-		   return "SweetOrderDTO[sweetOrderId=" +sweetOrderId + ", user=" + user + ",  listItems="+ listItems +", createdDate=" + createdDate + ", groupedProducts="  +"]";
-	}
-	public Map<Product,Long> initiateGroupedProducts() {
-		
-		Map<Product,Long> groupedProducts = new HashMap<Product, Long>();
-		if (listItems != null) {
-			Product product;
-			for (SweetItem item : listItems) {
-				product = item.getProduct();
-				if (groupedProducts.containsKey(product)) {
-					groupedProducts.put(product, groupedProducts.get(product) + 1);
-				}else {
-					groupedProducts.put(product, 1L);
-				}
-			}
-		}
-		return groupedProducts;
-	}
 }
 	
 

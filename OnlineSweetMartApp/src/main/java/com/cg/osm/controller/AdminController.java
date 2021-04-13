@@ -224,7 +224,7 @@ public class AdminController {
 		
 		LOGGER.info("cancelAdmin is terminated with http status :"+status);
 		
-		return new ResponseEntity<Object> (result,status);
+		return new ResponseEntity<> (result,status);
 	}
 	
 	

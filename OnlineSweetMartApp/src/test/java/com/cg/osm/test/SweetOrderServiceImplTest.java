@@ -1,6 +1,6 @@
 package com.cg.osm.test;
 
-import static org.hamcrest.CoreMatchers.nullValue;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -25,14 +25,11 @@ import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.entity.User;
 import com.cg.osm.error.CommonException;
 import com.cg.osm.error.SweetOrderNotFoundException;
-import com.cg.osm.error.UserNotFoundException;
-import com.cg.osm.model.AdminDTO;
 import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.IProductService;
 import com.cg.osm.service.ISweetItemService;
 import com.cg.osm.service.ISweetOrderService;
 import com.cg.osm.service.IUserService;
-import com.cg.osm.service.ProductServiceImpl;
 import com.cg.osm.service.SweetOrderServiceImpl;
 
 @SpringBootTest
