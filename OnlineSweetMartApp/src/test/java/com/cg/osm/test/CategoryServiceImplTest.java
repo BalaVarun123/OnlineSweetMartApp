@@ -34,9 +34,9 @@ import com.cg.osm.service.ISweetItemService;
 class CategoryServiceImplTest {
 	
 	@Autowired
-	ICategoryService categoryService;
+    ICategoryService categoryService;
 	@Autowired
-	ISweetItemService sweetItemService;
+    ISweetItemService sweetItemService;
 	@Autowired
 	IProductService productService;
 	
@@ -63,7 +63,7 @@ class CategoryServiceImplTest {
 		  sweetItem1 = new SweetItem();
 		  sweetItem2 = new SweetItem();
 	     sweetItem.setOrderItemId(sweetItemService.addSweetItem(sweetItem).getOrderItemId());
-	     product.setProductid(productService.addProduct(product).getProductid());
+	     product.setProductId(productService.addProduct(product).getProductId());
 	   }
 	 @AfterAll
 	 void afterAll() 
@@ -73,9 +73,9 @@ class CategoryServiceImplTest {
 			sweetItemService.cancelSweetItem(sweetItem1.getOrderItemId());
 			sweetItemService.cancelSweetItem(sweetItem2.getOrderItemId());
 			
-			productService.cancelProduct(product.getProductid());
-			productService.cancelProduct(product1.getProductid());
-			productService.cancelProduct(product2.getProductid());
+			productService.cancelProduct(product.getProductId());
+			productService.cancelProduct(product1.getProductId());
+			productService.cancelProduct(product2.getProductId());
 			
 			categoryService.cancelCategory(category.getCategoryId());
 			categoryService.cancelCategory(category1.getCategoryId());
@@ -88,25 +88,22 @@ class CategoryServiceImplTest {
 		}
 	 }
 	
-	
+	// TEST CASE FOR ADD CATEGORY
 	@Test
 	void testAddCategory1() throws CategoryNotFoundException
 	{ 
+		LOGGER.info("Testing testAddCategory1()");
 		 category = new Category(1,"ChoclateCategory");
 		 assertNotNull(categoryService.addCategory(category));
 		
 	}
 	
-	@Test
-	void testAddCategory2() 
-	{ 
-		 category = new Category(10,null);
-	     assertNotNull(categoryService.addCategory(category));
-	}
 	
+	//TEST CASES FOR UPDATE CATEGORY
 	 @Test
      void testUpdateCategory1() throws CategoryNotFoundException
      {
+	  LOGGER.info("Testing testUpdateCategory1()");
 	  category = new Category(1,"ChoclateCategory");
    	  CategoryDTO categoryDTO =categoryService.addCategory(category); 
    	  assertNotNull(categoryDTO);
@@ -119,6 +116,7 @@ class CategoryServiceImplTest {
 	 @Test
      void testUpdateCategory2() throws CategoryNotFoundException 
       {
+		 LOGGER.info("Testing testUpdateCategory2()");
 	  category = new Category(2,"ChoclateCategory");
 	  assertThrows(CategoryNotFoundException.class, () -> categoryService.updateCategory(category)); 
 	 
@@ -129,6 +127,7 @@ class CategoryServiceImplTest {
       @Test
       void testUpdateCategory3() throws CategoryNotFoundException
       {
+    	  LOGGER.info("Testing testUpdateCategory3()");
     	  assertNull(categoryService.updateCategory(null)); 
       }
       
@@ -137,6 +136,7 @@ class CategoryServiceImplTest {
         @Test
 	    void testCancelCategory1() throws CategoryNotFoundException
         { 
+          LOGGER.info("Testing testCancelCategory1()");
           category = new Category(1,"ChoclateCategory");
 		  CategoryDTO categoryDTO = categoryService.addCategory(category);
 		  assertNotNull(categoryDTO);
@@ -148,6 +148,7 @@ class CategoryServiceImplTest {
         @Test
         void testCancelCategory2() throws CategoryNotFoundException
         {
+        	 LOGGER.info("Testing testCancelCategory2()");
         	category= new Category (3,"ChoclateSweets");
     		assertThrows(CategoryNotFoundException.class, () -> categoryService.cancelCategory(-1));
         }
@@ -155,6 +156,7 @@ class CategoryServiceImplTest {
      @Test
 	void testShowAllCategories() 
 	{
+    	LOGGER.info("Testing testShowAllCategories()");
 		category = new Category(4,"NutsSweet");
 		assertNotNull(categoryService.addCategory(category));
 		List<CategoryDTO> categoryDTOList = categoryService.showAllCategories();
@@ -164,6 +166,7 @@ class CategoryServiceImplTest {
   @Test
   void testCalculateTotalCost() 
   { 
+	  LOGGER.info("Testing testCalculateTotalCost()");
 	 category = new Category(5,"Nuts");
 	 category1 = new Category(6,"fruits");
 	
@@ -177,9 +180,9 @@ class CategoryServiceImplTest {
 
 	 category.setCategoryId(categoryService.addCategory(category).getCategoryId());
 	 category1.setCategoryId(categoryService.addCategory(category1).getCategoryId());
-	 product.setProductid(productService.addProduct(product).getProductid());
-	 product1.setProductid(productService.addProduct(product1).getProductid());
-	 product2.setProductid(productService.addProduct(product2).getProductid());
+	 product.setProductId(productService.addProduct(product).getProductId());
+	 product1.setProductId(productService.addProduct(product1).getProductId());
+	 product2.setProductId(productService.addProduct(product2).getProductId());
 	 sweetItem.setOrderItemId(sweetItemService.addSweetItem(sweetItem).getOrderItemId());
 	 sweetItem1.setOrderItemId(sweetItemService.addSweetItem(sweetItem1).getOrderItemId());
 	 sweetItem2.setOrderItemId(sweetItemService.addSweetItem(sweetItem2).getOrderItemId());
@@ -191,7 +194,9 @@ class CategoryServiceImplTest {
   }
 	  
   @Test
-	void testShowCategory() {
+	void testShowCategory() 
+  {
+	    LOGGER.info("Testing testShowCategory()");
 		Category category = new Category(5,"MilkSweets");
 		CategoryDTO categoryDTO = categoryService.addCategory(category);
 		assertNotNull(categoryDTO);
@@ -211,6 +216,7 @@ class CategoryServiceImplTest {
 	  @Test
 	  void testValidateCategoryId() 
 	  { 
+		  LOGGER.info("Testing testValidateCategoryId()");
 		    category = new Category(6,"gheeSweets");
 			assertNotNull(categoryService.addCategory(category));
 			assertTrue(CategoryServiceImpl.validateCategoryId(category));
@@ -221,6 +227,7 @@ class CategoryServiceImplTest {
 	  @Test
 	  void testValidateName() 
 	  { 
+		  LOGGER.info("Testing testValidateName()");
 		 category=new Category(7,"fruitSweets");
 		 assertNotNull(categoryService.addCategory(category));
 		 assertEquals(true,CategoryServiceImpl.validateName(category));

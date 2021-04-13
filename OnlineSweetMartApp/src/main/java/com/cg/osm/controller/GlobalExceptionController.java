@@ -21,15 +21,13 @@ import com.cg.osm.error.UserNotFoundException;
 @ControllerAdvice
 public class GlobalExceptionController {
 
-	@ExceptionHandler(CommonException.class)
+
+	static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionController.class); 
+	
+	@ExceptionHandler({CommonException.class,HttpClientErrorException.class})
 	public ResponseEntity<String> exceptionHandler(Exception exception) {
 		String errorMessage = exception.getMessage();
-		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
-	}
-
-	@ExceptionHandler(HttpClientErrorException.class)
-	public ResponseEntity<String> httpClientExceptionHandler(Exception exception) {
-		String errorMessage = exception.getMessage();
+		LOGGER.error(errorMessage);
 		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 	}
 }

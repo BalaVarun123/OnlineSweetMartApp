@@ -26,7 +26,7 @@ import com.cg.osm.service.ICartService;
 /*
  * Author      : UJJWAL SINGH A
  * Version     : 1.0
- * Date        : 04-04-2021
+ * Date        : 06-04-2021
  * Description : This is Cart Controller
 */
 
@@ -104,15 +104,14 @@ public class CartController {
 	 * @param id       : integer cartId
 	 * @returns cart   : It returns CartDTO Object with details
 	 * @DeleteMapping  : It is used to handle the HTTP DELETE requests matched with given URI expression.
-	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
 	 * @exception      : CartNotFoundException
 	 * Created By      : UJJWAL SINGH A
      * Created Date    : 04-04-2021 
 	 * 
 	 ************************************************************************************/
 
-    @DeleteMapping("delete-cart/{id}")
-	public ResponseEntity<Object> cancelCart(int cartId) throws CartNotFoundException {
+    @DeleteMapping("delete-cart/{cartId}")
+	public ResponseEntity<Object> cancelCart(@PathVariable("cartId") int cartId) throws CartNotFoundException {
 		logger.info("cancel-Cart URL is opened");
 		logger.info("cancelCart() is initiated");
 		CartDTO cartDTO = cartService.cancelCart(cartId);
@@ -128,11 +127,10 @@ public class CartController {
 	
 	/************************************************************************************
 	 * Method         : showCartById
-	 * Description    : It is used to view tenant from cart table
+	 * Description    : It is used to view cart from cart table
 	 * @param cart    : integer cartId
 	 * @returns cart  : It returns CartDTO Object with details
 	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
 	 * @exception     : CartNotFoundException
 	 * Created By     : UJJWAL SINGH A
      * Created Date   : 04-04-2021 
@@ -158,7 +156,6 @@ public class CartController {
 	 * Description    : It is used to view all cart details present in cart table
 	 * @returns cart  : It returns all List<CartDTO> Object with details
 	 * @GetMapping    : It is used to handle the HTTP GET requests matched with given URI expression.
-	 * @RequestBody   : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
 	 * Created By     : UJJWAL SINGH A
      * Created Date   : 04-04-2021 
 	 * 
