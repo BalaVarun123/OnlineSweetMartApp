@@ -217,7 +217,7 @@ class LoginServiceImplTest {
 		  {
 			LOGGER.info("Testing testValidateLoginPassword2");
 		    
-		    assertFalse(LoginServiceImpl.validateLoginPassword("p7$"));
+		    assertFalse(LoginServiceImpl.validateLoginPassword("P7$"));
 		  }
 		  @Test
 		  void testValidateLoginPassword3() 
