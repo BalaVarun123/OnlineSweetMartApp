@@ -2,9 +2,7 @@ package com.cg.osm.entity;
 
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -81,22 +79,7 @@ public class SweetOrder {
 	}
 	
 	
-	public Map<Product,Long> initiateGroupedProducts() {
-		
-		Map<Product,Long> groupedProducts = new HashMap<Product, Long>();
-		if (listItems != null) {
-			Product product;
-			for (SweetItem item : listItems) {
-				product = item.getProduct();
-				if (groupedProducts.containsKey(product)) {
-					groupedProducts.put(product, groupedProducts.get(product) + 1);
-				}else {
-					groupedProducts.put(product, 1L);
-				}
-			}
-		}
-		return groupedProducts;
-	}
+
 	
 }
 	

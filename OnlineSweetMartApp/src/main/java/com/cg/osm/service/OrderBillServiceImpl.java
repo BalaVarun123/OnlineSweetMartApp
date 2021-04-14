@@ -134,7 +134,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 	@Override
 	public List<OrderBillDTO> showAllOrderBills(int orderBillId) {
 		LOGGER.info("showAllOrderBills(int orderBillId) service method is initiated.");
-		List<OrderBill> listOrderBills = new ArrayList<OrderBill>();
+		List<OrderBill> listOrderBills = new ArrayList<>();
 		Optional<OrderBill> orderBIllOptional = repository.findById(orderBillId);
 		List<OrderBillDTO> listDTO;
 		if (orderBIllOptional.isPresent())
@@ -173,7 +173,7 @@ public class OrderBillServiceImpl implements IOrderBillService{
 		}
 		else {
 			List<SweetOrder> listSweetOrder = orderBill.getListSweetOrder();
-			if (listSweetOrder == null || listSweetOrder.size() == 0)
+			if (listSweetOrder == null || listSweetOrder.isEmpty())
 				flag = false;
 		}
 		LOGGER.info("validateOrderBillListSweetOrder is executed.");

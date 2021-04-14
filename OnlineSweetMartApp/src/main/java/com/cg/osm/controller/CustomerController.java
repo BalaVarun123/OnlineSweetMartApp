@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.CustomerInput;
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
-import com.cg.osm.error.CategoryNotFoundException;
 import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.model.CartDTO;
-import com.cg.osm.model.CategoryDTO;
 import com.cg.osm.model.CustomerDTO;
-import com.cg.osm.model.OrderBillDTO;
 import com.cg.osm.model.SweetItemDTO;
 import com.cg.osm.model.SweetOrderDTO;
 import com.cg.osm.service.ICustomerService;
@@ -40,12 +33,34 @@ import com.cg.osm.util.SweetItemUtils;
 import com.cg.osm.util.SweetOrderUtils;
 import com.cg.osm.service.CustomerServiceImp;
 
+/*
+ * Author      : Jeevetha S
+ * Version     : 1.0
+ * Date        : 06-04-2021
+ * Description : This is Customer Controller
+*/
+
+
 @RestController
 @RequestMapping("/api/osm")
 public class CustomerController {
 
 	@Autowired
 	ICustomerService service;
+	
+	/************************************************************************************
+	 * Method           : addCustomer 
+	 * Description      : It is used to add Customer into the Table
+	 * @param customer  : Customer Object
+	 * @returns         : It returns CustomerDTO Object with details
+	 * @PostMapping     : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CustomerNotFoundException
+	 * Created By       : Jeevetha S
+     * Created Date     : 04-04-2021 
+     *
+	 ************************************************************************************/
+	
 	@Autowired
 	RestTemplate restTemplate;
 	final Logger LOGGER =	LoggerFactory.getLogger(this.getClass());
@@ -58,7 +73,6 @@ public class CustomerController {
 		Customer customer1 = new Customer();
 		customer1.setUsername(customer.getUsername());
 		customer1.setUserId(customer.getUserId());
-		//SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
 		List<Integer> itemIds = customer.getSweetItems();
 		List<SweetItem> sweetItems = new ArrayList<SweetItem>();
 		for (Integer itemId : itemIds) {
@@ -98,6 +112,18 @@ public class CustomerController {
 		return new ResponseEntity<Object>(result,status);
 	}
 	
+	/************************************************************************************
+	 * Method           : updateCustomer 
+	 * Description      : It is used to update Customer into the Table
+	 * @param customer  : Customer Object
+	 * @returns customer: It returns CustomerDTO Object with details
+	 * @PostMapping     : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CustomerNotFoundException
+	 * Created By       : Jeevetha S
+     * Created Date     : 04-04-2021 
+     *
+	 ************************************************************************************/
 	
 	@PutMapping(value = "/customer/update", produces = "application/json",consumes  = "application/json")
 	public ResponseEntity<Object> updateCustomer(@RequestBody CustomerInput customer) throws CustomerNotFoundException {
@@ -108,7 +134,6 @@ public class CustomerController {
 		Customer customer1 = new Customer();
 		customer1.setUsername(customer.getUsername());
 		customer1.setUserId(customer.getUserId());
-		//SweetOrder sweetOrder = SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+sweetItem.getSweetOrderId(), SweetOrderDTO.class));
 		List<Integer> itemIds = customer.getSweetItems();
 		List<SweetItem> sweetItems = new ArrayList<SweetItem>();
 		for (Integer itemId : itemIds) {
@@ -150,6 +175,18 @@ public class CustomerController {
 			
 		return new ResponseEntity<Object>(result,status);
 	}
+
+	/************************************************************************************
+	 * Method            : cancelCustomer
+	 * Description       : It is used to remove customer from table
+	 * @param id         : integer customerId
+	 * @returns customer : It returns CustomerDTO Object with details
+	 * @DeleteMapping    : It is used to handle the HTTP DELETE requests matched with given URI expression.
+	 * @exception        : customerNotFoundException
+	 * Created By        : Jeevetha S
+     * Created Date      : 04-04-2021 
+	 * 
+	 ************************************************************************************/
 	
 	@DeleteMapping(value="/customer/cancel/{id}")
 	  public ResponseEntity<Object> cancelCustomer(@PathVariable("id") int customerId) throws CustomerNotFoundException
@@ -170,10 +207,32 @@ public class CustomerController {
 		  return response;   
 	  }
 	
+	/************************************************************************************
+	 * Method            : showAllCustomers
+	 * Description       : It is used to view all customer details present in the table
+	 * @returns customer : It returns all List<CustomerDTO> Object with details
+	 * @GetMapping       : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * Created By        : Jeevetha S
+     * Created Date      : 04-04-2021 
+	 * 
+	 ************************************************************************************/	
+	
 	@GetMapping(value = "/customer/show-all", produces = "application/json")
 	public List<CustomerDTO> showAllCustomers(){
 		return service.showAllCustomers();
 	}
+	
+	/************************************************************************************
+	 * Method            : showCustomerById
+	 * Description       : It is used to view customer from the table
+	 * @param customer   : integer customerId
+	 * @returns customer : It returns CustomerDTO Object with details
+	 * @GetMapping       : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @exception        : CustomerNotFoundException
+	 * Created By        : Jeevetha S
+     * Created Date      : 04-04-2021 
+	 * 
+	 ************************************************************************************/
 	
 	@GetMapping(value = "/customer/show/{id}", produces = "application/json")
 	public CustomerDTO  showAllCustomers(@PathVariable("id") int customerId) throws CustomerNotFoundException
@@ -193,8 +252,6 @@ public class CustomerController {
 		  }
 		   return response;
 	  }
-	
-
 	
 	}
 	

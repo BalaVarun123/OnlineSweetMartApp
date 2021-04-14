@@ -200,7 +200,8 @@ public class SweetOrderServiceImpl implements ISweetOrderService {
 		boolean result = false;
 		if (sweetOrder != null) {
 			LocalDate date = sweetOrder.getCreatedDate();
-			if (date != null && date.isBefore(LocalDate.now())) {
+			LocalDate now = LocalDate.now();
+			if (date != null && (date.isBefore(now) || date.isEqual(now))) {
 				result = true;
 			}
 		}

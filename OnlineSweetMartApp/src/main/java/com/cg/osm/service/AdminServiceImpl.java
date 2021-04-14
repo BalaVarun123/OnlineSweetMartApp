@@ -142,7 +142,7 @@ public class AdminServiceImpl implements IAdminService{
 	public List<AdminDTO> showAllAdmins(int adminId) {
 		LOGGER.info("showAllAdmins(int adminId) service method is initiated.");
 		List<AdminDTO> listAdminDTO;
-		List<Admin> listAdmins = new ArrayList<Admin>();
+		List<Admin> listAdmins = new ArrayList<>();
 		Optional<Admin> adminOptional = repository.findById(adminId);
 		if (adminOptional.isPresent())
 			listAdmins.add(adminOptional.get());
