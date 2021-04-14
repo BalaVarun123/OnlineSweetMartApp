@@ -2,7 +2,7 @@ package com.cg.osm.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterEach;
@@ -54,11 +54,11 @@ class LoginServiceImplTest {
 	
 	// TEST CASES FOR LOGIN
 	@Test
-	void testLogin1()  throws UserNotFoundException
+	void testLogin1()  
 	{
 		LOGGER.info("Initiating test case 1 for login");
 		user = new User(-1L,"userName","Password123$","Password123$","type",true);
-		user.setUserId(userService.addUser(user).getUserId());
+		
 		try
 		{
 			loginService.login(-1L, "Password123$");
@@ -70,31 +70,31 @@ class LoginServiceImplTest {
 	}
 	
 	@Test
-	void testLogin2()  throws UserNotFoundException
+	void testLogin2()  
 	{
 		LOGGER.info("Initiating test case 2 for login");
 		user = new User (100L,"userNameOne","Password12$","password12$","typeOne",true);
-		user.setUserId(userService.addUser(user).getUserId());
+		UserDTO userDTO = userService.addUser(user);
 		try
 		{
 			
-			loginService.login(100L,"Password12$");
-			assertEquals(true,loginService.isLoggedIn(100L));
+			loginService.login(userDTO.getUserId(),"Password12$");
+			assertEquals(true,loginService.isLoggedIn(userDTO.getUserId()));
 			
 		}
 		catch (UserNotFoundException exception)
 		{
-		
+		  LOGGER.error("User not found");
 		}
 	}
 	
 	// TEST CASES FOR LOGOUT
 	@Test
-	void testLogout1() throws UserNotFoundException 
+	void testLogout1() 
 	{
 		LOGGER.info("Initiating test case 1 for logout");
 		user = new User(-1L,"userName","Password123$","Password123$","type",true);
-		user.setUserId(userService.addUser(user).getUserId());
+		
 		try
 		{
 			loginService.logout(-1L);
@@ -106,73 +106,117 @@ class LoginServiceImplTest {
 	}
 	
 	@Test
-	void testLogout2() throws UserNotFoundException
+	void testLogout2() 
 	{
 		LOGGER.info("Initiating test case 2 for logout");
 		user = new User (100L,"userNameOne","Password12$","password12$","typeOne",true);
-		user.setUserId(userService.addUser(user).getUserId());
+		UserDTO userDTO = userService.addUser(user);
 		try
 		{
-			
-			loginService.logout(100L);
-			assertEquals(false,loginService.isLoggedIn(100L));
-			
+		loginService.logout(userDTO.getUserId());
+		assertEquals(false,loginService.isLoggedIn(userDTO.getUserId()));
 		}
-		catch (UserNotFoundException exception)
+		catch (UserNotFoundException exception) 
 		{
-		
 		}
+			
 	}
 	
 	
 
 	  // TEST CASES FOR ISLOGGEDIN
 	  @Test
-	  void testIsLoggedIn1() throws UserNotFoundException
+	  void testIsLoggedIn1() 
 	  {
 		  LOGGER.info("Test case for IsLoggedIn 1");
 	    user = new User(-70L,"userNameFour","Password1@","Password1@","typeThree",true);
-	    user.setUserId(userService.addUser(user).getUserId());
+	    UserDTO userDTO = userService.addUser(user);
+	   
 	    try
 	    {
-	    	loginService.isLoggedIn(-70L);
+	    loginService.login(userDTO.getUserId(), "Password1@");	
+	    loginService.isLoggedIn(-70L);
 	    }
 	    catch (UserNotFoundException exception)
-		{
-			assertEquals("Invalid user id.", exception.getMessage());
-		}
+	    {
+	    	assertEquals("Invalid user id.", exception.getMessage());
+	    }
+		
 	    
 	  }
 	
-	  
+	  @Test
+	  void testIsLoggedIn2()
+	  {
+		  LOGGER.info("Test case for IsLoggedIn 2");
+	    user = new User(70L,"userNameFour","Password1@","Password1@","typeThree",true);
+	    UserDTO userDTO = userService.addUser(user);
+	    try
+	    {
+	    	 loginService.login(userDTO.getUserId(),"Password1@");
+                assertEquals(true,loginService.isLoggedIn(userDTO.getUserId()));
+	    }
+	    catch (UserNotFoundException exception)
+		{
+			
+		}
+	    
+	  }
+
+
+      @Test
+      void testIsLoggedIn3() 
+	  {
+		  LOGGER.info("Test case for IsLoggedIn 3");
+	    user = new User(70L,"userNameFour","Password1@","Password1@","typeThree",true);
+	    UserDTO userDTO = userService.addUser(user);
+	    try
+	    {
+	    	 loginService.login(userDTO.getUserId(),"Password1@");
+             loginService.logout(userDTO.getUserId());
+                assertEquals(false,loginService.isLoggedIn(userDTO.getUserId()));
+	    }
+	    catch (UserNotFoundException exception)
+		{
+			
+		}
+	    
+	  }
 	 //TEST CASE FOR VALIDATE USER ID	
 	  @Test 
-	  void testValidateUserId() throws UserNotFoundException 
+	  void testValidateUserId1()  
 	 {
 		  LOGGER.info("Testing testValidateUserId()");
-		  user = new User(30L,"userNameFive","Password2@","Password2@","typeFour",true);
-		  UserDTO userDTO = userService.addUser(user);
-		  assertNotNull(loginService.login(userDTO.getUserId(), "Password2@"));
+		  
 		  assertTrue(LoginServiceImpl.validateUserId(30L));
 		 
 		  
 	 }
 	      
+	  @Test 
+	  void testValidateUserId2() 
+	 {
+		  LOGGER.info("Testing testValidateUserId()");
+		  
+		  assertFalse(LoginServiceImpl.validateUserId(-30L));
+		 
+		  
+	 }
 		  // TEST CASE FOR VALIDATE USER PASSWORD
 		  @Test
-		  void testValidateLoginPassword() 
+		  void testValidateLoginPassword1() throws UserNotFoundException 
 		  {
 			LOGGER.info("Testing testValidateLoginPassword");
-		    user = new User(60L,"userNameSix","password7$","password7$","typeFive",true);
-		    userService.addUser(user);
-		    try
-		    {
-		    	loginService.login(60L, "password7$");
-		    }
-		    catch (UserNotFoundException exception)
-		    {
-		    	assertEquals("Invalid user id.",exception.getMessage());
-		    }
+		    
+		    assertFalse(LoginServiceImpl.validateLoginPassword("password7$"));
+		  }
+		  
+		  @Test
+		  void testValidateLoginPassword2() throws UserNotFoundException 
+		  {
+			LOGGER.info("Testing testValidateLoginPassword");
+		    
+		    assertFalse(LoginServiceImpl.validateLoginPassword("p7$"));
 		  }
 		 
 }
