@@ -44,7 +44,7 @@ public class OrderBillController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	static final Logger LOGGER = LoggerFactory.getLogger(OrderBillController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderBillController.class);
 	
 	
 	
@@ -72,7 +72,7 @@ public class OrderBillController {
 		orderBill1.setCreatedDate(orderBill.getCreatedDate());
 		orderBill1.setTotalCost(orderBill.getTotalCost());
 		List<Integer> orderIds = orderBill.getListSweetOrder();
-		List<SweetOrder> sweetOrders = new ArrayList<SweetOrder>();
+		List<SweetOrder> sweetOrders = new ArrayList<>();
 		for (Integer orderId : orderIds) {
 			sweetOrders.add(SweetOrderUtils.convertToSweetOrder( restTemplate.getForObject("http://localhost:9191/api/osm/showAllSweetOrder/"+orderId, SweetOrderDTO.class)));
 		}
@@ -99,7 +99,7 @@ public class OrderBillController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("addOrderBill is terminated with http status :"+status);
-		return new ResponseEntity<Object>(result,status);
+		return new ResponseEntity<>(result,status);
 	}
 	
 	/************************************************************************************
@@ -153,7 +153,7 @@ public class OrderBillController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("updateOrderBill is terminated with http status :"+status);	
-		return new ResponseEntity<Object>(result,status);
+		return new ResponseEntity<>(result,status);
 	}
 	
 	/************************************************************************************
@@ -184,7 +184,7 @@ public class OrderBillController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("cancelOrderBill is terminated with http status :"+status);	
-		return new ResponseEntity<Object> (result,status);
+		return new ResponseEntity<> (result,status);
 	}
 	
 	
@@ -236,7 +236,7 @@ public class OrderBillController {
 			status = HttpStatus.OK;
 		}
 		LOGGER.info("showOrderBill is terminated with http status :"+status);	
-		return new ResponseEntity<Object> (result,status);
+		return new ResponseEntity<> (result,status);
 	}
 	
 

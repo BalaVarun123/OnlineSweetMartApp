@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.osm.controller.OrderBillController;
 import com.cg.osm.entity.User;
 import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.repository.IUserRepository;
@@ -25,8 +24,8 @@ public class LoginServiceImpl implements ILoginService {
 
 	@Autowired
 	IUserRepository repository;
-	static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
+	private static final String MESSAGE_INVALID_ID = "Invalid user id.";
 	/*
 	 * Description     : This method is used to authenticate and login the user.
 	 * Input Parameter : long userId, String password 
@@ -39,8 +38,8 @@ public class LoginServiceImpl implements ILoginService {
 		LOGGER.info("login service method is initiated.");
 		User user = repository.findById(userId).orElse(null);
 		if (user == null) {
-			LOGGER.error("Invalid user id.");
-			throw new UserNotFoundException("Invalid user id.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new UserNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
 			String correctPassword = user.getPassword();
@@ -77,8 +76,8 @@ public class LoginServiceImpl implements ILoginService {
 		boolean result;
 		User user = repository.findById(userId).orElse(null);
 		if (user == null) {
-			LOGGER.error("Invalid user id.");
-			throw new UserNotFoundException("Invalid user id.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new UserNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
 			user.setLoggedIn(false);
@@ -102,8 +101,8 @@ public class LoginServiceImpl implements ILoginService {
 		boolean result;
 		User user = repository.findById(userId).orElse(null);
 		if (user == null) {
-			LOGGER.error("Invalid user id.");
-			throw new UserNotFoundException("Invalid user id.");
+			LOGGER.error(MESSAGE_INVALID_ID);
+			throw new UserNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
 			result = user.isLoggedIn();

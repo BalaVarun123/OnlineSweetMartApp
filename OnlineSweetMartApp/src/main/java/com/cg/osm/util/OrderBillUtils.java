@@ -11,7 +11,7 @@ import com.cg.osm.entity.OrderBill;
 import com.cg.osm.model.OrderBillDTO;
 @Component
 public class OrderBillUtils {
-	final static Logger LOGGER = LoggerFactory.getLogger(OrderBillUtils.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(OrderBillUtils.class);
 	
 	private OrderBillUtils() {
 		
