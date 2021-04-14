@@ -9,8 +9,13 @@ import com.cg.osm.entity.User;
 import com.cg.osm.model.UserDTO;
 
 public class UserUtils {
+	
+	private UserUtils() {
+		
+	}
+	
 	public static List<UserDTO> convertToUserDtoList(List<User> list){
-		List<UserDTO> dtolist = new ArrayList<UserDTO>();
+		List<UserDTO> dtolist = new ArrayList<>();
 		for(User user : list) 
 			dtolist.add(convertToUserDto(user));
 		return dtolist;
@@ -29,7 +34,7 @@ public class UserUtils {
 	
 	
 	public static List<User> convertToUserList(List<UserDTO> dtoList){
-		List<User> list = new ArrayList<User>();
+		List<User> list = new ArrayList<>();
 		for(UserDTO userDTO : dtoList) 
 			list.add(convertToUser(userDTO));
 		return list;

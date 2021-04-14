@@ -25,8 +25,8 @@ import com.cg.osm.util.UserUtils;
 @Service
 public class UserServiceImpl implements IUserService{
 	
-	final static Logger logger = LoggerFactory.getLogger(CartServiceImp.class);
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
+	private static final String MESSAGE_INVALID_ID = "Invalid user id.";
 	@Autowired
 	IUserRepository repository;
 	
@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService{
 	
 	@Override
 	public UserDTO addUser(User user) {
-		logger.info("addUser() service is initiated");
+		LOGGER.info("addUser() service is initiated");
 		UserDTO userDTO;
 		if (user == null) {
 			userDTO = null;
@@ -48,7 +48,7 @@ public class UserServiceImpl implements IUserService{
 		else {
 			userDTO = UserUtils.convertToUserDto(repository.save(user));
 		}
-		logger.info("addUser() service has executed");
+		LOGGER.info("addUser() service has executed");
 		return userDTO;
 	}
 	
@@ -61,18 +61,18 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public UserDTO updateUser(User user) throws UserNotFoundException {
-		logger.info("updateUser() service is initiated");
+		LOGGER.info("updateUser() service is initiated");
 		UserDTO userDTO;
 		if (user == null  ) {
 			userDTO = null;
 		}
 		else if (!repository.existsById(user.getUserId())) {
-			throw new UserNotFoundException("Invalid user id.");
+			throw new UserNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
 			userDTO = UserUtils.convertToUserDto(repository.save(user));
 		}
-		logger.info("updateUser() service has executed");
+		LOGGER.info("updateUser() service has executed");
 		return userDTO;
 	}
 
@@ -85,17 +85,17 @@ public class UserServiceImpl implements IUserService{
 	
 	@Override
 	public UserDTO cancelUser(long userId) throws UserNotFoundException {
-		logger.info("cancelUser() service is initiated");
+		LOGGER.info("cancelUser() service is initiated");
 		 User user = repository.findById( userId).orElse(null);
 		 UserDTO userDTO = null;
 		 if (user == null)
-			 throw new UserNotFoundException("Invalid user id.");
+			 throw new UserNotFoundException(MESSAGE_INVALID_ID);
 		 else {
 			 repository.delete(user);
 			 userDTO = UserUtils.convertToUserDto(user);
 		 }
 		   
-		 logger.info("cancelUser() service has executed");
+		 LOGGER.info("cancelUser() service has executed");
 			 
 		return userDTO;
 	}
@@ -109,30 +109,30 @@ public class UserServiceImpl implements IUserService{
 
 	
 	public UserDTO showUser(long  userId) throws UserNotFoundException{
-		logger.info("showUser() service is initiated");
+		LOGGER.info("showUser() service is initiated");
 		User user = repository.findById( userId).orElse(null);
 		 UserDTO userDTO = null;
 		 if (user == null)
-			 throw new UserNotFoundException("Invalid user id.");
+			 throw new UserNotFoundException(MESSAGE_INVALID_ID);
 		 else {
 			 userDTO = UserUtils.convertToUserDto(user);
 		 }
 		 
-		 logger.info("showUser() service is initiated");
+		 LOGGER.info("showUser() service is initiated");
 		 return userDTO;
 	}
 	
 
 	/*
-	 * Description     : This method Shows existing User
-	 * Return Value    : UserDTO Object 
+	 * Description     : This method Shows all existing User details.
+	 * Return Value    : List<UserDTO> Object 
 	 */
 	
 
 	@Override
 	public List<UserDTO> showAllUsers() {
-		logger.info("showAllUsers() service is initiated");
-		logger.info("showAllUsers() service has executed");
+		LOGGER.info("showAllUsers() service is initiated");
+		LOGGER.info("showAllUsers() service has executed");
 		return UserUtils.convertToUserDtoList(repository.findAll());
 	
 	}
@@ -156,7 +156,6 @@ public class UserServiceImpl implements IUserService{
 	
 	public static boolean validateUserId(User user) {
 		boolean flag;
-		UserServiceImpl service = new UserServiceImpl();
 		Long userId = user.getUserId();
 		if (userId >= 0 ) {
 			flag = true;

@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.GenerationType;
 @Entity
 @Table(name = "user_table")
 public class User {
@@ -30,11 +29,11 @@ public class User {
 		this.type = type;
 		this.isLoggedIn = isLoggedIn;
 	}
-	public Long getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public long setUserId(long userId) {
+		return this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
