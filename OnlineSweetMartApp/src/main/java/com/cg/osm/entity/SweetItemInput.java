@@ -1,10 +1,5 @@
 package com.cg.osm.entity;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToOne;
+
 
 
 public class SweetItemInput {
