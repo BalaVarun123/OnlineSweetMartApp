@@ -187,7 +187,7 @@ class LoginServiceImplTest {
 	  @Test 
 	  void testValidateUserId1()  
 	 {
-		  LOGGER.info("Testing testValidateUserId()");
+		  LOGGER.info("Testing testValidateUserId()1");
 		  
 		  assertTrue(LoginServiceImpl.validateUserId(30L));
 		 
@@ -197,7 +197,7 @@ class LoginServiceImplTest {
 	  @Test 
 	  void testValidateUserId2() 
 	 {
-		  LOGGER.info("Testing testValidateUserId()");
+		  LOGGER.info("Testing testValidateUserId()2");
 		  
 		  assertFalse(LoginServiceImpl.validateUserId(-30L));
 		 
@@ -207,7 +207,7 @@ class LoginServiceImplTest {
 		  @Test
 		  void testValidateLoginPassword1() throws UserNotFoundException 
 		  {
-			LOGGER.info("Testing testValidateLoginPassword");
+			LOGGER.info("Testing testValidateLoginPassword1");
 		    
 		    assertFalse(LoginServiceImpl.validateLoginPassword("password7$"));
 		  }
@@ -215,9 +215,15 @@ class LoginServiceImplTest {
 		  @Test
 		  void testValidateLoginPassword2() throws UserNotFoundException 
 		  {
-			LOGGER.info("Testing testValidateLoginPassword");
+			LOGGER.info("Testing testValidateLoginPassword2");
 		    
 		    assertFalse(LoginServiceImpl.validateLoginPassword("p7$"));
+		  }
+		  @Test
+		  void testValidateLoginPassword3() 
+		  {
+			  LOGGER.info("Testing testValidateLoginPassword3");
+			  assertTrue(LoginServiceImpl.validateLoginPassword("Password123#"));
 		  }
 		 
 }
