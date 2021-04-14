@@ -15,16 +15,39 @@ import com.cg.osm.error.CustomerNotFoundException;
 import com.cg.osm.repository.ICustomerRepository;
 import com.cg.osm.entity.SweetOrder;
 
+/*
+ * Author      : Jeevetha S
+ * Version     : 1.0
+ * Date        : 05-04-2021
+ * Description : This is Customer Service Layer
+*/
+
+
 @Service
 public class CustomerServiceImp implements ICustomerService{
     @Autowired
     public ICustomerRepository repository;
+    
+    /*
+	 * Description     : This method Adds new Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
+    
 	@Override
 	public CustomerDTO addCustomer(Customer customer) {
 		if(customer==null)
 			return null;
 		return CustomerUtils.convertToCustomerDto(repository.save(customer));
 	}
+	
+	/*
+	 * Description     : This method updates Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
 	
 	@Override
 	public CustomerDTO updateCustomer(Customer customer)throws CustomerNotFoundException {
@@ -37,6 +60,13 @@ public class CustomerServiceImp implements ICustomerService{
 	}
 		
 	}
+	
+	/*
+	 * Description     : This method cancels a Customer
+	 * Input Parameter : integer 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
 
 	@Override
 	public CustomerDTO cancelCustomer(long customerId) throws CustomerNotFoundException 
@@ -51,11 +81,25 @@ public class CustomerServiceImp implements ICustomerService{
 		}
 	}
 	
+	/*
+	 * Description     : This method displays all Customer
+	 * Input Parameter : Customer Object 
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
+	
 	@Override
 	public List<CustomerDTO> showAllCustomers() {
 		List<Customer> listCustomers = repository.findAll();
 		return CustomerUtils.convertToCustomerDtoList(listCustomers);
 	}
+	
+	/*
+	 * Description     : This method displays all Customer
+	 * Input Parameter : Customer id(integer)
+	 * Return Value    : CustomerDTO Object 
+	 * Exception       : CustomerNotFoundException
+	*/
 
 	public List<CustomerDTO> showAllCustomers(long customerId) {
 		List <Customer> listCustomers = new ArrayList<Customer>();

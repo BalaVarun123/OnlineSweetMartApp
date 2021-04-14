@@ -31,7 +31,7 @@ import com.cg.osm.service.CustomerServiceImp;
 
 
 @SpringBootTest
-public class CustomerServiceImpTest {
+public class CustomerServiceImplTest {
 	
 	final static  Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -49,6 +49,8 @@ public class CustomerServiceImpTest {
 		LOGGER.info("Testing Initialized");
 	}
 	
+	// TEST CASES FOR ADD CUSTOMER
+	
 	@Test
 	void testAddustomer() throws CustomerNotFoundException , SweetItemNotFoundException {
 	     Customer customer = new Customer(1,"Jeevee_1",new HashSet<SweetOrder>(), new ArrayList<SweetItem>(), cart);
@@ -56,12 +58,12 @@ public class CustomerServiceImpTest {
 		assertNull(service.addCustomer(null));
 	}
 	
-	
+	// TEST CASES FOR UPDATE CUSTOMER
 	@Test
 	void testUpdateCustomer() throws CustomerNotFoundException {
 		Customer customer = new Customer(2,"Bala_2",new HashSet<SweetOrder>(), new ArrayList<SweetItem>(), cart);
 		assertThrows(CustomerNotFoundException.class,() -> service.updateCustomer(customer));
-		CustomerDTO customerDTO = service.addCustomer(customer);
+		CustomerDTO customerDTO = service.updateCustomer(customer);
 		assertNotNull(customerDTO);
 		customer.setUserId(customerDTO.getUserId());
 		customer.setUsername(customerDTO.getUsername());
@@ -70,20 +72,23 @@ public class CustomerServiceImpTest {
 		assertNotNull(service.updateCustomer(customer));
 		assertNotNull(service.updateCustomer(customer));
 	}
-
+    
+	// TEST CASES FOR CANCEL CUSTOMER
+	
 	@Test
 	void testCancelCustomer() throws CustomerNotFoundException {
 		Customer customer = new Customer(3,"Raksha_3",new HashSet<SweetOrder>(), new ArrayList<SweetItem>(), cart);
 		assertThrows(CustomerNotFoundException.class,() -> service.updateCustomer(customer));
-		CustomerDTO customerDTO = service.cancelCustomer(1);
+		CustomerDTO customerDTO = service.cancelCustomer(3);
 		assertNotNull(customerDTO);
-		int id = customerDTO.getCustomerId();
+		Long id = customerDTO.getUserId();
 		LOGGER.info("User Id = "+id);
 		assertNotNull(service.cancelCustomer(id));
 		assertEquals(0,service.cancelCustomer(id));
 	}
 	
-
+   // TEST CASES FOR DISPLAYING CUSTOMER
+	
 	@Test
 	void testShowAllCustomers() {
 		Customer customer = new Customer(3,"Raksha_3",new HashSet<SweetOrder>(), new ArrayList<SweetItem>(), cart);
@@ -92,7 +97,8 @@ public class CustomerServiceImpTest {
 		assertNotNull(customerDTOList);
 	}
 	
-
+    // TEST CASES FOR DISPLAYING CUSTOMER USING USER/CUSTOMER ID
+	
 	@Test
 	void testShowAllCustomersInt() throws CustomerNotFoundException {
 		
@@ -106,6 +112,8 @@ public class CustomerServiceImpTest {
 		
 	}
 	
+	// TEST CASES FOR USERID OF CUSTOMER
+	
 	@Test
 	void testValidateCustomerUserId() throws CustomerNotFoundException {
 		User userid1 = new User();
@@ -115,14 +123,8 @@ public class CustomerServiceImpTest {
 		customer.setUserId(userid2);
 		assertTrue(CustomerServiceImp.validateCustomerUserId(customer));
 	}
-	@Test
-	void testValidateCustomerUsername() throws CustomerNotFoundException {
-		Customer customer  = new Customer(6,"Sai_", new HashSet<SweetOrder>(), new ArrayList<SweetItem>(), cart);
-		assertNotNull(service.addCustomer(customer));
-		assertTrue(CustomerServiceImp.validateCustomerUsername(customer));
-		customer.setUsername("Sai_");
-		assertFalse(CustomerServiceImp.validateCustomerUsername(customer));
-	}
+	
+	// TEST CASES FOR CUSTOMER SWEET ORDER
 	
 	@Test 
 	void testValidateCustomerSweetOrder() {
@@ -134,6 +136,8 @@ public class CustomerServiceImpTest {
 		sweetorderSet.add(new SweetOrder());
 		assertTrue(CustomerServiceImp.validateCustomerSetSweetOrders(customer));
 	}
+	
+	// TEST CASES FOR CUSTOMER SWEET ITEMS
 	@Test
 	void testValidateCustomerSweetItem() {
 		Customer customer = new Customer(2,"Raksha_2",new HashSet<SweetOrder>(),null,cart);

@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.cg.osm.entity.Cart;
-import com.cg.osm.entity.Customer;
 import com.cg.osm.entity.SweetItem;
 import com.cg.osm.entity.SweetOrder;
 
@@ -86,10 +85,7 @@ public class CustomerDTO {
 				+ ", sweetItems=" + sweetItems + ", cart=" + cart + "]";
 	}
 
-	public int getCustomerId() {
-		// TODO Auto-generated method stub
-		return getCustomerId();
-	}
+	
 
 	
 	
