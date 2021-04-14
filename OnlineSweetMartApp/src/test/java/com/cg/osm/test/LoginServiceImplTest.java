@@ -118,6 +118,7 @@ class LoginServiceImplTest {
 		}
 		catch (UserNotFoundException exception) 
 		{
+			 LOGGER.error("User not found");
 		}
 			
 	}
@@ -158,7 +159,7 @@ class LoginServiceImplTest {
 	    }
 	    catch (UserNotFoundException exception)
 		{
-			
+	    	 LOGGER.error("User not found");
 		}
 	    
 	  }
@@ -178,7 +179,7 @@ class LoginServiceImplTest {
 	    }
 	    catch (UserNotFoundException exception)
 		{
-			
+	    	 LOGGER.error("User not found");
 		}
 	    
 	  }
