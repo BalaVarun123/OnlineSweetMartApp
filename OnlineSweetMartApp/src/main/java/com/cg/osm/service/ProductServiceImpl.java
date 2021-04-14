@@ -109,13 +109,14 @@ public class ProductServiceImpl implements IProductService {
 		boolean flag = false;
 		if (product == null)
 			throw new ProductNotFoundException("Product details cannot be blank");
-		else if (!(validateName(product.getName()) && validateProductPrice(product.getPrice())
-				&& validatePhotoPath(product.getPhotopath()) && validateAvailable(product.isAvailable())))
-
-			throw new ProductNotFoundException("Invalid Data");
-		else
-			flag = true;
-		return flag;
+		else{
+			validateName(product.getName());
+			validateProductPrice(product.getPrice());
+			validatePhotoPath(product.getPhotopath());
+			validateAvailable(product.isAvailable());
+			flag=true;
+			
+		}return flag;
 	}
 
 	/*
