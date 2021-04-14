@@ -196,6 +196,9 @@ class AdminServiceImplTest {
 		assertNotNull(adminDTOList);
 		assertTrue(adminDTOList.size() > 0);
 		assertEquals(1L,adminDTOList.stream().filter((AdminDTO adminDTO) -> (adminDTO.getId() == id)).count());
+		adminDTOList = adminService.showAllAdmins(-1);
+		assertNotNull(adminDTOList);
+		assertTrue(adminDTOList.size() == 0);
 		LOGGER.info("testShowAllAdminsInt is terminated.");
 	}
 
@@ -206,7 +209,6 @@ class AdminServiceImplTest {
 		assertTrue(AdminServiceImpl.validateId(admin));
 		admin = new Admin(-1,customer,user1,sweetItem,category,cart,product);
 		assertFalse(AdminServiceImpl.validateId(admin));
-		admin = new Admin(1,customer,user1,sweetItem,category,cart,product);
 		assertFalse(AdminServiceImpl.validateId(null));
 		LOGGER.info("testValidateId is terminated.");
 	}
@@ -242,7 +244,6 @@ class AdminServiceImplTest {
 		assertTrue(AdminServiceImpl.validateSweetItem(admin));
 		admin = new Admin(1,customer,user1,null,category,cart,product);
 		assertFalse(AdminServiceImpl.validateSweetItem(admin));
-		admin = new Admin(1,customer,user1,sweetItem,category,cart,product);
 		assertFalse(AdminServiceImpl.validateSweetItem(null));
 		LOGGER.info("testValidateSweetItem is terminated.");
 	}
@@ -254,7 +255,6 @@ class AdminServiceImplTest {
 		assertTrue(AdminServiceImpl.validateCategory(admin));
 		admin = new Admin(1,customer,user1,sweetItem,null,cart,product);
 		assertFalse(AdminServiceImpl.validateCategory(admin));
-		admin = new Admin(1,customer,user1,sweetItem,category,cart,product);
 		assertFalse(AdminServiceImpl.validateCategory(null));
 		LOGGER.info("testValidateCategory is terminated.");
 	}
@@ -266,7 +266,6 @@ class AdminServiceImplTest {
 		assertTrue(AdminServiceImpl.validateCart(admin));
 		admin = new Admin(1,customer,user1,sweetItem,category,null,product);
 		assertFalse(AdminServiceImpl.validateCart(admin));
-		admin = new Admin(1,customer,user1,sweetItem,category,cart,product);
 		assertFalse(AdminServiceImpl.validateCart(null));
 		LOGGER.info("testValidateCart is terminated.");
 	}
@@ -278,7 +277,6 @@ class AdminServiceImplTest {
 		assertTrue(AdminServiceImpl.validateProduct(admin));
 		admin = new Admin(1,customer,user1,sweetItem,category,cart,null);
 		assertFalse(AdminServiceImpl.validateProduct(admin));
-		admin = new Admin(1,customer,user1,sweetItem,category,cart,product);
 		assertFalse(AdminServiceImpl.validateProduct(null));
 		LOGGER.info("testValidateProduct is terminated.");
 	}

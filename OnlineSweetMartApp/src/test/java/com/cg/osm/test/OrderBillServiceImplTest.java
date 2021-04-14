@@ -14,11 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.osm.entity.OrderBill;
 import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.error.OrderBillNotFoundException;
-import com.cg.osm.repository.IOrderBillRepository;
 import com.cg.osm.service.IOrderBillService;
 import com.cg.osm.service.OrderBillServiceImpl;
-import com.cg.osm.util.OrderBillUtils;
-
 import java.util.List;
 import com.cg.osm.model.OrderBillDTO;
 
@@ -68,15 +65,13 @@ class OrderBillServiceImplTest {
 	void testCancelOrderBill() throws OrderBillNotFoundException {
 		LOGGER.info("testCancelOrderBill is initiated.");
 		OrderBill orderBill = new OrderBill(3,LocalDate.now(),23,new ArrayList<SweetOrder>());
-		
-		assertThrows(OrderBillNotFoundException.class, () -> service.cancelOrderBill(3));
 		OrderBillDTO orderBillDTO = service.addOrderBill(orderBill);
 		assertNotNull(orderBillDTO);
 		int id = orderBillDTO.getOrderBillId();
-		//orderBill.setTotalCost(11331.0f);
 		LOGGER.info("orderBIll id = "+id);
 		assertNotNull(service.cancelOrderBill(id));
 		assertEquals(0,service.showAllOrderBills(id).size());
+		assertThrows(OrderBillNotFoundException.class, () -> service.cancelOrderBill(id));
 		LOGGER.info("testCancelOrderBill is terminated.");
 	}
 
@@ -87,6 +82,7 @@ class OrderBillServiceImplTest {
 		assertNotNull(service.addOrderBill(orderBill));
 		List<OrderBillDTO> orderbillDTOList = service.showAllOrderBills();
 		assertNotNull(orderbillDTOList);
+		assertTrue(orderbillDTOList.size() > 0);
 		LOGGER.info("testShowAllOrderBills is terminated.");
 	}
 
@@ -133,6 +129,7 @@ class OrderBillServiceImplTest {
 		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
 		sweetOrderList.add(new SweetOrder());
 		assertTrue(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
+		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(null));
 		LOGGER.info("testValidateOrderBillListSweetOrder is terminated.");
 	}
 
@@ -143,9 +140,10 @@ class OrderBillServiceImplTest {
 		assertNotNull(service.addOrderBill(orderBill));
 		assertTrue(OrderBillServiceImpl.validateOrderBillId(orderBill));
 		orderBill.setOrderBillId(-5);
-		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
+		assertFalse(OrderBillServiceImpl.validateOrderBillId(orderBill));
 		orderBill.setOrderBillId(2342434);
-		assertFalse(OrderBillServiceImpl.validateOrderBillListSweetOrder(orderBill));
+		assertTrue(OrderBillServiceImpl.validateOrderBillId(orderBill));
+		assertFalse(OrderBillServiceImpl.validateOrderBillId(null));
 		LOGGER.info("testValidateOrderBillId is terminated.");
 	}
 
@@ -156,6 +154,7 @@ class OrderBillServiceImplTest {
 		assertFalse(OrderBillServiceImpl.validateOrderBillTotalCost(orderBill));
 		orderBill.setTotalCost(200);
 		assertTrue(OrderBillServiceImpl.validateOrderBillTotalCost(orderBill));
+		assertFalse(OrderBillServiceImpl.validateOrderBillTotalCost(null));
 		LOGGER.info("testValidateOrderBillTotalCost is terminated.");
 	}
 

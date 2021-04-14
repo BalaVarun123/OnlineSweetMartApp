@@ -108,8 +108,8 @@ class SweetOrderServiceImplTest {
 	void testAddSweetOrder() {
 		sweetOrder1 =  new SweetOrder(0,user1,sweetItemList1,LocalDate.now().minusMonths(3));
 		SweetOrderDTO sweetOrderDTO = orderService.addSweetOrder(sweetOrder1);
-		sweetOrder1.setSweetOrderId(sweetOrderDTO.getSweetOrderId());
 		assertNotNull(sweetOrderDTO);
+		sweetOrder1.setSweetOrderId(sweetOrderDTO.getSweetOrderId());
 		assertNull(orderService.addSweetOrder(null));
 	}
 
