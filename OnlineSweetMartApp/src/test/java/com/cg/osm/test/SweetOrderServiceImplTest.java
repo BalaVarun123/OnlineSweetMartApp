@@ -135,7 +135,7 @@ class SweetOrderServiceImplTest {
 		assertNotNull(sweetOrderDTO);
 		assertEquals(sweetOrder.getSweetOrderId(),sweetOrderDTO.getSweetOrderId());
 		assertNotNull(orderService.cancelSweetOrder(sweetOrder.getSweetOrderId()));
-		assertThrows(SweetOrderNotFoundException.class , () -> orderService.cancelSweetOrder(sweetOrder.getSweetOrderId()));
+		assertThrows(SweetOrderNotFoundException.class , () -> orderService.showSweetOrder(sweetOrder.getSweetOrderId()));
 		sweetOrder = null;
 	}
 
