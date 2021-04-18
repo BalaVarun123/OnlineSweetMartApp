@@ -111,11 +111,14 @@ public class LoginServiceImpl implements ILoginService {
 		return result;
 	}
 	
+	
+	
 	//Validation for userId of the user.
 	public static boolean validateUserId(long userId) {
 		LOGGER.info("User id validation is performed.");
 		return userId > 0;
 	}
+	
 	//Validation for the password
 	public static boolean validateLoginPassword(String password) {
 		LOGGER.info("Password validation is performed.");
