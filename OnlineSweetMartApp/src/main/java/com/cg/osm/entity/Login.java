@@ -9,8 +9,10 @@ package com.cg.osm.entity;
 */
 
 public class Login {
+	
 private long userId;
 private String password;
+
 public long getUserId() {
 	return userId;
 }

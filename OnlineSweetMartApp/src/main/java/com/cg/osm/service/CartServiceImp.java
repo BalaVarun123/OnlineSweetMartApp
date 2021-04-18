@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartServiceImp implements ICartService {
 
-	final static Logger logger = LoggerFactory.getLogger(CartServiceImp.class);
+	static final Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
 
 	@Autowired
 	private ICartRepository cartRepo;
@@ -45,7 +45,7 @@ public class CartServiceImp implements ICartService {
 
 	@Override
 	public CartDTO addCart(Cart cart) throws CartNotFoundException {
-		logger.info("addCart() service is initiated");
+		LOGGER.info("addCart() service is initiated");
 		Cart cartEntity;
 		if (cart == null)
 			cartEntity = null;
@@ -58,7 +58,7 @@ public class CartServiceImp implements ICartService {
 			
 		}
 		
-		logger.info("addCart() service has executed");
+		LOGGER.info("addCart() service has executed");
 		 return CartUtils.convertToCartDto(cartEntity);
 	}
 	
@@ -74,7 +74,7 @@ public class CartServiceImp implements ICartService {
 
 	@Override
 	public CartDTO updateCart(Cart cart) throws CartNotFoundException {
-		logger.info("updateCart() service is initiated");
+		LOGGER.info("updateCart() service is initiated");
 		Cart cartEntity;
         Cart existCart = cartRepo.findById(cart.getCartId()).orElse(null);
 
@@ -87,7 +87,7 @@ public class CartServiceImp implements ICartService {
 			cartEntity = cartRepo.save(cart);
 		}
 
-		logger.info("updateCart() service has executed");
+		LOGGER.info("updateCart() service has executed");
         return CartUtils.convertToCartDto(cartEntity);
 
 	}
@@ -104,7 +104,7 @@ public class CartServiceImp implements ICartService {
 	
 	@Override
 	public CartDTO cancelCart(int cartId) throws CartNotFoundException {
-		logger.info("cancelCart() service is initiated");
+		LOGGER.info("cancelCart() service is initiated");
 
 		Cart existCart = cartRepo.findById(cartId).orElse(null);
 
@@ -114,7 +114,7 @@ public class CartServiceImp implements ICartService {
 
 			cartRepo.delete(existCart);
 
-		logger.info("cancelCart() service has executed");
+		LOGGER.info("cancelCart() service has executed");
         return CartUtils.convertToCartDto(existCart);
 	}
 
@@ -130,12 +130,12 @@ public class CartServiceImp implements ICartService {
 
 	@Override
 	public CartDTO showCartById(int cartId) throws CartNotFoundException {
-		logger.info("showCartById() service is initiated");
+		LOGGER.info("showCartById() service is initiated");
 		Cart existCart = cartRepo.findById(cartId).orElse(null);
 		if (existCart == null)
 			throw new CartNotFoundException(cartNotFound);
 
-		logger.info("showCartById() service has executed");
+		LOGGER.info("showCartById() service has executed");
         return CartUtils.convertToCartDto(existCart);
 	}
 	
@@ -150,9 +150,9 @@ public class CartServiceImp implements ICartService {
 
 	@Override
 	public List<CartDTO> showAllCarts() {
-		logger.info("showAllCarts() service is initiated");
+		LOGGER.info("showAllCarts() service is initiated");
 		List<Cart> cartList = cartRepo.findAll();
-		logger.info("showAllCarts() service has executed");
+		LOGGER.info("showAllCarts() service has executed");
 		return CartUtils.convertToCartDtoList(cartList);
 	}
 	
@@ -162,10 +162,10 @@ public class CartServiceImp implements ICartService {
 
 	// VALIDATIONS
 	public static boolean validateCart(Cart cart) throws CartNotFoundException {
-		logger.info("validateCart() is initiated");
+		LOGGER.info("validateCart() is initiated");
 		boolean flag = false;
 		if (cart == null) {
-			logger.error("Cart details cannot be blank");
+			LOGGER.error("Cart details cannot be blank");
 			throw new CartNotFoundException("Cart details cannot be blank"); 
 			}
 		else { 
@@ -173,10 +173,10 @@ public class CartServiceImp implements ICartService {
 			validateTotalCost(cart.getGrandTotal());
 		    validateProductCount(cart.getProductCount());
 
-		    logger.info("Validation Successful");
+		    LOGGER.info("Validation Successful");
 			flag = true;
 		}
-		logger.info("validateCart() has executed");
+		LOGGER.info("validateCart() has executed");
 		return flag;
 	}
 

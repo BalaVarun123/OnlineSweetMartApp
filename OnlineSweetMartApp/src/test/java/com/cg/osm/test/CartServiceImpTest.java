@@ -26,7 +26,7 @@ import com.cg.osm.service.ICartService;
 @SpringBootTest
 class CartServiceImpTest {
 
-	final static Logger logger = LoggerFactory.getLogger(CartServiceImpTest.class);
+	static final  Logger LOGGER = LoggerFactory.getLogger(CartServiceImpTest.class);
 
 	@Autowired
 	private ICartService service;
@@ -37,7 +37,7 @@ class CartServiceImpTest {
 
 	@BeforeAll
 	public static void init() {
-		logger.info("Cart Testing Initiated");
+		LOGGER.info("Cart Testing Initiated");
 	}
 
 	// TEST CASES FOR ADD CART
@@ -45,7 +45,7 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testAddCart01() throws CartNotFoundException {
-		logger.info("Testing testAddCart01()");
+		LOGGER.info("Testing testAddCart01()");
 
 		category = new Category(2, "dryFruits");
 		List<Product> product = new ArrayList<Product>();
@@ -65,7 +65,7 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testAddCart02() throws CartNotFoundException {
-		logger.info("Testing testAddCart02()");
+		LOGGER.info("Testing testAddCart02()");
 
 		category = new Category(3, "MilkDryFruitsSweets");
 		List<Product> product = new ArrayList<Product>();
@@ -85,7 +85,7 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testAddCart03() throws CartNotFoundException {
-		logger.info("Testing testAddCart03()");
+		LOGGER.info("Testing testAddCart03()");
 
 		category = new Category(3, "MilkDryFruitsSweets");
 		List<Product> product = new ArrayList<Product>();
@@ -103,10 +103,10 @@ class CartServiceImpTest {
 	}
 	
 
-	//@Disabled
+	@Disabled
 	@Test
 	void testAddCart04() throws CartNotFoundException {
-		logger.info("Testing testAddCart04()");
+		LOGGER.info("Testing testAddCart04()");
 
 		category = new Category(3, "MilkDryFruitsSweets");
 		List<Product> product = new ArrayList<Product>();
@@ -127,12 +127,12 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testUpdateCart01() throws CartNotFoundException {
-		logger.info("Testing testUpdateCart01()");
+		LOGGER.info("Testing testUpdateCart01()");
 
 		category = new Category(3, "MilkSweets");
 		List<Product> product = new ArrayList<Product>();
 		product.add(new Product(2, "Rasmalai", 600, "FatFree", true, "Ddrive", category));
-		cart = new Cart(6, product, 1, 600, 675);
+		cart = new Cart(40, product, 1, 600, 675);
 
 		assertNotNull(service.updateCart(cart));
 	}
@@ -140,7 +140,7 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testUpdateCart02() throws CartNotFoundException {
-		logger.info("Testing testUpdateCart02()");
+		LOGGER.info("Testing testUpdateCart02()");
 
 		category = new Category(3, "MilkSweets");
 		List<Product> product = new ArrayList<Product>();
@@ -159,12 +159,12 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testUpdateCart03() throws CartNotFoundException {
-		logger.info("Testing testUpdateCart03()");
+		LOGGER.info("Testing testUpdateCart03()");
 
 		category = new Category(3, "Fried");
 		List<Product> product = new ArrayList<Product>();
 		product.add(new Product(2, "Jalebi", 150, "SugarBased", true, "Ddrive", category));
-		cart = new Cart(9, product, 1, 150, 220);
+		cart = new Cart(40, product, 1, 150, 220);
 
 		try {
 			service.updateCart(cart);
@@ -178,12 +178,12 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testUpdateCart04() throws CartNotFoundException {
-		logger.info("Testing testUpdateCart04()");
+		LOGGER.info("Testing testUpdateCart04()");
 
 		category = new Category(3, "Fried");
 		List<Product> product = new ArrayList<Product>();
 		// product.add(new Product(2, "Jalebi", 150, "SugarBased", true, "Ddrive", category));
-		cart = new Cart(9, product, 0, 0, 0);
+		cart = new Cart(40, product, 0, 0, 0);
 
 		try {
 			service.updateCart(cart);
@@ -202,19 +202,19 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testCancelCart01() throws CartNotFoundException {
-		logger.info("Testing testUpdateCart01()");
+		LOGGER.info("Testing testUpdateCart01()");
 
-		assertNotNull(service.cancelCart(9));
+		assertNotNull(service.cancelCart(7));
 
 	}
 
 	@Disabled
 	@Test
 	void testCancelCart02() throws CartNotFoundException {
-		logger.info("Testing testUpdateCart02()");
+		LOGGER.info("Testing testUpdateCart02()");
 
 		try {
-			service.cancelCart(6);
+			service.cancelCart(55);
 
 		} catch (CartNotFoundException exception) {
 
@@ -233,36 +233,36 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testshowCartById01() throws CartNotFoundException {
-		logger.info("Testing testshowCartById01()");
+		LOGGER.info("Testing testshowCartById01()");
 
-		assertEquals(875, service.showCartById(15).getGrandTotal());
+		assertEquals(875, service.showCartById(37).getGrandTotal());
 
 	}
 
 	@Disabled
 	@Test
 	void testshowCartById02() throws CartNotFoundException {
-		logger.info("Testing testshowCartById02()");
+		LOGGER.info("Testing testshowCartById02()");
 
-		assertEquals(800, service.showCartById(15).getTotal());
+		assertEquals(800, service.showCartById(37).getTotal());
 
 	}
 
 	@Disabled
 	@Test
 	void testshowCartById03() throws CartNotFoundException {
-		logger.info("Testing testshowCartById03()");
+		LOGGER.info("Testing testshowCartById03()");
 
-		assertEquals(1, service.showCartById(15).getProductCount());
+		assertEquals(1, service.showCartById(37).getProductCount());
 
 	}
 
 	@Disabled
 	@Test
 	void testshowCartById04() throws CartNotFoundException {
-		logger.info("Testing testshowCartById04()");
+		LOGGER.info("Testing testshowCartById04()");
 		try {
-			service.showCartById(6);
+			service.showCartById(55);
 		} catch (CartNotFoundException exception) {
 
 			assertEquals("No Cart found with given ID", exception.getMessage());
@@ -281,7 +281,7 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testShowAllCarts01() {
-		logger.info("Testing testshowCartById01()");
+		LOGGER.info("Testing testshowCartById01()");
 
 		assertNotNull(service.showAllCarts());
 
@@ -290,7 +290,7 @@ class CartServiceImpTest {
 	@Disabled
 	@Test
 	void testShowAllCarts02() {
-		logger.info("Testing testshowCartById02()");
+		LOGGER.info("Testing testshowCartById02()");
 		try {
 			assertNull(service.showAllCarts());
 		}
@@ -303,7 +303,7 @@ class CartServiceImpTest {
 
 	@AfterAll
 	public static void end() {
-		logger.info("Cart Testing Terminated");
+		LOGGER.info("Cart Testing Terminated");
 	}
 
 }

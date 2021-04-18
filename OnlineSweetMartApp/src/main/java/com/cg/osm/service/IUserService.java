@@ -15,5 +15,6 @@ public interface IUserService {
 	public UserDTO cancelUser(long userId) throws UserNotFoundException;//Changed the data type of argument to long because the data type of User's userId attribute is Long. 
 
 	public List<UserDTO> showAllUsers();
+	
 	public UserDTO showUser(long  userId) throws UserNotFoundException;
 }

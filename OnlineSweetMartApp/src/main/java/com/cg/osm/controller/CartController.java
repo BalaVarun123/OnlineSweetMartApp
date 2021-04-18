@@ -34,7 +34,7 @@ import com.cg.osm.service.ICartService;
 @RequestMapping("/api/osm")
 public class CartController {
 
-	final Logger logger = LoggerFactory.getLogger(this.getClass());
+   static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
 	
 	@Autowired
 	private ICartService cartService;
@@ -58,10 +58,10 @@ public class CartController {
 
 	@PostMapping(value = "/add-cart", consumes = "application/json")
 	public ResponseEntity<Object> addCart(@RequestBody Cart cart) throws CartNotFoundException {
-		logger.info("add-cart URL is opened");
-		logger.info("addCart() is initiated");
+		LOGGER.info("add-cart URL is opened");
+		LOGGER.info("addCart() is initiated");
 		CartDTO cartDTO = cartService.addCart(cart);
-		logger.info("addCart() has executed");
+		LOGGER.info("addCart() has executed");
 		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
 		
 	}
@@ -87,10 +87,10 @@ public class CartController {
 	
 	@PutMapping("/update-cart")
 	public ResponseEntity<Object> updateCart(@RequestBody Cart cart) throws CartNotFoundException {
-		logger.info("update-cart URL is opened");
-		logger.info("updateCart() is initiated");
+		LOGGER.info("update-cart URL is opened");
+		LOGGER.info("updateCart() is initiated");
 		CartDTO cartDTO = cartService.updateCart(cart);
-		logger.info("updateCart() has executed");
+		LOGGER.info("updateCart() has executed");
 		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
 	}
 	
@@ -112,10 +112,10 @@ public class CartController {
 
     @DeleteMapping("delete-cart/{cartId}")
 	public ResponseEntity<Object> cancelCart(@PathVariable("cartId") int cartId) throws CartNotFoundException {
-		logger.info("cancel-Cart URL is opened");
-		logger.info("cancelCart() is initiated");
+		LOGGER.info("cancel-Cart URL is opened");
+		LOGGER.info("cancelCart() is initiated");
 		CartDTO cartDTO = cartService.cancelCart(cartId);
-		logger.info("cancelCart() has executed");
+		LOGGER.info("cancelCart() has executed");
 		return new ResponseEntity<Object>(cartDTO, HttpStatus.ACCEPTED);
 
 	}
@@ -139,10 +139,10 @@ public class CartController {
 
 	@GetMapping("/show-cart-by-id/{cartId}")
 	public CartDTO showCartById(@PathVariable("cartId") int cartId) throws CartNotFoundException {
-		logger.info("view-cart URL is opened");
-		logger.info("showCartById() is initiated");
+		LOGGER.info("view-cart URL is opened");
+		LOGGER.info("showCartById() is initiated");
 		CartDTO cartDTO = cartService.showCartById(cartId);
-		logger.info("showCartById() has executed");
+		LOGGER.info("showCartById() has executed");
 		return cartDTO;
 	}
 	
@@ -163,8 +163,8 @@ public class CartController {
 	
 	@GetMapping("/show-all-carts")
 	public List<CartDTO> showAllCarts() {
-		logger.info("showAllCarts URL is opened");
-		logger.info("showAllCarts() is initiated");
+		LOGGER.info("showAllCarts URL is opened");
+		LOGGER.info("showAllCarts() is initiated");
 		return cartService.showAllCarts();
 
 	}
