@@ -2,11 +2,9 @@ package com.cg.osm.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,22 +21,14 @@ import com.cg.osm.entity.Admin;
 import com.cg.osm.entity.Cart;
 import com.cg.osm.entity.Category;
 import com.cg.osm.entity.Customer;
-import com.cg.osm.entity.OrderBill;
 import com.cg.osm.entity.Product;
 import com.cg.osm.entity.SweetItem;
-import com.cg.osm.entity.SweetItemInput;
-import com.cg.osm.entity.SweetOrder;
 import com.cg.osm.entity.User;
 import com.cg.osm.error.AdminNotFoundException;
 import com.cg.osm.error.CartNotFoundException;
-import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.model.AdminDTO;
 import com.cg.osm.model.CartDTO;
-import com.cg.osm.repository.ICategoryRepository;
 import com.cg.osm.service.AdminServiceImpl;
-import com.cg.osm.service.CartServiceImp;
-import com.cg.osm.service.CategoryServiceImpl;
-import com.cg.osm.service.CustomerServiceImp;
 import com.cg.osm.service.IAdminService;
 import com.cg.osm.service.ICartService;
 import com.cg.osm.service.ICategoryService;
@@ -46,9 +36,6 @@ import com.cg.osm.service.ICustomerService;
 import com.cg.osm.service.IProductService;
 import com.cg.osm.service.ISweetItemService;
 import com.cg.osm.service.IUserService;
-import com.cg.osm.service.ProductServiceImpl;
-import com.cg.osm.service.SweetItemServiceImp;
-import com.cg.osm.service.UserServiceImpl;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
