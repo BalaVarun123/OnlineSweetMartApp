@@ -1,5 +1,13 @@
 package com.cg.osm.entity;
 
+
+/*
+ * Author      : UJJWAL SINGH A
+ * Version     : 1.0
+ * Date        : 03-04-2021
+ * Description : This is Login POJO class
+*/
+
 public class Login {
 private long userId;
 private String password;
