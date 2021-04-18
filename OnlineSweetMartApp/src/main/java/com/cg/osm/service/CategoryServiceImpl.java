@@ -18,7 +18,7 @@ import com.cg.osm.util.CategoryUtils;
  * Author      : RAKSHA R
  * Version     : 1.0
  * Date        : 04-04-2021
- * Description : This is Cart Service Layer
+ * Description : This is Category Service Layer
 */
 
 @Service
