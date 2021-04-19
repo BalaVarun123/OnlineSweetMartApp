@@ -25,7 +25,7 @@ import com.cg.osm.util.UserUtils;
 @Service
 public class UserServiceImpl implements IUserService{
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(CartServiceImp.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 	private static final String MESSAGE_INVALID_ID = "Invalid user id.";
 	@Autowired
 	IUserRepository repository;
@@ -156,7 +156,7 @@ public class UserServiceImpl implements IUserService{
 	
 	public static boolean validateUserId(User user) {
 		boolean flag;
-		Long userId = user.getUserId();
+		long userId = user.getUserId();
 		if (userId >= 0 ) {
 			flag = true;
 		}
@@ -168,7 +168,7 @@ public class UserServiceImpl implements IUserService{
 	public static boolean validateUserName(User user) {
 		boolean flag = false;
 		String username = user.getUsername();
-		if (username != null && username.matches("^[a-zA-Z0-9 ]+$")&& user.getUsername().length()>2)
+		if (username != null && username.matches("^[a-zA-Z0-9 ]+$")&& user.getUsername().length()>2 && !username.isBlank())
 			flag = true;
 		return flag;
 	}

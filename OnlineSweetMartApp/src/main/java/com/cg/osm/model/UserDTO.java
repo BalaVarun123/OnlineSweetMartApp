@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserDTO {
-    private Long userId;
+    private long userId;
     private String username;
     private String password;
     private String passwordConfirm;
