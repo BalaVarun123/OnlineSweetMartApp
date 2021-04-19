@@ -28,7 +28,7 @@ import com.cg.osm.service.LoginServiceImpl;
 @RequestMapping("/api/osm")
 public class LoginController {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
+	static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private ILoginService service;
