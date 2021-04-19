@@ -22,7 +22,7 @@ import com.cg.osm.service.LoginServiceImpl;
  * Author      : UJJWAL SINGH A
  * Version     : 1.0
  * Date        : 06-04-2021
- * Description : This is Cart Controller
+ * Description : This is Login Controller
 */
 
 
@@ -30,7 +30,7 @@ import com.cg.osm.service.LoginServiceImpl;
 @RequestMapping("/api/osm")
 public class LoginController {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
+	static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private ILoginService service;
@@ -73,7 +73,7 @@ public class LoginController {
 	/************************************************************************************
 	 * Method       : logout 
 	 * Description  : This method logs out the user.
-	 * @param       : Long userId
+	 * @param       : long userId
 	 * @PutMapping  : It is used to handle the HTTP PUT requests matched with given URI expression.
 	 * @exception   : UserNotFoundException
 	 * Created By   : UJJWAL SINGH A
@@ -82,7 +82,7 @@ public class LoginController {
 	 ************************************************************************************/
 	
 	@PutMapping("/logout/{userId}")
-	String logout(@PathVariable("userId") Long userId) throws UserNotFoundException{
+	String logout(@PathVariable("userId") long userId) throws UserNotFoundException{
 		LOGGER.info("logout URL is opened");
 		LOGGER.info("logout() is initiated");
 		String response;
@@ -104,7 +104,7 @@ public class LoginController {
 	/************************************************************************************
 	 * Method       : isLoggedIn 
 	 * Description  : This method returns the login status of the user.
-	 * @param       : Long userId
+	 * @param       : long userId
 	 * @GetMapping  : It is used to handle the HTTP GET requests matched with given URI expression.
 	 * @exception   : UserNotFoundException
 	 * Created By   : UJJWAL SINGH A
@@ -114,7 +114,7 @@ public class LoginController {
 	
 	
 	@GetMapping("/is-loggedin/{userId}")
-	String isLoggedIn(@PathVariable("userId") Long userId) throws UserNotFoundException{
+	String isLoggedIn(@PathVariable("userId") long userId) throws UserNotFoundException{
 		LOGGER.info("isLoggedIn URL is opened");
 		LOGGER.info("isLoggedIn() is initiated");
 		String response;
