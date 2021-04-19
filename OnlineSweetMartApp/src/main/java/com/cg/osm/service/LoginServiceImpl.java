@@ -10,8 +10,6 @@ import com.cg.osm.error.UserNotFoundException;
 import com.cg.osm.repository.IUserRepository;
 
 
-
-
 /*
  * Author      : UJJWAL SINGH A 
  * Version     : 1.0
@@ -24,14 +22,19 @@ public class LoginServiceImpl implements ILoginService {
 
 	@Autowired
 	IUserRepository repository;
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
 	private static final String MESSAGE_INVALID_ID = "Invalid user id.";
+	
+	
 	/*
 	 * Description     : This method is used to authenticate and login the user.
 	 * Input Parameter : long userId, String password 
 	 * Return Value    : boolean
 	 * Exception       : UserNotFoundException
 	*/
+	
+	
 	@Override
 	public boolean login(long userId, String password) throws UserNotFoundException {
 		boolean result;
@@ -70,6 +73,8 @@ public class LoginServiceImpl implements ILoginService {
 	 * Return Value    : boolean
 	 * Exception       : UserNotFoundException
 	*/
+	
+	
 	@Override
 	public boolean logout(long userId) throws UserNotFoundException {
 		LOGGER.info("logout service method is initiated.");
@@ -95,6 +100,8 @@ public class LoginServiceImpl implements ILoginService {
 	 * Return Value    : boolean
 	 * Exception       : UserNotFoundException
 	*/
+	
+	
 	@Override
 	public boolean isLoggedIn(long userId) throws UserNotFoundException {
 		LOGGER.info("isLoggedIn service method is initiated.");
@@ -118,6 +125,8 @@ public class LoginServiceImpl implements ILoginService {
 		LOGGER.info("User id validation is performed.");
 		return userId > 0;
 	}
+	
+	
 	
 	//Validation for the password
 	public static boolean validateLoginPassword(String password) {
