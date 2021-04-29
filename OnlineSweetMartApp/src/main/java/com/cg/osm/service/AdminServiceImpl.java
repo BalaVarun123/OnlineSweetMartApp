@@ -109,8 +109,9 @@ public class AdminServiceImpl implements IAdminService{
 			throw new AdminNotFoundException(MESSAGE_INVALID_ID);
 		}
 		else {
-			repository.delete(existingAdmin);
 			adminDTO = AdminUtils.convertToAdminDto(existingAdmin);
+			repository.delete(existingAdmin);
+			
 		}
 		LOGGER.info("cancelAdmin service method is terminated.");
 		return adminDTO;
