@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import com.cg.osm.service.ProductServiceImpl;
  * Date        : 05-04-2021
  * Description : Implementation for product controller
 */
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/api/osm")
 public class ProductController {
@@ -70,13 +72,12 @@ public class ProductController {
 	 * @RequestBody: It used to bind the HTTP request/response body with a domain object in method parameter or return type.
 	 * @exception: ProductNotFoundException
 	 */
-	@PutMapping(value = "/product/update/{productId}", produces = "application/json", consumes = "application/json")
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product,
-			@PathVariable("productId") int productId) throws ProductNotFoundException {
+	@PutMapping(value = "/product/update", produces = "application/json", consumes = "application/json")
+	public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) throws ProductNotFoundException {
 		ResponseEntity<ProductDTO> productResponse;
-		if (ProductServiceImpl.validateProduct(product) && ProductServiceImpl.validateProductId(productId)) {
+		if (ProductServiceImpl.validateProduct(product)) {
 
-			ProductDTO result = service.updateProduct(productId, product);
+			ProductDTO result = service.updateProduct(product);
 			productResponse = new ResponseEntity<ProductDTO>(result, HttpStatus.ACCEPTED);
 			LOGGER.info("Product Updated");
 

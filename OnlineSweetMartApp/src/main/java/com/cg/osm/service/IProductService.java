@@ -15,7 +15,7 @@ public interface IProductService {
 
 	public ProductDTO addProduct(Product product);
 
-	public ProductDTO updateProduct(int productId, Product product) throws ProductNotFoundException;
+	public ProductDTO updateProduct(Product product) throws ProductNotFoundException;
 
 	public void cancelProduct(int productId) throws ProductNotFoundException;
 

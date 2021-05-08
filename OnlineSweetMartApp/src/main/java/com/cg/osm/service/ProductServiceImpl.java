@@ -42,9 +42,9 @@ public class ProductServiceImpl implements IProductService {
 	 * Exception : ProductNotFoundException -it is raised when productid doesn't exist
 	 */
 	@Override
-	public ProductDTO updateProduct(int productId, Product product) throws ProductNotFoundException {
+	public ProductDTO updateProduct(Product product) throws ProductNotFoundException {
 
-		Product productCheck = repo.findById(productId).orElse(null);
+		Product productCheck = repo.findById(product.getProductId()).orElse(null);
 		if (productCheck == null) {
 			throw new ProductNotFoundException("Cannot find the product with the given id.");
 		} else {
